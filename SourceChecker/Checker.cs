@@ -13,11 +13,6 @@ namespace SourceChecker
 {
     public class Checker
     {
-        private static char[] AlphabetChars = new char[] {
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
-            'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-            'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-
         #region Palindrome Utils
 
         public static string PrepareSingleLineCommentsPalindrome(string s)
@@ -36,7 +31,7 @@ namespace SourceChecker
 
         public static CheckingResult CheckPalindromeQuineProgram(string program)
         {
-            CheckingResult result = default(CheckingResult);
+            CheckingResult result = new CheckingResult();
             CheckPalindrome(program, out result.FirstErrorLine, out result.FirstErrorColumn);
             if (!result.HasError)
             {
@@ -57,7 +52,7 @@ namespace SourceChecker
 
         public static CheckingResult CheckPalindromeProgram(string program)
         {
-            CheckingResult result = default(CheckingResult);
+            CheckingResult result = new CheckingResult();
             CheckPalindrome(program, out result.FirstErrorLine, out result.FirstErrorColumn);
             if (!result.HasError)
             {
@@ -197,7 +192,7 @@ namespace SourceChecker
             for (int ind = strWithTrimmedSpaces.IndexOf(" "); ind != -1; ind = strWithTrimmedSpaces.IndexOf(" ", oldInd))
             {
                 result.Append(strWithTrimmedSpaces.Substring(oldInd, ind - oldInd));
-                if (AlphabetChars.Contains(strWithTrimmedSpaces[ind - 1]) && AlphabetChars.Contains(strWithTrimmedSpaces[ind + 1]))
+                if (char.IsLetterOrDigit(strWithTrimmedSpaces[ind - 1]) && char.IsLetterOrDigit(strWithTrimmedSpaces[ind + 1]))
                 {
                     result.Append(" ");
                 }
