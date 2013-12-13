@@ -16,16 +16,16 @@ namespace Tests
             string simpleQuine = "class P{static void Main(){var s=\"class P{{static void Main(){{var s={1}{0}{1};System.Console.Write(s,s,'{1}');}}}}\";System.Console.Write(s,s,'\"');}}";
             string singleLineCommentsPalindrome = "//}}{)(niaM diov citats{P ssalc\r\n\rclass P{static void Main(){}}//";
             string multiLineCommentsPalindrome = "/**/class P{static void Main(){}};/*/;}}{)(niaM diov citats{P ssalc/**/";
-            string singleLineCommentsPalindromeQuine = Checker.MinimizeString(File.ReadAllText("..\\..\\..\\SingleCommentsPalindromeQuine\\Program.cs"));
+            string singleLineCommentsPalindromeQuine = Checker.RemoveSpacesInSource(File.ReadAllText("..\\..\\..\\SingleCommentsPalindromeQuine\\Program.cs"));
             singleLineCommentsPalindromeQuine = Checker.PrepareSingleLineCommentsPalindrome(singleLineCommentsPalindromeQuine);
-            string multiLineCommentsPalindromeQuine = Checker.MinimizeString(File.ReadAllText("..\\..\\..\\MultiCommentsPalindromeQuine\\Program.cs"));
+            string multiLineCommentsPalindromeQuine = Checker.RemoveSpacesInSource(File.ReadAllText("..\\..\\..\\MultiCommentsPalindromeQuine\\Program.cs"));
             multiLineCommentsPalindromeQuine = Checker.PrepareMultiLineCommentsPalindrome(multiLineCommentsPalindromeQuine);
-            Program.WriteOutput(simpleProgram, "Simple Program", new Func<string, CheckingResult>(Checker.CompileAndGetOutput));
-            Program.WriteOutput(simpleQuine, "Simple Quine", new Func<string, CheckingResult>(Checker.CheckQuineProgram));
-            Program.WriteOutput(singleLineCommentsPalindrome, "Single Line Comments Palindrome", new Func<string, CheckingResult>(Checker.CheckPalindromeProgram));
-            Program.WriteOutput(multiLineCommentsPalindrome, "Multi Line Comments Palindrome", new Func<string, CheckingResult>(Checker.CheckPalindromeProgram));
-            Program.WriteOutput(singleLineCommentsPalindromeQuine, "Single Line Comments Palindrome Quine", new Func<string, CheckingResult>(Checker.CheckPalindromeQuineProgram));
-            Program.WriteOutput(multiLineCommentsPalindromeQuine, "Multi Line Comments Palindrome Quine", new Func<string, CheckingResult>(Checker.CheckPalindromeQuineProgram));
+            WriteOutput(simpleProgram, "Simple Program", new Func<string, CheckingResult>(Checker.Compile));
+            WriteOutput(simpleQuine, "Simple Quine", new Func<string, CheckingResult>(Checker.CheckQuineProgram));
+            WriteOutput(singleLineCommentsPalindrome, "Single Line Comments Palindrome", new Func<string, CheckingResult>(Checker.CheckPalindromeProgram));
+            WriteOutput(multiLineCommentsPalindrome, "Multi Line Comments Palindrome", new Func<string, CheckingResult>(Checker.CheckPalindromeProgram));
+            WriteOutput(singleLineCommentsPalindromeQuine, "Single Line Comments Palindrome Quine", new Func<string, CheckingResult>(Checker.CheckPalindromeQuineProgram));
+            WriteOutput(multiLineCommentsPalindromeQuine, "Multi Line Comments Palindrome Quine", new Func<string, CheckingResult>(Checker.CheckPalindromeQuineProgram));
             Console.ReadLine();
         }
 
