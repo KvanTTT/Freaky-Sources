@@ -1,4 +1,4 @@
-﻿namespace SourceChecker
+﻿namespace FreakySources
 {
 	public struct CheckingResult
 	{
