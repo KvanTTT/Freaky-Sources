@@ -11,5 +11,26 @@
     <Setting Name="OutputTab" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
+    <Setting Name="ExtraParams" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0/*$currentFrame$*/~0/*$currentFrame$*/~currentFrame~0|/*$output$*/~/*$output$*/~output.ToString()~|/*$frames*/~/*frames$*/~frames.ToString()~frames.ToString()|</Value>
+    </Setting>
+    <Setting Name="Kernel" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/*kernel*/</Value>
+    </Setting>
+    <Setting Name="QuineStr" Type="System.String" Scope="User">
+      <Value Profile="(Default)">s</Value>
+    </Setting>
+    <Setting Name="WindowSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="WindowLocation" Type="System.Drawing.Point" Scope="User">
+      <Value Profile="(Default)">0, 0</Value>
+    </Setting>
+    <Setting Name="WindowState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

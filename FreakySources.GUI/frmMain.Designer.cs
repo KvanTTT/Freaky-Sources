@@ -41,15 +41,20 @@
 			this.btnMinifyInput = new System.Windows.Forms.Button();
 			this.btnFormatInput = new System.Windows.Forms.Button();
 			this.tbInput = new FastColoredTextBoxNS.FastColoredTextBox();
+			this.cbScrollToEnd = new System.Windows.Forms.CheckBox();
+			this.tbQuineStr = new System.Windows.Forms.TextBox();
+			this.label2 = new System.Windows.Forms.Label();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.rbQuine = new System.Windows.Forms.RadioButton();
 			this.btnConsoleOutputToInput = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.tbKernel = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.dgvExtraParams = new System.Windows.Forms.DataGridView();
 			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+			this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnGenerate = new System.Windows.Forms.Button();
 			this.splitContainer3 = new System.Windows.Forms.SplitContainer();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
@@ -86,8 +91,8 @@
 			// 
 			this.splitContainer2.Panel2.Controls.Add(this.label3);
 			this.splitContainer2.Panel2.Controls.Add(this.tbConsoleOutput);
-			this.splitContainer2.Size = new System.Drawing.Size(476, 660);
-			this.splitContainer2.SplitterDistance = 407;
+			this.splitContainer2.Size = new System.Drawing.Size(542, 662);
+			this.splitContainer2.SplitterDistance = 408;
 			this.splitContainer2.TabIndex = 17;
 			// 
 			// tabcOutput
@@ -98,7 +103,7 @@
 			this.tabcOutput.Location = new System.Drawing.Point(0, 0);
 			this.tabcOutput.Name = "tabcOutput";
 			this.tabcOutput.SelectedIndex = 0;
-			this.tabcOutput.Size = new System.Drawing.Size(476, 407);
+			this.tabcOutput.Size = new System.Drawing.Size(542, 408);
 			this.tabcOutput.TabIndex = 5;
 			// 
 			// tabPage3
@@ -107,7 +112,7 @@
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(468, 381);
+			this.tabPage3.Size = new System.Drawing.Size(534, 382);
 			this.tabPage3.TabIndex = 0;
 			this.tabPage3.Text = "Output";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -125,7 +130,7 @@
 			this.tbOutput.Paddings = new System.Windows.Forms.Padding(0);
 			this.tbOutput.ReadOnly = true;
 			this.tbOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbOutput.Size = new System.Drawing.Size(462, 375);
+			this.tbOutput.Size = new System.Drawing.Size(528, 376);
 			this.tbOutput.TabIndex = 4;
 			this.tbOutput.WordWrap = true;
 			// 
@@ -135,7 +140,7 @@
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(468, 381);
+			this.tabPage4.Size = new System.Drawing.Size(534, 382);
 			this.tabPage4.TabIndex = 1;
 			this.tabPage4.Text = "Formatted Output";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -153,7 +158,7 @@
 			this.tbFormattedOutput.Paddings = new System.Windows.Forms.Padding(0);
 			this.tbFormattedOutput.ReadOnly = true;
 			this.tbFormattedOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbFormattedOutput.Size = new System.Drawing.Size(462, 375);
+			this.tbFormattedOutput.Size = new System.Drawing.Size(528, 376);
 			this.tbFormattedOutput.TabIndex = 5;
 			// 
 			// label3
@@ -179,7 +184,7 @@
 			this.tbConsoleOutput.Name = "tbConsoleOutput";
 			this.tbConsoleOutput.ReadOnly = true;
 			this.tbConsoleOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbConsoleOutput.Size = new System.Drawing.Size(468, 217);
+			this.tbConsoleOutput.Size = new System.Drawing.Size(534, 218);
 			this.tbConsoleOutput.TabIndex = 3;
 			// 
 			// label1
@@ -207,15 +212,18 @@
 			// 
 			// splitContainer1.Panel2
 			// 
+			this.splitContainer1.Panel2.Controls.Add(this.cbScrollToEnd);
+			this.splitContainer1.Panel2.Controls.Add(this.tbQuineStr);
+			this.splitContainer1.Panel2.Controls.Add(this.label2);
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
 			this.splitContainer1.Panel2.Controls.Add(this.btnConsoleOutputToInput);
-			this.splitContainer1.Panel2.Controls.Add(this.textBox1);
+			this.splitContainer1.Panel2.Controls.Add(this.tbKernel);
 			this.splitContainer1.Panel2.Controls.Add(this.label5);
 			this.splitContainer1.Panel2.Controls.Add(this.label4);
 			this.splitContainer1.Panel2.Controls.Add(this.dgvExtraParams);
 			this.splitContainer1.Panel2.Controls.Add(this.btnGenerate);
-			this.splitContainer1.Size = new System.Drawing.Size(459, 660);
-			this.splitContainer1.SplitterDistance = 405;
+			this.splitContainer1.Size = new System.Drawing.Size(522, 662);
+			this.splitContainer1.SplitterDistance = 406;
 			this.splitContainer1.TabIndex = 20;
 			// 
 			// btnMinifyInput
@@ -252,16 +260,46 @@
 			this.tbInput.Name = "tbInput";
 			this.tbInput.Paddings = new System.Windows.Forms.Padding(0);
 			this.tbInput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbInput.Size = new System.Drawing.Size(459, 369);
+			this.tbInput.Size = new System.Drawing.Size(522, 370);
 			this.tbInput.TabIndex = 19;
 			this.tbInput.WordWrap = true;
+			// 
+			// cbScrollToEnd
+			// 
+			this.cbScrollToEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbScrollToEnd.AutoSize = true;
+			this.cbScrollToEnd.Checked = true;
+			this.cbScrollToEnd.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbScrollToEnd.Location = new System.Drawing.Point(423, 223);
+			this.cbScrollToEnd.Name = "cbScrollToEnd";
+			this.cbScrollToEnd.Size = new System.Drawing.Size(86, 17);
+			this.cbScrollToEnd.TabIndex = 26;
+			this.cbScrollToEnd.Text = "Scroll to End";
+			this.cbScrollToEnd.UseVisualStyleBackColor = true;
+			// 
+			// tbQuineStr
+			// 
+			this.tbQuineStr.Location = new System.Drawing.Point(193, 79);
+			this.tbQuineStr.Name = "tbQuineStr";
+			this.tbQuineStr.Size = new System.Drawing.Size(77, 20);
+			this.tbQuineStr.TabIndex = 25;
+			this.tbQuineStr.Text = "s";
+			// 
+			// label2
+			// 
+			this.label2.AutoSize = true;
+			this.label2.Location = new System.Drawing.Point(167, 82);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(20, 13);
+			this.label2.TabIndex = 24;
+			this.label2.Text = "Str";
 			// 
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.rbQuine);
 			this.groupBox1.Location = new System.Drawing.Point(14, 12);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(144, 61);
+			this.groupBox1.Size = new System.Drawing.Size(256, 61);
 			this.groupBox1.TabIndex = 23;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Generator Setup";
@@ -280,7 +318,7 @@
 			// 
 			// btnConsoleOutputToInput
 			// 
-			this.btnConsoleOutputToInput.Location = new System.Drawing.Point(290, 48);
+			this.btnConsoleOutputToInput.Location = new System.Drawing.Point(302, 48);
 			this.btnConsoleOutputToInput.Name = "btnConsoleOutputToInput";
 			this.btnConsoleOutputToInput.Size = new System.Drawing.Size(144, 25);
 			this.btnConsoleOutputToInput.TabIndex = 22;
@@ -288,18 +326,18 @@
 			this.btnConsoleOutputToInput.UseVisualStyleBackColor = true;
 			this.btnConsoleOutputToInput.Click += new System.EventHandler(this.btnConsoleOutputToInput_Click);
 			// 
-			// textBox1
+			// tbKernel
 			// 
-			this.textBox1.Location = new System.Drawing.Point(61, 84);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(100, 20);
-			this.textBox1.TabIndex = 21;
-			this.textBox1.Text = "/*$$$*/";
+			this.tbKernel.Location = new System.Drawing.Point(61, 79);
+			this.tbKernel.Name = "tbKernel";
+			this.tbKernel.Size = new System.Drawing.Size(100, 20);
+			this.tbKernel.TabIndex = 21;
+			this.tbKernel.Text = "/*$kernel$*/";
 			// 
 			// label5
 			// 
 			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(11, 87);
+			this.label5.Location = new System.Drawing.Point(11, 82);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(37, 13);
 			this.label5.TabIndex = 20;
@@ -316,32 +354,49 @@
 			// 
 			// dgvExtraParams
 			// 
+			this.dgvExtraParams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.dgvExtraParams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
 			this.dgvExtraParams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvExtraParams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
-            this.Column2});
-			this.dgvExtraParams.Location = new System.Drawing.Point(12, 123);
+            this.Column4,
+            this.Column2,
+            this.Column3});
+			this.dgvExtraParams.Location = new System.Drawing.Point(15, 123);
 			this.dgvExtraParams.Name = "dgvExtraParams";
 			this.dgvExtraParams.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.dgvExtraParams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgvExtraParams.Size = new System.Drawing.Size(147, 104);
+			this.dgvExtraParams.Size = new System.Drawing.Size(357, 117);
 			this.dgvExtraParams.TabIndex = 18;
 			// 
 			// Column1
 			// 
-			this.Column1.HeaderText = "Key";
+			this.Column1.HeaderText = "KeyBegin";
 			this.Column1.Name = "Column1";
-			this.Column1.Width = 50;
+			this.Column1.Width = 77;
+			// 
+			// Column4
+			// 
+			this.Column4.HeaderText = "KeyEnd";
+			this.Column4.Name = "Column4";
+			this.Column4.Width = 69;
 			// 
 			// Column2
 			// 
 			this.Column2.HeaderText = "Value";
 			this.Column2.Name = "Column2";
-			this.Column2.Width = 50;
+			this.Column2.Width = 59;
+			// 
+			// Column3
+			// 
+			this.Column3.HeaderText = "KeySubstitute";
+			this.Column3.Name = "Column3";
+			this.Column3.Width = 97;
 			// 
 			// btnGenerate
 			// 
-			this.btnGenerate.Location = new System.Drawing.Point(290, 12);
+			this.btnGenerate.Location = new System.Drawing.Point(302, 12);
 			this.btnGenerate.Name = "btnGenerate";
 			this.btnGenerate.Size = new System.Drawing.Size(144, 25);
 			this.btnGenerate.TabIndex = 17;
@@ -362,15 +417,15 @@
 			// splitContainer3.Panel2
 			// 
 			this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-			this.splitContainer3.Size = new System.Drawing.Size(939, 660);
-			this.splitContainer3.SplitterDistance = 459;
+			this.splitContainer3.Size = new System.Drawing.Size(1068, 662);
+			this.splitContainer3.SplitterDistance = 522;
 			this.splitContainer3.TabIndex = 21;
 			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(939, 660);
+			this.ClientSize = new System.Drawing.Size(1068, 662);
 			this.Controls.Add(this.splitContainer3);
 			this.Name = "frmMain";
 			this.Text = "Freaky Sources";
@@ -416,16 +471,21 @@
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.RadioButton rbQuine;
 		private System.Windows.Forms.Button btnConsoleOutputToInput;
-		private System.Windows.Forms.TextBox textBox1;
+		private System.Windows.Forms.TextBox tbKernel;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.DataGridView dgvExtraParams;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
 		private System.Windows.Forms.Button btnGenerate;
 		private System.Windows.Forms.SplitContainer splitContainer3;
 		private System.Windows.Forms.Button btnMinifyInput;
 		private System.Windows.Forms.Button btnFormatInput;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+		private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+		private System.Windows.Forms.TextBox tbQuineStr;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.CheckBox cbScrollToEnd;
 
 	}
 }
