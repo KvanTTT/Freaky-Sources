@@ -97,7 +97,7 @@ namespace FreakySources
 						RedirectStandardOutput = true
 					});
 					process.StandardInput.WriteLine(Environment.NewLine);
-					process.WaitForExit(200);
+					process.WaitForExit(400);
 					string output = process.StandardOutput.ReadToEnd();
 					try
 					{

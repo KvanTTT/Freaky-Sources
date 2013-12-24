@@ -15,7 +15,7 @@
       <Value Profile="(Default)">0/*$currentFrame$*/~0/*$currentFrame$*/~currentFrame~0|/*$output$*/~/*$output$*/~output.ToString()~|/*$frames*/~/*frames$*/~frames.ToString()~frames.ToString()|</Value>
     </Setting>
     <Setting Name="Kernel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/*kernel*/</Value>
+      <Value Profile="(Default)">/*print*/</Value>
     </Setting>
     <Setting Name="QuineStr" Type="System.String" Scope="User">
       <Value Profile="(Default)">s</Value>
@@ -31,6 +31,12 @@
     </Setting>
     <Setting Name="Setting" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="MaxLineLength" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">80</Value>
+    </Setting>
+    <Setting Name="CompressIdentifiers" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

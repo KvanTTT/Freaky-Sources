@@ -44,7 +44,7 @@ namespace Asciimation
 				output.AppendLine("//	" + frame[i]);
 
 			currentFrame = (currentFrame + 1) % Frames.Length;
-			
+
 			/*$print$*/
 		}
 	}

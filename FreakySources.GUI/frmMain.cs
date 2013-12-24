@@ -34,6 +34,8 @@ namespace FreakySources.GUI
 			if (!Settings.Default.WindowSize.IsEmpty)
 				Size = Settings.Default.WindowSize;
 			WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), Settings.Default.WindowState);
+			nudLineLength.Value = Settings.Default.MaxLineLength;
+			cbCompressIdentifiers.Checked = Settings.Default.CompressIdentifiers;
 		}
 
 		private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -59,6 +61,8 @@ namespace FreakySources.GUI
 			Settings.Default.WindowLocation = Location;
 			Settings.Default.WindowSize = Size;
 			Settings.Default.WindowState = WindowState.ToString();
+			Settings.Default.MaxLineLength = (int)nudLineLength.Value;
+			Settings.Default.CompressIdentifiers = cbCompressIdentifiers.Checked;
 			Settings.Default.Save();
 		}
 
@@ -90,8 +94,8 @@ namespace FreakySources.GUI
 			tbConsoleOutput.Text = Checker.Compile(tbOutput.Text).Output;
 			if (cbScrollToEnd.Checked)
 			{
-				tbConsoleOutput.SelectionStart = tbConsoleOutput.Text.Length;
-				tbConsoleOutput.ScrollToCaret();
+				tbConsoleOutput.VerticalScroll.Value = tbConsoleOutput.VerticalScroll.Maximum;
+				tbConsoleOutput.VerticalScroll.Value = tbConsoleOutput.VerticalScroll.Maximum;
 			}
 		}
 
@@ -103,8 +107,8 @@ namespace FreakySources.GUI
 			tbConsoleOutput.Text = Checker.Compile(tbOutput.Text).Output;
 			if (cbScrollToEnd.Checked)
 			{
-				tbConsoleOutput.SelectionStart = tbConsoleOutput.Text.Length;
-				tbConsoleOutput.ScrollToCaret();
+				tbConsoleOutput.VerticalScroll.Value = tbConsoleOutput.VerticalScroll.Maximum;
+				tbConsoleOutput.VerticalScroll.Value = tbConsoleOutput.VerticalScroll.Maximum;
 			}
 		}
 
@@ -116,8 +120,27 @@ namespace FreakySources.GUI
 
 		private void btnMinifyInput_Click(object sender, EventArgs e)
 		{
-			var minifier = new Minifier(new MinifierOptions(false) { SpacesRemoving = true });
+			var minifier = new Minifier(new MinifierOptions(false)
+			{
+				SpacesRemoving = true,
+				LineLength = (int)nudLineLength.Value,
+				IdentifiersCompressing = cbCompressIdentifiers.Checked
+			});
 			tbInput.Text = minifier.MinifyFromString(tbInput.Text);
+		}
+
+		private void btnGenerateData_Click(object sender, EventArgs e)
+		{
+			var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Asciimation\Data.txt"));
+			tbInput.Text = dataGenerator.ChangeGZipCompressedFrames(tbInput.Text,
+				"/*$CompressedFramesGZipStream*/", "/*CompressedFramesGZipStream$*/");
+		}
+
+		private void btnClearData_Click(object sender, EventArgs e)
+		{
+			var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Asciimation\Data.txt"));
+			tbInput.Text = dataGenerator.ChangeGZipCompressedFrames(tbInput.Text,
+				"/*$CompressedFramesGZipStream*/", "/*CompressedFramesGZipStream$*/", false);
 		}
 	}
 }
