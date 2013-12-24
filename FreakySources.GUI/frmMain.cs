@@ -9,11 +9,16 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace FreakySources.GUI
 {
 	public partial class frmMain : Form
 	{
+		const string IdRegex = @"\w+";
+		const string BlockCommentsRegex = @"/\*(.*?)\*/";
+		const string LineCommentsRegex = @"//(.*?)\r?\n";
+		
 		public frmMain()
 		{
 			InitializeComponent();
@@ -120,12 +125,48 @@ namespace FreakySources.GUI
 
 		private void btnMinifyInput_Click(object sender, EventArgs e)
 		{
+			var ignoredIdentifiers = new List<string>();
+			var ignoredComments = new List<string>();
+			for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
+				if (!string.IsNullOrEmpty(dgvExtraParams[2, i].Value as string) ||
+					!string.IsNullOrEmpty(dgvExtraParams[3, i].Value as string))
+				{
+					var keyBegin = dgvExtraParams[0, i].Value == null ? "" : (string)dgvExtraParams[0, i].Value;
+					var keyEnd = dgvExtraParams[1, i].Value == null ? "" : (string)dgvExtraParams[1, i].Value;
+					var value = dgvExtraParams[2, i].Value == null ? "" : (string)dgvExtraParams[2, i].Value;
+					var keySubstitute = dgvExtraParams[3, i].Value == null ? "" : (string)dgvExtraParams[3, i].Value;
+
+					var matches = Regex.Matches(keyBegin, BlockCommentsRegex);
+					foreach (Match match in matches)
+						ignoredComments.Add(match.Value);
+					matches = Regex.Matches(keyBegin, LineCommentsRegex);
+					foreach (Match match in matches)
+						ignoredComments.Add(match.Value);
+					matches = Regex.Matches(keyEnd, BlockCommentsRegex);
+					foreach (Match match in matches)
+						ignoredComments.Add(match.Value);
+					matches = Regex.Matches(keyEnd, LineCommentsRegex);
+					foreach (Match match in matches)
+						ignoredComments.Add(match.Value);
+
+					matches = Regex.Matches(value, IdRegex);
+					foreach (Match match in matches)
+						ignoredIdentifiers.Add(match.Value);
+					matches = Regex.Matches(keySubstitute, IdRegex);
+					foreach (Match match in matches)
+						ignoredIdentifiers.Add(match.Value);
+				}
+			ignoredIdentifiers = ignoredIdentifiers.Where(id => { long result; return !long.TryParse(id, out result); }).ToList();
+
 			var minifier = new Minifier(new MinifierOptions(false)
 			{
 				SpacesRemoving = true,
 				LineLength = (int)nudLineLength.Value,
-				IdentifiersCompressing = cbCompressIdentifiers.Checked
-			});
+				IdentifiersCompressing = cbCompressIdentifiers.Checked,
+				MiscCompressing = true,
+				RegionsRemoving = true,
+				CommentsRemoving = true
+			}, ignoredIdentifiers.ToArray(), ignoredComments.ToArray());
 			tbInput.Text = minifier.MinifyFromString(tbInput.Text);
 		}
 
