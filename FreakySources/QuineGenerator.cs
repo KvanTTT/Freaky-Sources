@@ -123,7 +123,8 @@ namespace FreakySources
 			}
 			kernel.Append(");");
 
-			var str = csharpCode.Replace("{", "{{").Replace("}", "}}").Replace(Quotes1, quotes1NumberString);
+			var str = new StringBuilder(csharpCode);
+			str = str.Replace("{", "{{").Replace("}", "}}").Replace(Quotes1, quotes1NumberString);
 			if (backslashEscaping)
 				str = str.Replace(Backslash, backslashNumberString);
 			if (newlineEscaping)
@@ -136,7 +137,10 @@ namespace FreakySources
 				if (beginInd == endInd)
 					str = str.Replace(p.KeyBegin, "{" + number++ + "}");
 				else
-					str = string.Format("{0}{{{1}}}{2}", str.Remove(beginInd), number++, str.Substring(endInd + p.KeyEnd.Length));
+				{
+					str = str.Remove(beginInd, endInd + p.KeyEnd.Length - beginInd);
+					str = str.Insert(beginInd, "{" + number++ + "}");
+				}
 			}
 
 			var insertToResult = new StringBuilder();
@@ -150,7 +154,8 @@ namespace FreakySources
 				insertToResult.AppendFormat(",{1}{0}", p.Value, space);
 			insertToResult.Append(");");
 
-			var result = csharpCode.Replace(KernelPattern, insertToResult.ToString());
+			var result = new StringBuilder(csharpCode);
+			result = result.Replace(KernelPattern, insertToResult.ToString());
 			foreach (var p in existedExtraParams)
 			{
 				int beginInd = result.IndexOf(p.KeyBegin);
@@ -162,15 +167,17 @@ namespace FreakySources
 					if (p.KeySubstitute == "$key$")
 						result = result.Replace(p.KeyBegin, "").Replace(p.KeyEnd, "");
 					else
-						result = string.Format("{0}{1}{2}",
-							result.Remove(beginInd), p.KeySubstitute, result.Substring(endInd + p.KeyEnd.Length));
+					{
+						result = result.Remove(beginInd, endInd + p.KeyEnd.Length - beginInd);
+						result = result.Insert(beginInd, p.KeySubstitute);
+					}
 				}
 			}
 
 			if (formatOutput)
-				result = new CSharpParser().Parse(result).GetText();
-
-			return result;
+				return new CSharpParser().Parse(result.ToString()).GetText();
+			else
+				return result.ToString();
 		}
 	}
 }

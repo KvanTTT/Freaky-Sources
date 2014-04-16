@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Asciimation_1_0
 {
-	class A
+	class P
 	{
 		static string[] Frames =  {
 			/*$frames*/"fyB/IH8gfyB/IH8gXyA=",

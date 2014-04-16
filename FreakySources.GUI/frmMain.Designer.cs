@@ -39,12 +39,14 @@
 			this.label3 = new System.Windows.Forms.Label();
 			this.label1 = new System.Windows.Forms.Label();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.cbRemoveSpaces = new System.Windows.Forms.CheckBox();
 			this.btnMinifyInput = new System.Windows.Forms.Button();
 			this.cbCompressIdentifiers = new System.Windows.Forms.CheckBox();
 			this.nudLineLength = new System.Windows.Forms.NumericUpDown();
 			this.btnFormatInput = new System.Windows.Forms.Button();
 			this.tbInput = new FastColoredTextBoxNS.FastColoredTextBox();
 			this.label6 = new System.Windows.Forms.Label();
+			this.btnSaveInput = new System.Windows.Forms.Button();
 			this.btnClearData = new System.Windows.Forms.Button();
 			this.btnGenerateData = new System.Windows.Forms.Button();
 			this.cbScrollToEnd = new System.Windows.Forms.CheckBox();
@@ -63,6 +65,8 @@
 			this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.btnGenerate = new System.Windows.Forms.Button();
 			this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+			this.label7 = new System.Windows.Forms.Label();
+			this.cmbPattern = new System.Windows.Forms.ComboBox();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
 			this.splitContainer2.Panel1.SuspendLayout();
 			this.splitContainer2.Panel2.SuspendLayout();
@@ -102,8 +106,8 @@
 			// 
 			this.splitContainer2.Panel2.Controls.Add(this.tbConsoleOutput);
 			this.splitContainer2.Panel2.Controls.Add(this.label3);
-			this.splitContainer2.Size = new System.Drawing.Size(542, 662);
-			this.splitContainer2.SplitterDistance = 408;
+			this.splitContainer2.Size = new System.Drawing.Size(614, 721);
+			this.splitContainer2.SplitterDistance = 444;
 			this.splitContainer2.TabIndex = 17;
 			// 
 			// tabcOutput
@@ -114,7 +118,7 @@
 			this.tabcOutput.Location = new System.Drawing.Point(0, 0);
 			this.tabcOutput.Name = "tabcOutput";
 			this.tabcOutput.SelectedIndex = 0;
-			this.tabcOutput.Size = new System.Drawing.Size(542, 408);
+			this.tabcOutput.Size = new System.Drawing.Size(614, 444);
 			this.tabcOutput.TabIndex = 5;
 			// 
 			// tabPage3
@@ -123,7 +127,7 @@
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(534, 382);
+			this.tabPage3.Size = new System.Drawing.Size(606, 418);
 			this.tabPage3.TabIndex = 0;
 			this.tabPage3.Text = "Output";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -146,7 +150,7 @@
 			this.tbOutput.ReadOnly = true;
 			this.tbOutput.RightBracket = ')';
 			this.tbOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbOutput.Size = new System.Drawing.Size(528, 376);
+			this.tbOutput.Size = new System.Drawing.Size(600, 412);
 			this.tbOutput.TabIndex = 4;
 			this.tbOutput.WordWrap = true;
 			this.tbOutput.Zoom = 100;
@@ -157,14 +161,14 @@
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(534, 382);
+			this.tabPage4.Size = new System.Drawing.Size(606, 418);
 			this.tabPage4.TabIndex = 1;
 			this.tabPage4.Text = "Formatted Output";
 			this.tabPage4.UseVisualStyleBackColor = true;
 			// 
 			// tbFormattedOutput
 			// 
-			this.tbFormattedOutput.AutoScrollMinSize = new System.Drawing.Size(2, 14);
+			this.tbFormattedOutput.AutoScrollMinSize = new System.Drawing.Size(27, 14);
 			this.tbFormattedOutput.BackBrush = null;
 			this.tbFormattedOutput.CharHeight = 14;
 			this.tbFormattedOutput.CharWidth = 8;
@@ -180,7 +184,7 @@
 			this.tbFormattedOutput.ReadOnly = true;
 			this.tbFormattedOutput.RightBracket = ')';
 			this.tbFormattedOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbFormattedOutput.Size = new System.Drawing.Size(528, 376);
+			this.tbFormattedOutput.Size = new System.Drawing.Size(600, 412);
 			this.tbFormattedOutput.TabIndex = 5;
 			this.tbFormattedOutput.Zoom = 100;
 			// 
@@ -204,7 +208,7 @@
 			this.tbConsoleOutput.Paddings = new System.Windows.Forms.Padding(0);
 			this.tbConsoleOutput.ReadOnly = true;
 			this.tbConsoleOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbConsoleOutput.Size = new System.Drawing.Size(530, 221);
+			this.tbConsoleOutput.Size = new System.Drawing.Size(602, 244);
 			this.tbConsoleOutput.TabIndex = 28;
 			this.tbConsoleOutput.Zoom = 100;
 			// 
@@ -236,6 +240,7 @@
 			// 
 			// splitContainer1.Panel1
 			// 
+			this.splitContainer1.Panel1.Controls.Add(this.cbRemoveSpaces);
 			this.splitContainer1.Panel1.Controls.Add(this.btnMinifyInput);
 			this.splitContainer1.Panel1.Controls.Add(this.cbCompressIdentifiers);
 			this.splitContainer1.Panel1.Controls.Add(this.nudLineLength);
@@ -246,6 +251,9 @@
 			// 
 			// splitContainer1.Panel2
 			// 
+			this.splitContainer1.Panel2.Controls.Add(this.cmbPattern);
+			this.splitContainer1.Panel2.Controls.Add(this.label7);
+			this.splitContainer1.Panel2.Controls.Add(this.btnSaveInput);
 			this.splitContainer1.Panel2.Controls.Add(this.btnClearData);
 			this.splitContainer1.Panel2.Controls.Add(this.btnGenerateData);
 			this.splitContainer1.Panel2.Controls.Add(this.cbScrollToEnd);
@@ -258,14 +266,27 @@
 			this.splitContainer1.Panel2.Controls.Add(this.label4);
 			this.splitContainer1.Panel2.Controls.Add(this.dgvExtraParams);
 			this.splitContainer1.Panel2.Controls.Add(this.btnGenerate);
-			this.splitContainer1.Size = new System.Drawing.Size(522, 662);
-			this.splitContainer1.SplitterDistance = 406;
+			this.splitContainer1.Size = new System.Drawing.Size(590, 721);
+			this.splitContainer1.SplitterDistance = 442;
 			this.splitContainer1.TabIndex = 20;
+			// 
+			// cbRemoveSpaces
+			// 
+			this.cbRemoveSpaces.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbRemoveSpaces.AutoSize = true;
+			this.cbRemoveSpaces.Checked = true;
+			this.cbRemoveSpaces.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbRemoveSpaces.Location = new System.Drawing.Point(147, 9);
+			this.cbRemoveSpaces.Name = "cbRemoveSpaces";
+			this.cbRemoveSpaces.Size = new System.Drawing.Size(105, 17);
+			this.cbRemoveSpaces.TabIndex = 32;
+			this.cbRemoveSpaces.Text = "Remove Spaces";
+			this.cbRemoveSpaces.UseVisualStyleBackColor = true;
 			// 
 			// btnMinifyInput
 			// 
 			this.btnMinifyInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnMinifyInput.Location = new System.Drawing.Point(438, 5);
+			this.btnMinifyInput.Location = new System.Drawing.Point(506, 5);
 			this.btnMinifyInput.Name = "btnMinifyInput";
 			this.btnMinifyInput.Size = new System.Drawing.Size(75, 23);
 			this.btnMinifyInput.TabIndex = 21;
@@ -279,7 +300,7 @@
 			this.cbCompressIdentifiers.AutoSize = true;
 			this.cbCompressIdentifiers.Checked = true;
 			this.cbCompressIdentifiers.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbCompressIdentifiers.Location = new System.Drawing.Point(313, 10);
+			this.cbCompressIdentifiers.Location = new System.Drawing.Point(381, 10);
 			this.cbCompressIdentifiers.Name = "cbCompressIdentifiers";
 			this.cbCompressIdentifiers.Size = new System.Drawing.Size(119, 17);
 			this.cbCompressIdentifiers.TabIndex = 30;
@@ -289,7 +310,7 @@
 			// nudLineLength
 			// 
 			this.nudLineLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.nudLineLength.Location = new System.Drawing.Point(246, 8);
+			this.nudLineLength.Location = new System.Drawing.Point(314, 8);
 			this.nudLineLength.Name = "nudLineLength";
 			this.nudLineLength.Size = new System.Drawing.Size(52, 20);
 			this.nudLineLength.TabIndex = 31;
@@ -301,13 +322,12 @@
 			// 
 			// btnFormatInput
 			// 
-			this.btnFormatInput.Location = new System.Drawing.Point(61, 6);
+			this.btnFormatInput.Location = new System.Drawing.Point(52, 6);
 			this.btnFormatInput.Name = "btnFormatInput";
 			this.btnFormatInput.Size = new System.Drawing.Size(75, 23);
 			this.btnFormatInput.TabIndex = 20;
 			this.btnFormatInput.Text = "Format Input";
 			this.btnFormatInput.UseVisualStyleBackColor = true;
-			this.btnFormatInput.Click += new System.EventHandler(this.btnFormatInput_Click);
 			// 
 			// tbInput
 			// 
@@ -328,7 +348,7 @@
 			this.tbInput.Paddings = new System.Windows.Forms.Padding(0);
 			this.tbInput.RightBracket = ')';
 			this.tbInput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbInput.Size = new System.Drawing.Size(522, 370);
+			this.tbInput.Size = new System.Drawing.Size(590, 406);
 			this.tbInput.TabIndex = 19;
 			this.tbInput.WordWrap = true;
 			this.tbInput.Zoom = 100;
@@ -337,15 +357,24 @@
 			// 
 			this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(154, 10);
+			this.label6.Location = new System.Drawing.Point(222, 10);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(86, 13);
 			this.label6.TabIndex = 29;
 			this.label6.Text = "Max Line Length";
 			// 
+			// btnSaveInput
+			// 
+			this.btnSaveInput.Location = new System.Drawing.Point(276, 79);
+			this.btnSaveInput.Name = "btnSaveInput";
+			this.btnSaveInput.Size = new System.Drawing.Size(97, 25);
+			this.btnSaveInput.TabIndex = 33;
+			this.btnSaveInput.Text = "Save";
+			this.btnSaveInput.UseVisualStyleBackColor = true;
+			// 
 			// btnClearData
 			// 
-			this.btnClearData.Location = new System.Drawing.Point(276, 48);
+			this.btnClearData.Location = new System.Drawing.Point(381, 17);
 			this.btnClearData.Name = "btnClearData";
 			this.btnClearData.Size = new System.Drawing.Size(97, 25);
 			this.btnClearData.TabIndex = 32;
@@ -369,7 +398,7 @@
 			this.cbScrollToEnd.AutoSize = true;
 			this.cbScrollToEnd.Checked = true;
 			this.cbScrollToEnd.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbScrollToEnd.Location = new System.Drawing.Point(433, 223);
+			this.cbScrollToEnd.Location = new System.Drawing.Point(501, 246);
 			this.cbScrollToEnd.Name = "cbScrollToEnd";
 			this.cbScrollToEnd.Size = new System.Drawing.Size(86, 17);
 			this.cbScrollToEnd.TabIndex = 26;
@@ -379,7 +408,7 @@
 			// btnConsoleOutputToInput
 			// 
 			this.btnConsoleOutputToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnConsoleOutputToInput.Location = new System.Drawing.Point(382, 192);
+			this.btnConsoleOutputToInput.Location = new System.Drawing.Point(450, 215);
 			this.btnConsoleOutputToInput.Name = "btnConsoleOutputToInput";
 			this.btnConsoleOutputToInput.Size = new System.Drawing.Size(137, 25);
 			this.btnConsoleOutputToInput.TabIndex = 22;
@@ -407,9 +436,9 @@
 			// groupBox1
 			// 
 			this.groupBox1.Controls.Add(this.rbQuine);
-			this.groupBox1.Location = new System.Drawing.Point(14, 12);
+			this.groupBox1.Location = new System.Drawing.Point(14, 28);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(256, 61);
+			this.groupBox1.Size = new System.Drawing.Size(256, 45);
 			this.groupBox1.TabIndex = 23;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Generator Setup";
@@ -467,7 +496,7 @@
 			this.dgvExtraParams.Name = "dgvExtraParams";
 			this.dgvExtraParams.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.dgvExtraParams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgvExtraParams.Size = new System.Drawing.Size(352, 117);
+			this.dgvExtraParams.Size = new System.Drawing.Size(429, 140);
 			this.dgvExtraParams.TabIndex = 18;
 			// 
 			// Column1
@@ -497,7 +526,7 @@
 			// btnGenerate
 			// 
 			this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnGenerate.Location = new System.Drawing.Point(382, 161);
+			this.btnGenerate.Location = new System.Drawing.Point(450, 184);
 			this.btnGenerate.Name = "btnGenerate";
 			this.btnGenerate.Size = new System.Drawing.Size(137, 25);
 			this.btnGenerate.TabIndex = 17;
@@ -518,15 +547,34 @@
 			// splitContainer3.Panel2
 			// 
 			this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-			this.splitContainer3.Size = new System.Drawing.Size(1068, 662);
-			this.splitContainer3.SplitterDistance = 522;
+			this.splitContainer3.Size = new System.Drawing.Size(1208, 721);
+			this.splitContainer3.SplitterDistance = 590;
 			this.splitContainer3.TabIndex = 21;
+			// 
+			// label7
+			// 
+			this.label7.AutoSize = true;
+			this.label7.Location = new System.Drawing.Point(12, 8);
+			this.label7.Name = "label7";
+			this.label7.Size = new System.Drawing.Size(41, 13);
+			this.label7.TabIndex = 16;
+			this.label7.Text = "Pattern";
+			// 
+			// cmbPattern
+			// 
+			this.cmbPattern.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbPattern.FormattingEnabled = true;
+			this.cmbPattern.Location = new System.Drawing.Point(61, 5);
+			this.cmbPattern.Name = "cmbPattern";
+			this.cmbPattern.Size = new System.Drawing.Size(155, 21);
+			this.cmbPattern.TabIndex = 34;
+			this.cmbPattern.SelectedIndexChanged += new System.EventHandler(this.cmbPattern_SelectedIndexChanged);
 			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1068, 662);
+			this.ClientSize = new System.Drawing.Size(1208, 721);
 			this.Controls.Add(this.splitContainer3);
 			this.Name = "frmMain";
 			this.Text = "Freaky Sources";
@@ -597,6 +645,10 @@
 		private System.Windows.Forms.CheckBox cbCompressIdentifiers;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Button btnClearData;
+		private System.Windows.Forms.CheckBox cbRemoveSpaces;
+		private System.Windows.Forms.Button btnSaveInput;
+		private System.Windows.Forms.ComboBox cmbPattern;
+		private System.Windows.Forms.Label label7;
 
 	}
 }

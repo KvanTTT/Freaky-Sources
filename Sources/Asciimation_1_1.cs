@@ -3,9 +3,9 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-namespace Asciimation
+namespace Asciimation_1_1
 {
-	class A
+	class P
 	{
 		const int FrameHeight = 13;
 		const int FrameWidth = 67;

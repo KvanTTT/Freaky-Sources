@@ -18,6 +18,7 @@ namespace FreakySources.GUI
 		const string IdRegex = @"\w+";
 		const string BlockCommentsRegex = @"/\*(.*?)\*/";
 		const string LineCommentsRegex = @"//(.*?)\r?\n";
+		const string SourcePath = @"..\..\..\Sources\";
 		
 		public frmMain()
 		{
@@ -41,6 +42,12 @@ namespace FreakySources.GUI
 			WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), Settings.Default.WindowState);
 			nudLineLength.Value = Settings.Default.MaxLineLength;
 			cbCompressIdentifiers.Checked = Settings.Default.CompressIdentifiers;
+
+			var patterns = Directory.GetFiles(SourcePath, "*.cs");
+			foreach (var pattern in patterns)
+			{
+				cmbPattern.Items.Add(Path.GetFileName(pattern));
+			}
 		}
 
 		private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -117,16 +124,11 @@ namespace FreakySources.GUI
 			}
 		}
 
-		private void btnFormatInput_Click(object sender, EventArgs e)
-		{
-			var minifier = new Minifier(new MinifierOptions(false));
-			tbInput.Text = minifier.MinifyFromString(tbInput.Text);
-		}
-
 		private void btnMinifyInput_Click(object sender, EventArgs e)
 		{
 			var ignoredIdentifiers = new List<string>();
 			var ignoredComments = new List<string>();
+			ignoredComments.Add(tbKernel.Text);
 			for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
 				if (!string.IsNullOrEmpty(dgvExtraParams[2, i].Value as string) ||
 					!string.IsNullOrEmpty(dgvExtraParams[3, i].Value as string))
@@ -160,28 +162,36 @@ namespace FreakySources.GUI
 
 			var minifier = new Minifier(new MinifierOptions(false)
 			{
-				SpacesRemoving = true,
+				SpacesRemoving = cbRemoveSpaces.Checked,
 				LineLength = (int)nudLineLength.Value,
 				IdentifiersCompressing = cbCompressIdentifiers.Checked,
 				MiscCompressing = true,
 				RegionsRemoving = true,
-				CommentsRemoving = true
+				CommentsRemoving = true,
+				ConsoleApp = true
 			}, ignoredIdentifiers.ToArray(), ignoredComments.ToArray());
 			tbInput.Text = minifier.MinifyFromString(tbInput.Text);
+
+
 		}
 
 		private void btnGenerateData_Click(object sender, EventArgs e)
 		{
-			var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Asciimation\Data.txt"));
+			var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(SourcePath + "Asciimation.txt"));
 			tbInput.Text = dataGenerator.ChangeGZipCompressedFrames(tbInput.Text,
 				"/*$CompressedFramesGZipStream*/", "/*CompressedFramesGZipStream$*/");
 		}
 
 		private void btnClearData_Click(object sender, EventArgs e)
 		{
-			var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Asciimation\Data.txt"));
+			var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(SourcePath + "Asciimation.txt"));
 			tbInput.Text = dataGenerator.ChangeGZipCompressedFrames(tbInput.Text,
 				"/*$CompressedFramesGZipStream*/", "/*CompressedFramesGZipStream$*/", false);
+		}
+
+		private void cmbPattern_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			tbInput.Text = File.ReadAllText(Path.Combine(SourcePath, cmbPattern.SelectedItem.ToString()));
 		}
 	}
 }

@@ -46,6 +46,7 @@
     <Compile Include="AsciimationDataGenerator.cs" />
     <Compile Include="CheckingResult.cs" />
     <Compile Include="Checker.cs" />
+    <Compile Include="ExtensionsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuineGenerator.cs" />
     <Compile Include="RLE.cs" />
