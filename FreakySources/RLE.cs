@@ -1,21 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FreakySources
 {
-	public class RLE
+	public class Rle
 	{
 		public static byte[] Encode(byte[] bytes)
 		{
-			List<byte> result = new List<byte>();
+			var result = new List<byte>();
 
 			int i = 0;
 			while (i < bytes.Length)
 			{
 				int j = i;
 				do
-				{
 					j++;
-				}
 				while (j != bytes.Length && bytes[j] == bytes[i]);
 
 				int repeatCount = j - i;
@@ -29,9 +29,14 @@ namespace FreakySources
 						result.Add(127);
 						result.Add(bytes[i]);
 					}
-					result.Add((byte)(rest - 2));
-					result.Add(bytes[i]);
-					i = j;
+					if (rest >= 2)
+					{
+						result.Add((byte)(rest - 2));
+						result.Add(bytes[i]);
+						i = j;
+					}
+					else
+						i = j - rest;
 				}
 				else
 				{
@@ -50,9 +55,12 @@ namespace FreakySources
 						for (int l = 0; l < 128; l++)
 							result.Add(bytes[i + k * 128 + l]);
 					}
-					result.Add((byte)(0x80 | (rest - 1)));
-					for (int l = 0; l < rest; l++)
-						result.Add(bytes[i + segmentCount * 128 + l]);
+					if (rest >= 1)
+					{
+						result.Add((byte)(0x80 | (rest - 1)));
+						for (int l = 0; l < rest; l++)
+							result.Add(bytes[i + segmentCount * 128 + l]);
+					}
 					i = j;
 					if (j != bytes.Length)
 						i--;
@@ -64,7 +72,7 @@ namespace FreakySources
 
 		public static byte[] Decode(byte[] bytes)
 		{
-			List<byte> result = new List<byte>();
+			var result = new List<byte>();
 
 			int i = 0;
 			while (i < bytes.Length)

@@ -12,5 +12,4 @@ namespace SingleCommentsPalindromeQuine
 			Console.Write(new string(c) + "\r\n\r" + s);
 		}
 	}
-}
-//
+}//

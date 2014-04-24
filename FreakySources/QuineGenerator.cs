@@ -15,30 +15,6 @@ using CSharpMinifier;
 
 namespace FreakySources
 {
-	public struct QuineParam
-	{
-		public string KeyBegin;
-		public string KeyEnd;
-		public string Value;
-		public string KeySubstitute;
-
-		public QuineParam(string key, string value, string keySubstitute)
-		{
-			KeyBegin = key;
-			KeyEnd = key;
-			Value = value;
-			KeySubstitute = keySubstitute;
-		}
-
-		public QuineParam(string keyBegin, string keyEnd, string value, string keySubstitute)
-		{
-			KeyBegin = keyBegin;
-			KeyEnd = keyEnd;
-			Value = value;
-			KeySubstitute = keySubstitute;
-		}
-	}
-
 	public class QuineGenerator
 	{
 		public const string Quotes1 = "\"";

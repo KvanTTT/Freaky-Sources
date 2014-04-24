@@ -14,55 +14,38 @@ namespace FreakySources
 {
 	public class Checker
 	{
-		#region Palindrome Utils
-
-		public static string PrepareSingleLineCommentsPalindrome(string s)
-		{
-			return ReverseString(s) + "\r\n\r" + s;
-		}
-
-		public static string PrepareMultiLineCommentsPalindrome(string s)
-		{
-			return s + "/*/" + ReverseString(s);
-		}
-
-		#endregion
-
 		#region Checking Utils
 
-		public static CheckingResult CheckPalindromeQuineProgram(string program)
+		public static List<CheckingResult> CheckPalindromeQuineProgram(string program)
 		{
-			CheckingResult result = new CheckingResult();
-			CheckPalindrome(program, out result.FirstErrorLine, out result.FirstErrorColumn);
-			if (!result.HasError)
-			{
-				result = CheckQuineProgram(program);
-			}
-			return result;
+			var checkPalindromeResult = CheckPalindrome(program);
+			if (!checkPalindromeResult.IsError)
+				return CheckQuineProgram(program);
+			else
+				return new List<CheckingResult>() { checkPalindromeResult };
 		}
 
-		public static CheckingResult CheckQuineProgram(string program)
+		public static List<CheckingResult> CheckQuineProgram(string program)
 		{
-			CheckingResult result = Compile(program);
-			if (result.Output != null)
-			{
-				CompareStrings(program, result.Output, out result.FirstErrorLine, out result.FirstErrorColumn);
-			}
-			return result;
+			var compileResult = Compile(program);
+			if (compileResult.Count == 1 && compileResult[0].Output != null)
+				return new List<CheckingResult>() {
+					CompareStrings(program, compileResult[0].Output)
+				};
+			else
+				return compileResult;
 		}
 
-		public static CheckingResult CheckPalindromeProgram(string program)
+		public static List<CheckingResult> CheckPalindromeProgram(string program)
 		{
-			CheckingResult result = new CheckingResult();
-			CheckPalindrome(program, out result.FirstErrorLine, out result.FirstErrorColumn);
-			if (!result.HasError)
-			{
-				result = Compile(program);
-			}
-			return result;
+			var checkPalindromeResult = CheckPalindrome(program);
+			if (!checkPalindromeResult.IsError)
+				return Compile(program);
+			else
+				return new List<CheckingResult>() { checkPalindromeResult };
 		}
 
-		public static CheckingResult Compile(string program)
+		public static List<CheckingResult> Compile(string program)
 		{
 			CompilerResults compilerResults = null;
 			using (CSharpCodeProvider provider = new CSharpCodeProvider())
@@ -78,12 +61,17 @@ namespace FreakySources
 					program
 				});
 			}
-			CheckingResult result;
+			List<CheckingResult> result = new List<CheckingResult>();
 			if (compilerResults.Errors.HasErrors)
 			{
-				result.FirstErrorLine = compilerResults.Errors[0].Line;
-				result.FirstErrorColumn = compilerResults.Errors[0].Column;
-				result.Output = null;
+				for (int i = 0; i < compilerResults.Errors.Count; i++)
+					result.Add(new CheckingResult
+					{
+						FirstErrorLine = compilerResults.Errors[i].Line,
+						FirstErrorColumn = compilerResults.Errors[i].Column,
+						Output = null,
+						Description = compilerResults.Errors[i].ErrorText
+					});
 			}
 			else
 			{
@@ -106,76 +94,93 @@ namespace FreakySources
 					catch
 					{
 					}
-					result.FirstErrorLine = -1;
-					result.FirstErrorColumn = -1;
-					result.Output = output;
+					result.Add(new CheckingResult
+					{
+						FirstErrorLine = -1,
+						FirstErrorColumn = -1,
+						Output = output,
+						Description = null
+					});
 				}
-				catch
+				catch (Exception ex)
 				{
-					result.FirstErrorLine = 0;
-					result.FirstErrorColumn = 0;
-					result.Output = null;
+					result.Add(new CheckingResult
+					{
+						FirstErrorLine = 0,
+						FirstErrorColumn = 0,
+						Output = null,
+						Description = ex.Message
+					});
 				}
 			}
 			return result;
 		}
 
-		public static bool CheckPalindrome(string s, out int firstErrorLine, out int firstErrorColumn)
+		public static CheckingResult CheckPalindrome(string s)
 		{
-			bool result;
+			int firstErrorLine;
+			int firstErrorColumn;
 			for (int i = 0; i < s.Length / 2; i++)
 			{
 				if (s[i] != s[s.Length - 1 - i])
 				{
 					firstErrorLine = 0;
 					firstErrorColumn = i;
-					result = false;
-					return result;
+					goto exit;
 				}
 			}
 			firstErrorLine = -1;
 			firstErrorColumn = -1;
-			result = true;
-			return result;
+
+			exit:
+			return new CheckingResult
+			{
+				FirstErrorLine = firstErrorLine,
+				FirstErrorColumn = firstErrorColumn,
+				Output = firstErrorLine == -1 ? s : "",
+				Description = firstErrorLine != -1 ? "String is not palindrome" : ""
+			};
 		}
 
 		#endregion
 
 		#region String Utils
 
-		public static bool CompareStrings(string s1, string s2, out int firstErrorLine, out int firstErrorColumn)
+		public static CheckingResult CompareStrings(string s1, string s2)
 		{
-			firstErrorLine = 0;
-			bool result;
+			int firstErrorLine = 0;
+			int firstErrorColumn = 0;
 			if (s1 == null || s2 == null)
 			{
 				firstErrorColumn = 0;
-				result = false;
 			}
 			else
 			{
 				if (s1.Length != s2.Length)
 				{
 					firstErrorColumn = Math.Min(s1.Length, s2.Length);
-					result = false;
 				}
 				else
 				{
 					for (int i = 0; i < s1.Length; i++)
-					{
 						if (s1[i] != s2[i])
 						{
 							firstErrorColumn = i;
-							result = false;
-							return result;
+							goto exit;
 						}
-					}
 					firstErrorLine = -1;
 					firstErrorColumn = -1;
-					result = true;
 				}
 			}
-			return result;
+
+			exit:
+			return new CheckingResult
+				{
+					FirstErrorLine = firstErrorLine,
+					FirstErrorColumn = firstErrorColumn,
+					Output = firstErrorLine == -1 ? s1 : "",
+					Description = firstErrorLine != -1 ? "Strings are not equal" : ""
+				};
 		}
 
 		public static string ReverseString(string s)
@@ -189,8 +194,19 @@ namespace FreakySources
 		{
 			var minifierOptions = new MinifierOptions(false);
 			minifierOptions.SpacesRemoving = true;
+			minifierOptions.RemoveNamespaces = true;
 			var minifier = new Minifier(minifierOptions);
 			return minifier.MinifyFromString(csharpCode);
+		}
+
+		public static string PrepareSingleLineCommentsPalindrome(string s)
+		{
+			return ReverseString(s) + "\r\n\r" + s;
+		}
+
+		public static string PrepareMultiLineCommentsPalindrome(string s)
+		{
+			return s + "/*/" + ReverseString(s);
 		}
 
 		#endregion

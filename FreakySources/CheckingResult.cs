@@ -1,16 +1,49 @@
 ﻿namespace FreakySources
 {
-	public struct CheckingResult
+	public class CheckingResult
 	{
-		public int FirstErrorLine;
-		public int FirstErrorColumn;
-		public string Output;
-		public bool HasError
+		public int FirstErrorLine
+		{
+			get;
+			set;
+		}
+
+		public int FirstErrorColumn
+		{
+			get;
+			set;
+		}
+
+		public string Output
+		{
+			get;
+			set;
+		}
+
+		public string Description
+		{
+			get;
+			set;
+		}
+
+		public bool IsError
 		{
 			get
 			{
-				return this.FirstErrorColumn != -1;
+				return FirstErrorColumn != -1 && FirstErrorLine != -1;
 			}
+		}
+
+		public CheckingResult()
+		{
+		}
+
+		public CheckingResult(CheckingResult result)
+		{
+			FirstErrorLine = result.FirstErrorLine;
+			FirstErrorColumn = result.FirstErrorColumn;
+			Output = result.Output;
+			Description = result.Description;
 		}
 	}
 }

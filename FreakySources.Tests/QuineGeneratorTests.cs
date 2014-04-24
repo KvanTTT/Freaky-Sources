@@ -16,28 +16,29 @@ namespace FreakySources.Tests
 		public void SimpleQuineGenerate()
 		{
 			var generator = new QuineGenerator();
-			var generated = generator.Generate(File.ReadAllText(@"..\..\..\CustomQuine\Program.cs"));
-			Assert.IsFalse(Checker.CheckQuineProgram(generated).HasError);
+			var generated = generator.Generate(File.ReadAllText(@"..\..\..\Sources\CustomQuine.cs"));
+			var checkingResult = Checker.CheckQuineProgram(generated);
+			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
 		}
 
 		[Test]
 		public void SimpleQuineGenerateNotMinified()
 		{
 			var generator = new QuineGenerator() { Minified = false };
-			var generated = generator.Generate(File.ReadAllText(@"..\..\..\CustomQuine\Program.cs"));
-			Assert.IsFalse(Checker.CheckQuineProgram(generated).HasError);
+			var generated = generator.Generate(File.ReadAllText(@"..\..\..\Sources\CustomQuine.cs"));
+			var checkingResult = Checker.CheckQuineProgram(generated);
+			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
 		}
 
 		[Test]
 		public void SimpleQuineGeneratedMinifiedInput()
 		{
 			var generator = new QuineGenerator() { };
-			var minifier = new Minifier(new MinifierOptions(true) { CommentsRemoving = false });
-			var minified = minifier.MinifyFromString(File.ReadAllText(@"..\..\..\CustomQuine\Program.cs"));
+			var minifier = new Minifier(new MinifierOptions(true) { CommentsRemoving = false, ConsoleApp = true });
+			var minified = minifier.MinifyFromString(File.ReadAllText(@"..\..\..\Sources\CustomQuine.cs"));
 			var generated = generator.Generate(minified);
 			var checkResult = Checker.CheckQuineProgram(generated);
-			Assert.IsFalse(checkResult.Output.Contains(QuineGenerator.Newline));
-			Assert.IsFalse(checkResult.HasError);
+			Assert.IsTrue(checkResult.Count == 1 && !checkResult.First().Output.Contains(QuineGenerator.Newline) && !checkResult.First().IsError);
 		}
 	}
 }

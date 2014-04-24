@@ -44,12 +44,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AsciimationDataGenerator.cs" />
+    <Compile Include="Base64.cs" />
     <Compile Include="CheckingResult.cs" />
     <Compile Include="Checker.cs" />
+    <Compile Include="CodeDataGenerator.cs" />
     <Compile Include="ExtensionsHelper.cs" />
+    <Compile Include="Huffman.cs" />
+    <Compile Include="HuffmanRle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuineGenerator.cs" />
-    <Compile Include="RLE.cs" />
+    <Compile Include="QuineParam.cs" />
+    <Compile Include="Rle.cs" />
     <Compile Include="StringCompressor.cs" />
   </ItemGroup>
   <ItemGroup>

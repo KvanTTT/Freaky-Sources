@@ -10,7 +10,7 @@ namespace Asciimation_1_1
 		const int FrameHeight = 13;
 		const int FrameWidth = 67;
 		static string Frames = /*$CompressedFramesGZipStream*/null/*CompressedFramesGZipStream$*/;
-		static int currentFrame = 0/*$currentFrame$*/;
+		static int CurrentFrame = /*$currentFrame*/0/*currentFrame$*/;
 
 		static string DecompressString(string compressedText)
 		{
@@ -35,7 +35,7 @@ namespace Asciimation_1_1
 			string[] lines = DecompressString(Frames).Split(new string[] { "\\n" }, StringSplitOptions.None);
 
 			string[] frame = new string[FrameHeight];
-			int ind = currentFrame * (FrameHeight + 1) + 1;
+			int ind = CurrentFrame * (FrameHeight + 1) + 1;
 			for (int j = ind; j < ind + FrameHeight; j++)
 				frame[j - ind] = lines[j].PadRight(FrameWidth, ' ');
 
@@ -43,7 +43,7 @@ namespace Asciimation_1_1
 			for (int i = 0; i < FrameHeight; i++)
 				output.AppendLine("//	" + frame[i]);
 
-			currentFrame = (currentFrame + 1) % Frames.Length;
+			CurrentFrame = (CurrentFrame + 1) % Frames.Length;
 
 			/*$print$*/
 		}

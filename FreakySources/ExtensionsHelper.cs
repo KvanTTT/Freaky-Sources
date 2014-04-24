@@ -22,12 +22,10 @@ namespace FreakySources
 						index = 1;
 						while (index < length && char.ToLower(sb[i + index]) == char.ToLower(value[index]))
 							++index;
-
 						if (index == length)
 							return i;
 					}
 				}
-
 				return -1;
 			}
 
@@ -47,19 +45,28 @@ namespace FreakySources
 			return -1;
 		}
 
-		public static StringBuilder Remove(this StringBuilder sb, int ind)
+		public static void Remove(this StringBuilder sb, int ind)
 		{
-			return sb.Remove(ind, sb.Length - ind);
+			sb.Remove(ind, sb.Length - ind);
 		}
 
-		public static StringBuilder Substring(this StringBuilder sb, int ind)
+		public static void Substring(this StringBuilder sb, int ind)
 		{
-			return sb.Remove(0, ind);
+			sb.Remove(0, ind);
 		}
 
-		public static StringBuilder Substring(this StringBuilder sb, int ind, int length)
+		public static void Substring(this StringBuilder sb, int ind, int length)
 		{
-			return sb.Remove(ind + length).Remove(0, ind);
+			sb.Remove(ind + length);
+			sb.Remove(0, ind);
+		}
+
+		public static string GetSubstring(this StringBuilder sb, int ind, int length)
+		{
+			var result = new char[length];
+			for (int i = 0; i < length; i++)
+				result[i] = sb[ind + i];
+			return new string(result);
 		}
 	}
 }
