@@ -9,7 +9,7 @@ namespace CustomQuine
 			var str = "asdf";
 			var c = '\\';
 			var m = "{{0}}";
-			/*$print$*/
+			/*@*/
 			int b = 10;
 		}
 	}

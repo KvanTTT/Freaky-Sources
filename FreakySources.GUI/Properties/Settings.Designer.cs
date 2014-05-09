@@ -61,8 +61,7 @@ namespace FreakySources.GUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0/*$currentFrame$*/~0/*$currentFrame$*/~currentFrame~0|/*$output$*/~/*$output$*/~" +
-            "output.ToString()~|/*$frames*/~/*frames$*/~frames.ToString()~frames.ToString()|")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string ExtraParams {
             get {
                 return ((string)(this["ExtraParams"]));
@@ -74,7 +73,7 @@ namespace FreakySources.GUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("/*print*/")]
+        [global::System.Configuration.DefaultSettingValueAttribute("/*@*/")]
         public string Kernel {
             get {
                 return ((string)(this["Kernel"]));
@@ -177,6 +176,66 @@ namespace FreakySources.GUI.Properties {
             }
             set {
                 this["SelectedPattern"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int splitContGenWidth {
+            get {
+                return ((int)(this["splitContGenWidth"]));
+            }
+            set {
+                this["splitContGenWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int splitCont1Height {
+            get {
+                return ((int)(this["splitCont1Height"]));
+            }
+            set {
+                this["splitCont1Height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int splitCont2Height {
+            get {
+                return ((int)(this["splitCont2Height"]));
+            }
+            set {
+                this["splitCont2Height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OutputWordWrap {
+            get {
+                return ((bool)(this["OutputWordWrap"]));
+            }
+            set {
+                this["OutputWordWrap"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int CompilationsCount {
+            get {
+                return ((int)(this["CompilationsCount"]));
+            }
+            set {
+                this["CompilationsCount"] = value;
             }
         }
     }

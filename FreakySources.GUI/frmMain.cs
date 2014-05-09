@@ -11,6 +11,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using FastColoredTextBoxNS;
+using System.Xml.Serialization;
 
 namespace FreakySources.GUI
 {
@@ -20,6 +21,7 @@ namespace FreakySources.GUI
 		const string BlockCommentsRegex = @"/\*(.*?)\*/";
 		const string LineCommentsRegex = @"//(.*?)\r?\n";
 		const string SourcePath = @"..\..\..\Sources\";
+		bool MinifiedInput;
 		
 		public frmMain()
 		{
@@ -28,17 +30,20 @@ namespace FreakySources.GUI
 			tbInput.Text = Settings.Default.InputCode;
 			tabcOutput.SelectedIndex = Settings.Default.OutputTab;
 			tbKernel.Text = Settings.Default.Kernel;
-			var quineParams = Settings.Default.ExtraParams.Split('|');
-			foreach (var p in quineParams)
-				if (!string.IsNullOrEmpty(p))
+			var serializer = new XmlSerializer(typeof(List<List<string>>));
+			using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(Settings.Default.ExtraParams)))
+			{
+				var quineParams = (List<List<string>>)serializer.Deserialize(stream);
+				foreach (var param in quineParams)
 				{
-					var strs = p.Split('~');
-					dgvExtraParams.Rows.Add(strs[0], strs[1], strs[2], strs[3]);
+					dgvExtraParams.Rows.Add(param[0], param[1], param[2], param[3]);
 				}
+			}
+
 			tbQuineStr.Text = Settings.Default.QuineStr;
 			if (!Settings.Default.WindowLocation.IsEmpty)
 				Location = Settings.Default.WindowLocation;
-			if (!Settings.Default.WindowSize.IsEmpty)
+			if (Settings.Default.WindowSize.IsEmpty)
 				Size = Settings.Default.WindowSize;
 			WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), Settings.Default.WindowState);
 			nudLineLength.Value = Settings.Default.MaxLineLength;
@@ -48,6 +53,16 @@ namespace FreakySources.GUI
 			foreach (var pattern in patterns)
 				cmbPattern.Items.Add(Path.GetFileName(pattern));
 			cmbPattern.SelectedItem = Settings.Default.SelectedPattern;
+
+			if (Settings.Default.splitContGenWidth != 0)
+				splitContainerGeneral.SplitterDistance = Settings.Default.splitContGenWidth;
+			if (Settings.Default.splitCont1Height != 0)
+				splitContainer1.SplitterDistance = Settings.Default.splitCont1Height;
+			if (Settings.Default.splitCont2Height != 0)
+				splitContainer2.SplitterDistance = Settings.Default.splitCont2Height;
+
+			tbOutput.WordWrap = Settings.Default.OutputWordWrap;
+			nudCompilationsCount.Value = Settings.Default.CompilationsCount;
 		}
 
 		private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -59,7 +74,7 @@ namespace FreakySources.GUI
 		{
 			string input = tbInput.Text;
 
-			var generator = new QuineGenerator(tbQuineStr.Text, "Console.Write", tbKernel.Text);
+			var generator = new QuineGenerator(tbQuineStr.Text, "Console.Write", tbKernel.Text, MinifiedInput);
 			var extraParams = new List<QuineParam>();
 			for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
 				if (!string.IsNullOrEmpty(dgvExtraParams[0, i].Value as string) ||
@@ -73,41 +88,38 @@ namespace FreakySources.GUI
 					dgvExtraParams[2, i].Value == null ? "" : (string)dgvExtraParams[2, i].Value,
 					dgvExtraParams[3, i].Value == null ? "" : (string)dgvExtraParams[3, i].Value));
 				}
-			input = generator.Generate(input, false, extraParams.ToArray());
+			var output = generator.Generate(input, false, extraParams.ToArray());
 
-			tbOutput.Text = input;
-			CompileOutput();
+			tbOutput.Text = output;
+			tbOutputLength.Text = output.Length.ToString();
+			tbFormattedOutput.Text = (new Minifier(new MinifierOptions(false))).MinifyFromString(tbOutput.Text);
+
+			btnCompile_Click(btnCompileOutput, e);
 		}
 
-		private void btnConsoleOutputToInput_Click(object sender, EventArgs e)
+		private void btnConsoleOutputToOutput_Click(object sender, EventArgs e)
 		{
-			tbOutput.Text = tbConsoleOutput.Text;
-			CompileOutput();
-		}
-
-		private void CompileOutput()
-		{
-			var minifier = new Minifier(new MinifierOptions(false));
-
-			tbFormattedOutput.Text = minifier.MinifyFromString(tbOutput.Text);
-			var compileResult = Checker.Compile(tbOutput.Text);
-			if (compileResult.Count == 1 && compileResult.First().Output != null)
+			string output = tbOutput.Text;
+			for (int i = 0; i < (int)nudCompilationsCount.Value; i++)
 			{
-				tbConsoleOutput.ResetText();
-				tbConsoleOutput.Text = compileResult.First().Output;
-				if (cbScrollToEnd.Checked)
-				{
-					//var linesCount = tbConsoleOutput.Text.Split('\n').Length;
-					tbConsoleOutput.VerticalScroll.Value = tbConsoleOutput.VerticalScroll.Maximum;
-					tbConsoleOutput.VerticalScroll.Value = tbConsoleOutput.VerticalScroll.Maximum;
-				}
+				tbCurrentStep.Text = i.ToString();
+				Application.DoEvents();
+				var compileResult = Checker.Compile(output);
+				if (compileResult.Count == 1 && !compileResult.First().IsError)
+					output = compileResult.First().Output;
+				else
+					break;
 			}
+
+			tbOutput.Text = output;
+			tbFormattedOutput.Text = (new Minifier(new MinifierOptions(false))).MinifyFromString(tbOutput.Text);
+			btnCompile_Click(btnCompileOutput, e);
 		}
 
 		private void btnMinifyInput_Click(object sender, EventArgs e)
 		{
-			var ignoredIdentifiers = new List<string>();
-			var ignoredComments = new List<string>();
+			var ignoredIdentifiers = new HashSet<string>();
+			var ignoredComments = new HashSet<string>();
 			ignoredComments.Add(tbKernel.Text);
 			for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
 				if (!string.IsNullOrEmpty(dgvExtraParams[2, i].Value as string) ||
@@ -138,7 +150,7 @@ namespace FreakySources.GUI
 					foreach (Match match in matches)
 						ignoredIdentifiers.Add(match.Value);
 				}
-			ignoredIdentifiers = ignoredIdentifiers.Where(id => { long result; return !long.TryParse(id, out result); }).ToList();
+			ignoredIdentifiers = new HashSet<string>(ignoredIdentifiers.Where(id => { long result; return !long.TryParse(id, out result); }));
 			ignoredIdentifiers.Add(tbQuineStr.Text);
 
 			var minifier = new Minifier(new MinifierOptions(false)
@@ -150,13 +162,16 @@ namespace FreakySources.GUI
 				TypesCompressing = cbCompressIdentifiers.Checked,
 				MiscCompressing = true,
 				RegionsRemoving = true,
-				CommentsRemoving = true,
+				CommentsRemoving = false,
 				ConsoleApp = true,
-				RemoveToStringMethods = true,
-				CompressPublic = true,
-				RemoveNamespaces = true
+				ToStringMethodsRemoving = true,
+				PublicCompressing = true,
+				NamespacesRemoving = true,
+				UselessMembersCompressing = true
 			}, ignoredIdentifiers.ToArray(), ignoredComments.ToArray());
 			tbInput.Text = minifier.MinifyFromString(tbInput.Text);
+
+			MinifiedInput = true;
 		}
 
 		private void btnGenerateCode_Click(object sender, EventArgs e)
@@ -168,36 +183,53 @@ namespace FreakySources.GUI
 		private void btnGenerateData_Click(object sender, EventArgs e)
 		{
 			var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(SourcePath + "Asciimation.txt"));
-			if (cmbPattern.SelectedItem.ToString() == "Asciimation_1_1.cs")
+			var selectedItemText = cmbPattern.SelectedItem.ToString();
+			if (selectedItemText == "Asciimation_1_1.cs")
 			{
-				tbInput.Text = dataGenerator.ChangeGZipCompressedFrames(tbInput.Text,
-					"/*$CompressedFramesGZipStream*/", "/*CompressedFramesGZipStream$*/");
+				var codeDataGenerator = new CodeDataGenerator(tbSourceCodeFilesFolder.Text);
+				codeDataGenerator.SaveKeys = true;
+				tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
+					{
+						new CodeDataGeneratorParam
+						{
+							KeyBegin = "/*%CompressedFramesGZipStream*/",
+							KeyEnd = "/*CompressedFramesGZipStream%*/",
+							Value = dataGenerator.GetGZipCompressedFrames()
+						}
+					});
 			}
-			else if (cmbPattern.SelectedItem.ToString() == "Asciimation_1_2.cs")
+			else if (selectedItemText == "Asciimation_1_2.cs")
 			{
 				var codeDataGenerator = new CodeDataGenerator(tbSourceCodeFilesFolder.Text);
 				codeDataGenerator.SaveKeys = true;
 				tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
 					{
 						new CodeDataGeneratorParam {
-							KeyBegin = "/*$HuffmanRleTable*/",
-							KeyEnd = "/*HuffmanRleTable$*/",
+							KeyBegin = "/*%HuffmanRleTable*/",
+							KeyEnd = "/*HuffmanRleTable%*/",
 							Value = dataGenerator.GetHuffmanRleTable()
 						},
 						new CodeDataGeneratorParam {
-							KeyBegin = "/*$HuffmanRleFrames*/",
-							KeyEnd = "/*HuffmanRleFrames$*/",
+							KeyBegin = "/*%HuffmanRleFrames*/",
+							KeyEnd = "/*HuffmanRleFrames%*/",
 							Value = dataGenerator.GetHuffmanRleFrames()
 						}
 					});
 			}
-		}
-
-		private void btnClearData_Click(object sender, EventArgs e)
-		{
-			var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(SourcePath + "Asciimation.txt"));
-			tbInput.Text = dataGenerator.ChangeGZipCompressedFrames(tbInput.Text,
-				"/*$CompressedFramesGZipStream*/", "/*CompressedFramesGZipStream$*/", false);
+			else if (selectedItemText == "Asciimation_1_3.cs")
+			{
+				var codeDataGenerator = new CodeDataGenerator(tbSourceCodeFilesFolder.Text);
+				codeDataGenerator.SaveKeys = true;
+				List<CompressedFrame> compressedFrames;
+				tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
+				{
+					new CodeDataGeneratorParam {
+						KeyBegin = "/*%Data_1_3*/",
+						KeyEnd = "/*Data_1_3%*/",
+						Value = '"' + dataGenerator.Compress_v_1_3(out compressedFrames) + '"'
+					}
+				});
+			}
 		}
 
 		private void cmbPattern_SelectedIndexChanged(object sender, EventArgs e)
@@ -209,6 +241,8 @@ namespace FreakySources.GUI
 				tbInput.Text = File.ReadAllText(Path.Combine(SourcePath, fileName));
 				tbOutput.Text = tbConsoleOutput.Text = tbFormattedOutput.Text = "";
 				dgvCompileErrors.Rows.Clear();
+				tbCurrentStep.Clear();
+				MinifiedInput = false;
 			}
 		}
 
@@ -222,20 +256,36 @@ namespace FreakySources.GUI
 			Settings.Default.InputCode = tbInput.Text;
 			Settings.Default.OutputTab = tabcOutput.SelectedIndex;
 			Settings.Default.Kernel = tbKernel.Text;
-			var extraParams = new StringBuilder();
+
+			List<List<string>> quineParams = new List<List<string>>();
 			for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
+			{
 				if (!string.IsNullOrEmpty(dgvExtraParams[0, i].Value as string) ||
 					!string.IsNullOrEmpty(dgvExtraParams[1, i].Value as string) ||
 					!string.IsNullOrEmpty(dgvExtraParams[2, i].Value as string) ||
 					!string.IsNullOrEmpty(dgvExtraParams[3, i].Value as string))
 				{
-					extraParams.AppendFormat("{0}~{1}~{2}~{3}|",
+					quineParams.Add(new List<string>()
+					{
 						dgvExtraParams[0, i].Value as string,
 						dgvExtraParams[1, i].Value as string,
 						dgvExtraParams[2, i].Value as string,
-						dgvExtraParams[3, i].Value as string);
+						dgvExtraParams[3, i].Value as string
+					});
 				}
-			Settings.Default.ExtraParams = extraParams.ToString();
+			}
+			
+			var serializer = new XmlSerializer(typeof(List<List<string>>));
+			using (var stream = new MemoryStream())
+			{
+				serializer.Serialize(stream, quineParams);
+				byte[] bytes = new byte[stream.Length];
+				stream.Position = 0;
+				stream.Read(bytes, 0, (int)stream.Length);
+				var quineXml = Encoding.UTF8.GetString(bytes);
+				Settings.Default.ExtraParams = quineXml;
+			}
+
 			Settings.Default.QuineStr = tbQuineStr.Text;
 			Settings.Default.WindowLocation = Location;
 			Settings.Default.WindowSize = Size;
@@ -243,6 +293,11 @@ namespace FreakySources.GUI
 			Settings.Default.MaxLineLength = (int)nudLineLength.Value;
 			Settings.Default.CompressIdentifiers = cbCompressIdentifiers.Checked;
 			Settings.Default.SelectedPattern = cmbPattern.SelectedItem.ToString();
+			Settings.Default.splitContGenWidth = splitContainerGeneral.SplitterDistance;
+			Settings.Default.splitCont1Height = splitContainer1.SplitterDistance;
+			Settings.Default.splitCont2Height = splitContainer2.SplitterDistance;
+			Settings.Default.OutputWordWrap = cbWrapOutput.Checked;
+			Settings.Default.CompilationsCount = (int)nudCompilationsCount.Value;
 			Settings.Default.Save();
 		}
 
@@ -253,11 +308,11 @@ namespace FreakySources.GUI
 
 		private void btnFormatInput_Click(object sender, EventArgs e)
 		{
-
 		}
 
 		private void btnPerformAllSteps_Click(object sender, EventArgs e)
 		{
+			btnReload_Click(sender, e);
 			btnGenerateCode_Click(sender, e);
 			btnGenerateData_Click(sender, e);
 			btnMinifyInput_Click(sender, e);
@@ -269,12 +324,26 @@ namespace FreakySources.GUI
 		{
 			bool input = (sender as Button).Name.Contains("Input");
 			dgvCompileErrors.Rows.Clear();
-			var checkingResults = Checker.Compile(input ? tbInput.Text : tbOutput.Text);
-			foreach (var result in checkingResults)
+			var compileResult = Checker.Compile(input ? tbInput.Text : tbOutput.Text);
+			foreach (var result in compileResult)
 			{
 				if (result.IsError)
 					dgvCompileErrors.Rows.Add(result.FirstErrorLine.ToString(), result.FirstErrorColumn.ToString(),
 						result.Description, input ? "input" : "output");
+			}
+
+			if (!input)
+			{
+				if (compileResult.Count == 1 && compileResult.First().Output != null)
+				{
+					tbConsoleOutput.ResetText();
+					tbConsoleOutput.Text = compileResult.First().Output;
+					if (cbScrollToEnd.Checked)
+					{
+						tbConsoleOutput.VerticalScroll.Value = tbConsoleOutput.VerticalScroll.Maximum;
+						tbConsoleOutput.VerticalScroll.Value = tbConsoleOutput.VerticalScroll.Maximum;
+					}
+				}
 			}
 		}
 
@@ -290,6 +359,28 @@ namespace FreakySources.GUI
 				textBox.Navigate(line);
 				textBox.Selection = new Range(textBox, column - 1, line - 1, column - 1, line - 1);
 				textBox.Focus();
+			}
+		}
+
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			var fileName = cmbPattern.SelectedItem.ToString();
+			if (fileName != "")
+			{
+				File.WriteAllText(Path.Combine(SourcePath, fileName), tbInput.Text);
+			}
+		}
+
+		private void cbWrapOutput_CheckedChanged(object sender, EventArgs e)
+		{
+			tbOutput.WordWrap = cbWrapOutput.Checked;
+		}
+
+		private void btnSaveOutput_Click(object sender, EventArgs e)
+		{
+			if (sfdSaveOutput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				File.WriteAllText(sfdSaveOutput.FileName, tbOutput.Text);
 			}
 		}
 	}

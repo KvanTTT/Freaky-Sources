@@ -4,37 +4,43 @@ using System.Collections.Generic;
 
 namespace Asciimation_1_2
 {
-	class Program
-	{
-		/*$ByteCounts*//*ByteCounts$*/
+    class Program
+    {
+        /*#ByteCounts*//*ByteCounts#*/
 
-		/*$HuffmanTree*//*HuffmanTree$*/
+        /*#HuffmanTree*//*HuffmanTree#*/
 
-		/*$DecodeBase64*//*DecodeBase64$*/
+        /*#DecodeBase64*//*DecodeBase64#*/
 
-		/*$HuffmanRleDecode*//*HuffmanRleDecode$*/
+        /*#HuffmanRleDecode*//*HuffmanRleDecode#*/
 
-		const int FrameHeight = 13;
-		const int FrameWidth = 67;
-		static string HuffmanTable = /*$HuffmanRleTable*/""/*HuffmanRleTable$*/;
-		static string[] Frames = {
-			/*$HuffmanRleFrames*/""/*HuffmanRleFrames$*/
-		};
-		static int CurrentFrame = /*$currentFrame*/0/*currentFrame$*/;
+        /*#Utils*//*Utils#*/
 
-		static void Main()
-		{
-			var decodedTree = new HuffmanTree(DeserializeByteCount(DecodeBase64(HuffmanTable)));
-			var line = Encoding.UTF8.GetString(Decode(decodedTree, DecodeBase64(Frames[CurrentFrame])));
+        const int FrameHeight = 13;
+        const int FrameWidth = 67;
+        static string HuffmanTable = /*%HuffmanRleTable*/""/*HuffmanRleTable%*/;
+        static string[] Frames = {
+            /*%HuffmanRleFrames*/""/*HuffmanRleFrames%*/
+        };
+        static int CurrentFrame = /*$CurrentFrame*/0/*CurrentFrame$*/;
 
-			var output = new StringBuilder("//" + Environment.NewLine);
-			for (int i = 0; i < FrameHeight; i++)
-				output.AppendLine("//	" + line.Substring(i * FrameWidth, FrameWidth));
+        static void Main()
+        {
+            var decodedTree = new HuffmanTree(DeserializeByteCount(Base64.DecodeBase64(HuffmanTable)));
+            var bytes = Decode(decodedTree, Base64.DecodeBase64(Frames[CurrentFrame]));
+            var chars = new char[bytes.Length];
+            for (int i = 0; i < bytes.Length; i++)
+                chars[i] = (char)bytes[i];
+            var line = new string(chars);
 
-			CurrentFrame = (CurrentFrame + 1) % Frames.Length;
+            var output = new StringBuilder("//\r\n");
+            for (int i = 0; i < FrameHeight; i++)
+                output.AppendLine("//   " + line.Substring(i * FrameWidth, FrameWidth));
 
-			/*$print$*/
-		}
-	}
+            CurrentFrame = (CurrentFrame + 1) % Frames.Length;
+
+            /*@*/
+        }
+    }
 }
-/*$output$*/
+/*$Output$*/

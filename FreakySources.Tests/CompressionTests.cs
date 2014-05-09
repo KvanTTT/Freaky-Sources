@@ -72,6 +72,29 @@ namespace FreakySources.Tests
 		}
 
 		[Test]
+		public void RleHuffmanEncodeDecodeWithDifferentLengths()
+		{
+			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Sources\Asciimation.txt"));
+			var bytesFreqs = generator.GetBytesFreqs();
+			var tree = new HuffmanTree(bytesFreqs);
+
+			for (int i = 0; i < generator.Frames.Length; i++)
+			{
+				var frame = generator.Frames[i];
+				var orig = frame.Bytes;
+				
+				int curBit = 0;
+				byte[] bytes = new byte[frame.Bytes.Length * 2];
+				HuffmanRle.Encode(tree, orig, ref curBit, bytes, 8, 4);
+				bytes = bytes.Take((curBit + 7) / 8).ToArray();
+
+				curBit = 0;
+				var decoded = HuffmanRle2.Decode(tree, bytes, ref curBit, frame.Bytes.Length, 8, 4);
+				CollectionAssert.AreEqual(orig, decoded);
+			}
+		}
+
+		[Test]
 		public void ConvertBase64()
 		{
 			var randomAr = new byte[100];
@@ -86,11 +109,11 @@ namespace FreakySources.Tests
 		public void HuffmanRleFull()
 		{
 			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Sources\Asciimation.txt"));
-			var bytesFreqs = generator.GetBytesFreqs(true);
+			var bytesFreqs = generator.GetBytesFreqs(false);
 			var bytes = AsciimationDataGenerator.SerializeByteCount(bytesFreqs);
 			var huffmanTable = Convert.ToBase64String(bytes);
 			var tree = new HuffmanTree(bytesFreqs);
-
+			
 			var encodedTable = Convert.ToBase64String(bytes);
 			var encodedFrames = new List<string>();
 			for (int i = 0; i < generator.Frames.Length; i++)

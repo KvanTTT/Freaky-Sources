@@ -12,10 +12,10 @@
       <Value Profile="(Default)">0</Value>
     </Setting>
     <Setting Name="ExtraParams" Type="System.String" Scope="User">
-      <Value Profile="(Default)">0/*$currentFrame$*/~0/*$currentFrame$*/~currentFrame~0|/*$output$*/~/*$output$*/~output.ToString()~|/*$frames*/~/*frames$*/~frames.ToString()~frames.ToString()|</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="Kernel" Type="System.String" Scope="User">
-      <Value Profile="(Default)">/*print*/</Value>
+      <Value Profile="(Default)">/*@*/</Value>
     </Setting>
     <Setting Name="QuineStr" Type="System.String" Scope="User">
       <Value Profile="(Default)">s</Value>
@@ -40,6 +40,21 @@
     </Setting>
     <Setting Name="SelectedPattern" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="splitContGenWidth" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="splitCont1Height" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="splitCont2Height" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="OutputWordWrap" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="CompilationsCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

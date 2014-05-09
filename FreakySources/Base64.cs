@@ -5,62 +5,59 @@ using System.Text;
 
 namespace FreakySources
 {
+	/*#DecodeBase64*/
+
 	public class Base64
 	{
-		/*$DecodeBase64*/
-		const string Alphabet64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
-
 		public static byte[] DecodeBase64(string str)
 		{
+			var alphabet = new StringBuilder(64);
+			int i = 65;
+			while (i <= 90)
+				alphabet.Append((char)i++);
+			i = 97;
+			while (i <= 122)
+				alphabet.Append((char)i++);
+			i = 48;
+			while (i <= 57)
+				alphabet.Append((char)i++);
+			alphabet.Append('+');
+			alphabet.Append('/');
+			var alp = alphabet.ToString();
+
 			int lastSpecialInd = str.Length;
 			while (str[lastSpecialInd - 1] == '=')
 				lastSpecialInd--;
-			int tailLength = str.Length - lastSpecialInd;
 
-			int resultLength = (str.Length + 3) / 4 * 3 - tailLength;
+			int resultLength = (str.Length + 3) / 4 * 3 - str.Length + lastSpecialInd;
 			byte[] result = new byte[resultLength];
 
-			int length4 = (str.Length - tailLength) / 4;
-			int ind, x1, x2, x3, x4;
-			int srcInd, dstInd;
-			for (ind = 0; ind < length4; ind++)
+			int srcInd = 0, dstInd = 0;
+			while (dstInd < resultLength)
 			{
-				srcInd = ind * 4;
-				dstInd = ind * 3;
-				x1 = Alphabet64.IndexOf(str[srcInd]);
-				x2 = Alphabet64.IndexOf(str[srcInd + 1]);
-				x3 = Alphabet64.IndexOf(str[srcInd + 2]);
-				x4 = Alphabet64.IndexOf(str[srcInd + 3]);
-				result[dstInd] = (byte)((x1 << 2) | ((x2 >> 4) & 0x3));
-				result[dstInd + 1] = (byte)((x2 << 4) | ((x3 >> 2) & 0xF));
-				result[dstInd + 2] = (byte)((x3 << 6) | (x4 & 0x3F));
-			}
-
-			switch (tailLength)
-			{
-				case 2:
-					ind = length4;
-					srcInd = ind * 4;
-					dstInd = ind * 3;
-					x1 = Alphabet64.IndexOf(str[srcInd]);
-					x2 = Alphabet64.IndexOf(str[srcInd + 1]);
-					result[dstInd] = (byte)((x1 << 2) | ((x2 >> 4) & 0x3));
-					break;
-				case 1:
-					ind = length4;
-					srcInd = ind * 4;
-					dstInd = ind * 3;
-					x1 = Alphabet64.IndexOf(str[srcInd]);
-					x2 = Alphabet64.IndexOf(str[srcInd + 1]);
-					x3 = Alphabet64.IndexOf(str[srcInd + 2]);
-					result[dstInd] = (byte)((x1 << 2) | ((x2 >> 4) & 0x3));
-					result[dstInd + 1] = (byte)((x2 << 4) | ((x3 >> 2) & 0xF));
-					break;
+				int x1 = IndexOf(alp, str[srcInd++]);
+				int x2 = IndexOf(alp, str[srcInd++]);
+				result[dstInd++] = (byte)((x1 << 2) | ((x2 >> 4) & 3));
+				if (dstInd < resultLength)
+				{
+					x1 = IndexOf(alp, str[srcInd++]);
+					result[dstInd++] = (byte)((x2 << 4) | ((x1 >> 2) & 15));
+					if (dstInd < resultLength)
+					{
+						x2 = IndexOf(alp, str[srcInd++]);
+						result[dstInd++] = (byte)((x1 << 6) | (x2 & 63));
+					}
+				}
 			}
 
 			return result;
 		}
 
-		/*DecodeBase64$*/
+		private static int IndexOf(string alphabet, char c)
+		{
+			return alphabet.IndexOf(c);
+		}
 	}
+
+	/*DecodeBase64#*/
 }

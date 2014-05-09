@@ -48,7 +48,7 @@ namespace FreakySources
 
 		public QuineGenerator(string strName = "s",
 			string printMethod = "System.Console.Write",
-			string kernelPattern = "/*$print$*/",
+			string kernelPattern = "/*@*/",
 			bool minified = true)
 		{
 			StrName = strName;
@@ -77,7 +77,7 @@ namespace FreakySources
 			{
 				int ind = csharpCode.IndexOf(KernelPattern);
 				int newlineInd = csharpCode.LastIndexOf(Newline, ind);
-				indent = new string('	', ind - newlineInd - Newline.Length);
+				indent = csharpCode.Substring(newlineInd + Newline.Length, ind - newlineInd - Newline.Length);
 			}
 			var existedExtraParams = extraParams.Where(p => csharpCode.IndexOf(p.KeyBegin) != -1);
 

@@ -56,7 +56,8 @@ namespace FreakySources
 				})
 				{
 					GenerateExecutable = true
-				}, new string[]
+				},
+				new string[]
 				{
 					program
 				});
@@ -194,7 +195,7 @@ namespace FreakySources
 		{
 			var minifierOptions = new MinifierOptions(false);
 			minifierOptions.SpacesRemoving = true;
-			minifierOptions.RemoveNamespaces = true;
+			minifierOptions.NamespacesRemoving = true;
 			var minifier = new Minifier(minifierOptions);
 			return minifier.MinifyFromString(csharpCode);
 		}

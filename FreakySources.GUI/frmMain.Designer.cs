@@ -38,10 +38,17 @@
 			this.tbConsoleOutput = new FastColoredTextBoxNS.FastColoredTextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.btnSave = new System.Windows.Forms.Button();
 			this.btnReload = new System.Windows.Forms.Button();
 			this.tbInput = new FastColoredTextBoxNS.FastColoredTextBox();
 			this.cmbPattern = new System.Windows.Forms.ComboBox();
 			this.label7 = new System.Windows.Forms.Label();
+			this.nudCompilationsCount = new System.Windows.Forms.NumericUpDown();
+			this.label9 = new System.Windows.Forms.Label();
+			this.btnSaveOutput = new System.Windows.Forms.Button();
+			this.tbOutputLength = new System.Windows.Forms.TextBox();
+			this.label1 = new System.Windows.Forms.Label();
+			this.cbWrapOutput = new System.Windows.Forms.CheckBox();
 			this.btnPerformAllSteps = new System.Windows.Forms.Button();
 			this.groupBox5 = new System.Windows.Forms.GroupBox();
 			this.lblCompileErrors = new System.Windows.Forms.Label();
@@ -55,13 +62,13 @@
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.btnFormatInput = new System.Windows.Forms.Button();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
-			this.comboBox1 = new System.Windows.Forms.ComboBox();
+			this.label10 = new System.Windows.Forms.Label();
+			this.cmbQuineTypes = new System.Windows.Forms.ComboBox();
 			this.dgvExtraParams = new System.Windows.Forms.DataGridView();
 			this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
 			this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-			this.label4 = new System.Windows.Forms.Label();
 			this.tbKernel = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
@@ -80,8 +87,10 @@
 			this.nudLineLength = new System.Windows.Forms.NumericUpDown();
 			this.btnSaveInput = new System.Windows.Forms.Button();
 			this.cbScrollToEnd = new System.Windows.Forms.CheckBox();
-			this.btnConsoleOutputToInput = new System.Windows.Forms.Button();
-			this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+			this.btnConsoleOutputToOutput = new System.Windows.Forms.Button();
+			this.splitContainerGeneral = new System.Windows.Forms.SplitContainer();
+			this.sfdSaveOutput = new System.Windows.Forms.SaveFileDialog();
+			this.tbCurrentStep = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
 			this.splitContainer2.Panel1.SuspendLayout();
 			this.splitContainer2.Panel2.SuspendLayout();
@@ -97,6 +106,7 @@
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbInput)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudCompilationsCount)).BeginInit();
 			this.groupBox5.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvCompileErrors)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -105,10 +115,10 @@
 			this.groupBox3.SuspendLayout();
 			this.groupBox2.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudLineLength)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
-			this.splitContainer3.Panel1.SuspendLayout();
-			this.splitContainer3.Panel2.SuspendLayout();
-			this.splitContainer3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainerGeneral)).BeginInit();
+			this.splitContainerGeneral.Panel1.SuspendLayout();
+			this.splitContainerGeneral.Panel2.SuspendLayout();
+			this.splitContainerGeneral.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer2
@@ -126,8 +136,8 @@
 			// 
 			this.splitContainer2.Panel2.Controls.Add(this.tbConsoleOutput);
 			this.splitContainer2.Panel2.Controls.Add(this.label3);
-			this.splitContainer2.Size = new System.Drawing.Size(749, 726);
-			this.splitContainer2.SplitterDistance = 446;
+			this.splitContainer2.Size = new System.Drawing.Size(745, 711);
+			this.splitContainer2.SplitterDistance = 436;
 			this.splitContainer2.TabIndex = 17;
 			// 
 			// tabcOutput
@@ -138,7 +148,7 @@
 			this.tabcOutput.Location = new System.Drawing.Point(0, 0);
 			this.tabcOutput.Name = "tabcOutput";
 			this.tabcOutput.SelectedIndex = 0;
-			this.tabcOutput.Size = new System.Drawing.Size(749, 446);
+			this.tabcOutput.Size = new System.Drawing.Size(745, 436);
 			this.tabcOutput.TabIndex = 5;
 			// 
 			// tabPage3
@@ -147,7 +157,7 @@
 			this.tabPage3.Location = new System.Drawing.Point(4, 22);
 			this.tabPage3.Name = "tabPage3";
 			this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage3.Size = new System.Drawing.Size(741, 420);
+			this.tabPage3.Size = new System.Drawing.Size(737, 410);
 			this.tabPage3.TabIndex = 0;
 			this.tabPage3.Text = "Output";
 			this.tabPage3.UseVisualStyleBackColor = true;
@@ -170,7 +180,7 @@
 			this.tbOutput.ReadOnly = true;
 			this.tbOutput.RightBracket = ')';
 			this.tbOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbOutput.Size = new System.Drawing.Size(735, 414);
+			this.tbOutput.Size = new System.Drawing.Size(731, 404);
 			this.tbOutput.TabIndex = 4;
 			this.tbOutput.WordWrap = true;
 			this.tbOutput.Zoom = 100;
@@ -181,7 +191,7 @@
 			this.tabPage4.Location = new System.Drawing.Point(4, 22);
 			this.tabPage4.Name = "tabPage4";
 			this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage4.Size = new System.Drawing.Size(741, 420);
+			this.tabPage4.Size = new System.Drawing.Size(737, 410);
 			this.tabPage4.TabIndex = 1;
 			this.tabPage4.Text = "Formatted Output";
 			this.tabPage4.UseVisualStyleBackColor = true;
@@ -204,7 +214,7 @@
 			this.tbFormattedOutput.ReadOnly = true;
 			this.tbFormattedOutput.RightBracket = ')';
 			this.tbFormattedOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbFormattedOutput.Size = new System.Drawing.Size(735, 414);
+			this.tbFormattedOutput.Size = new System.Drawing.Size(731, 404);
 			this.tbFormattedOutput.TabIndex = 5;
 			this.tbFormattedOutput.Zoom = 100;
 			// 
@@ -228,7 +238,7 @@
 			this.tbConsoleOutput.Paddings = new System.Windows.Forms.Padding(0);
 			this.tbConsoleOutput.ReadOnly = true;
 			this.tbConsoleOutput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbConsoleOutput.Size = new System.Drawing.Size(737, 247);
+			this.tbConsoleOutput.Size = new System.Drawing.Size(733, 242);
 			this.tbConsoleOutput.TabIndex = 28;
 			this.tbConsoleOutput.Zoom = 100;
 			// 
@@ -251,13 +261,22 @@
 			// 
 			// splitContainer1.Panel1
 			// 
+			this.splitContainer1.Panel1.Controls.Add(this.btnSave);
 			this.splitContainer1.Panel1.Controls.Add(this.btnReload);
 			this.splitContainer1.Panel1.Controls.Add(this.tbInput);
 			this.splitContainer1.Panel1.Controls.Add(this.cmbPattern);
 			this.splitContainer1.Panel1.Controls.Add(this.label7);
+			this.splitContainer1.Panel1.Cursor = System.Windows.Forms.Cursors.Default;
 			// 
 			// splitContainer1.Panel2
 			// 
+			this.splitContainer1.Panel2.Controls.Add(this.tbCurrentStep);
+			this.splitContainer1.Panel2.Controls.Add(this.nudCompilationsCount);
+			this.splitContainer1.Panel2.Controls.Add(this.label9);
+			this.splitContainer1.Panel2.Controls.Add(this.btnSaveOutput);
+			this.splitContainer1.Panel2.Controls.Add(this.tbOutputLength);
+			this.splitContainer1.Panel2.Controls.Add(this.label1);
+			this.splitContainer1.Panel2.Controls.Add(this.cbWrapOutput);
 			this.splitContainer1.Panel2.Controls.Add(this.btnPerformAllSteps);
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox5);
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
@@ -266,14 +285,24 @@
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
 			this.splitContainer1.Panel2.Controls.Add(this.btnSaveInput);
 			this.splitContainer1.Panel2.Controls.Add(this.cbScrollToEnd);
-			this.splitContainer1.Panel2.Controls.Add(this.btnConsoleOutputToInput);
-			this.splitContainer1.Size = new System.Drawing.Size(718, 726);
-			this.splitContainer1.SplitterDistance = 212;
+			this.splitContainer1.Panel2.Controls.Add(this.btnConsoleOutputToOutput);
+			this.splitContainer1.Size = new System.Drawing.Size(718, 711);
+			this.splitContainer1.SplitterDistance = 173;
 			this.splitContainer1.TabIndex = 20;
+			// 
+			// btnSave
+			// 
+			this.btnSave.Location = new System.Drawing.Point(304, 4);
+			this.btnSave.Name = "btnSave";
+			this.btnSave.Size = new System.Drawing.Size(75, 23);
+			this.btnSave.TabIndex = 36;
+			this.btnSave.Text = "Save Input";
+			this.btnSave.UseVisualStyleBackColor = true;
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
 			// btnReload
 			// 
-			this.btnReload.Location = new System.Drawing.Point(223, 5);
+			this.btnReload.Location = new System.Drawing.Point(223, 4);
 			this.btnReload.Name = "btnReload";
 			this.btnReload.Size = new System.Drawing.Size(75, 23);
 			this.btnReload.TabIndex = 35;
@@ -300,7 +329,7 @@
 			this.tbInput.Paddings = new System.Windows.Forms.Padding(0);
 			this.tbInput.RightBracket = ')';
 			this.tbInput.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
-			this.tbInput.Size = new System.Drawing.Size(718, 176);
+			this.tbInput.Size = new System.Drawing.Size(718, 137);
 			this.tbInput.TabIndex = 19;
 			this.tbInput.WordWrap = true;
 			this.tbInput.Zoom = 100;
@@ -324,12 +353,82 @@
 			this.label7.TabIndex = 16;
 			this.label7.Text = "Pattern";
 			// 
+			// nudCompilationsCount
+			// 
+			this.nudCompilationsCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.nudCompilationsCount.Location = new System.Drawing.Point(649, 441);
+			this.nudCompilationsCount.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+			this.nudCompilationsCount.Name = "nudCompilationsCount";
+			this.nudCompilationsCount.Size = new System.Drawing.Size(55, 20);
+			this.nudCompilationsCount.TabIndex = 55;
+			this.nudCompilationsCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+			// 
+			// label9
+			// 
+			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label9.AutoSize = true;
+			this.label9.Location = new System.Drawing.Point(541, 443);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(96, 13);
+			this.label9.TabIndex = 54;
+			this.label9.Text = "Compilations count";
+			// 
+			// btnSaveOutput
+			// 
+			this.btnSaveOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSaveOutput.Location = new System.Drawing.Point(569, 334);
+			this.btnSaveOutput.Name = "btnSaveOutput";
+			this.btnSaveOutput.Size = new System.Drawing.Size(137, 25);
+			this.btnSaveOutput.TabIndex = 52;
+			this.btnSaveOutput.Text = "Save Output";
+			this.btnSaveOutput.UseVisualStyleBackColor = true;
+			this.btnSaveOutput.Click += new System.EventHandler(this.btnSaveOutput_Click);
+			// 
+			// tbOutputLength
+			// 
+			this.tbOutputLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbOutputLength.Location = new System.Drawing.Point(619, 365);
+			this.tbOutputLength.Name = "tbOutputLength";
+			this.tbOutputLength.ReadOnly = true;
+			this.tbOutputLength.Size = new System.Drawing.Size(87, 20);
+			this.tbOutputLength.TabIndex = 51;
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(542, 368);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(71, 13);
+			this.label1.TabIndex = 50;
+			this.label1.Text = "Output length";
+			// 
+			// cbWrapOutput
+			// 
+			this.cbWrapOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbWrapOutput.AutoSize = true;
+			this.cbWrapOutput.Location = new System.Drawing.Point(620, 391);
+			this.cbWrapOutput.Name = "cbWrapOutput";
+			this.cbWrapOutput.Size = new System.Drawing.Size(87, 17);
+			this.cbWrapOutput.TabIndex = 49;
+			this.cbWrapOutput.Text = "Wrap Output";
+			this.cbWrapOutput.UseVisualStyleBackColor = true;
+			this.cbWrapOutput.CheckedChanged += new System.EventHandler(this.cbWrapOutput_CheckedChanged);
+			// 
 			// btnPerformAllSteps
 			// 
 			this.btnPerformAllSteps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnPerformAllSteps.Location = new System.Drawing.Point(436, 240);
+			this.btnPerformAllSteps.Location = new System.Drawing.Point(31, 493);
 			this.btnPerformAllSteps.Name = "btnPerformAllSteps";
-			this.btnPerformAllSteps.Size = new System.Drawing.Size(137, 25);
+			this.btnPerformAllSteps.Size = new System.Drawing.Size(122, 25);
 			this.btnPerformAllSteps.TabIndex = 48;
 			this.btnPerformAllSteps.Text = "Perform All Steps";
 			this.btnPerformAllSteps.UseVisualStyleBackColor = true;
@@ -337,6 +436,8 @@
 			// 
 			// groupBox5
 			// 
+			this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox5.Controls.Add(this.lblCompileErrors);
 			this.groupBox5.Controls.Add(this.btnCompileOutput);
 			this.groupBox5.Controls.Add(this.dgvCompileErrors);
@@ -351,11 +452,11 @@
 			// lblCompileErrors
 			// 
 			this.lblCompileErrors.AutoSize = true;
-			this.lblCompileErrors.Location = new System.Drawing.Point(10, 54);
+			this.lblCompileErrors.Location = new System.Drawing.Point(10, 61);
 			this.lblCompileErrors.Name = "lblCompileErrors";
-			this.lblCompileErrors.Size = new System.Drawing.Size(34, 13);
+			this.lblCompileErrors.Size = new System.Drawing.Size(37, 13);
 			this.lblCompileErrors.TabIndex = 50;
-			this.lblCompileErrors.Text = "Errors";
+			this.lblCompileErrors.Text = "Errors:";
 			// 
 			// btnCompileOutput
 			// 
@@ -369,8 +470,8 @@
 			// 
 			// dgvCompileErrors
 			// 
-			this.dgvCompileErrors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+			this.dgvCompileErrors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgvCompileErrors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
 			this.dgvCompileErrors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvCompileErrors.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -378,12 +479,12 @@
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.Column5});
-			this.dgvCompileErrors.Location = new System.Drawing.Point(13, 77);
+			this.dgvCompileErrors.Location = new System.Drawing.Point(13, 91);
 			this.dgvCompileErrors.Name = "dgvCompileErrors";
 			this.dgvCompileErrors.ReadOnly = true;
 			this.dgvCompileErrors.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.dgvCompileErrors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgvCompileErrors.Size = new System.Drawing.Size(264, 115);
+			this.dgvCompileErrors.Size = new System.Drawing.Size(262, 115);
 			this.dgvCompileErrors.TabIndex = 48;
 			this.dgvCompileErrors.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCompileErrors_CellDoubleClick);
 			// 
@@ -447,9 +548,12 @@
 			// 
 			// groupBox4
 			// 
-			this.groupBox4.Controls.Add(this.comboBox1);
+			this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox4.Controls.Add(this.label10);
+			this.groupBox4.Controls.Add(this.cmbQuineTypes);
 			this.groupBox4.Controls.Add(this.dgvExtraParams);
-			this.groupBox4.Controls.Add(this.label4);
 			this.groupBox4.Controls.Add(this.tbKernel);
 			this.groupBox4.Controls.Add(this.label5);
 			this.groupBox4.Controls.Add(this.label2);
@@ -457,24 +561,36 @@
 			this.groupBox4.Controls.Add(this.tbQuineStr);
 			this.groupBox4.Location = new System.Drawing.Point(16, 249);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(401, 249);
+			this.groupBox4.Size = new System.Drawing.Size(399, 238);
 			this.groupBox4.TabIndex = 41;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Quine generation";
 			// 
-			// comboBox1
+			// label10
 			// 
-			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Location = new System.Drawing.Point(274, 26);
-			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(121, 21);
-			this.comboBox1.TabIndex = 26;
+			this.label10.AutoSize = true;
+			this.label10.Location = new System.Drawing.Point(251, 29);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(31, 13);
+			this.label10.TabIndex = 27;
+			this.label10.Text = "Type";
+			// 
+			// cmbQuineTypes
+			// 
+			this.cmbQuineTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbQuineTypes.FormattingEnabled = true;
+			this.cmbQuineTypes.Items.AddRange(new object[] {
+            "Common"});
+			this.cmbQuineTypes.Location = new System.Drawing.Point(288, 26);
+			this.cmbQuineTypes.Name = "cmbQuineTypes";
+			this.cmbQuineTypes.Size = new System.Drawing.Size(105, 21);
+			this.cmbQuineTypes.TabIndex = 26;
 			// 
 			// dgvExtraParams
 			// 
-			this.dgvExtraParams.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+			this.dgvExtraParams.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.dgvExtraParams.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
 			this.dgvExtraParams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 			this.dgvExtraParams.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -482,11 +598,11 @@
             this.Column4,
             this.Column2,
             this.Column3});
-			this.dgvExtraParams.Location = new System.Drawing.Point(14, 64);
+			this.dgvExtraParams.Location = new System.Drawing.Point(14, 53);
 			this.dgvExtraParams.Name = "dgvExtraParams";
 			this.dgvExtraParams.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.dgvExtraParams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-			this.dgvExtraParams.Size = new System.Drawing.Size(381, 148);
+			this.dgvExtraParams.Size = new System.Drawing.Size(379, 148);
 			this.dgvExtraParams.TabIndex = 18;
 			// 
 			// Column1
@@ -513,20 +629,11 @@
 			this.Column3.Name = "Column3";
 			this.Column3.Width = 97;
 			// 
-			// label4
-			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(11, 48);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(39, 13);
-			this.label4.TabIndex = 19;
-			this.label4.Text = "Introns";
-			// 
 			// tbKernel
 			// 
 			this.tbKernel.Location = new System.Drawing.Point(61, 26);
 			this.tbKernel.Name = "tbKernel";
-			this.tbKernel.Size = new System.Drawing.Size(100, 20);
+			this.tbKernel.Size = new System.Drawing.Size(88, 20);
 			this.tbKernel.TabIndex = 21;
 			this.tbKernel.Text = "/*$print$*/";
 			// 
@@ -542,7 +649,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(167, 29);
+			this.label2.Location = new System.Drawing.Point(159, 29);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(20, 13);
 			this.label2.TabIndex = 24;
@@ -551,7 +658,7 @@
 			// btnGenerate
 			// 
 			this.btnGenerate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnGenerate.Location = new System.Drawing.Point(14, 218);
+			this.btnGenerate.Location = new System.Drawing.Point(14, 207);
 			this.btnGenerate.Name = "btnGenerate";
 			this.btnGenerate.Size = new System.Drawing.Size(122, 25);
 			this.btnGenerate.TabIndex = 17;
@@ -561,9 +668,9 @@
 			// 
 			// tbQuineStr
 			// 
-			this.tbQuineStr.Location = new System.Drawing.Point(193, 26);
+			this.tbQuineStr.Location = new System.Drawing.Point(185, 26);
 			this.tbQuineStr.Name = "tbQuineStr";
-			this.tbQuineStr.Size = new System.Drawing.Size(59, 20);
+			this.tbQuineStr.Size = new System.Drawing.Size(50, 20);
 			this.tbQuineStr.TabIndex = 25;
 			this.tbQuineStr.Text = "s";
 			// 
@@ -636,7 +743,7 @@
 			this.cbRemoveSpaces.AutoSize = true;
 			this.cbRemoveSpaces.Checked = true;
 			this.cbRemoveSpaces.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbRemoveSpaces.Location = new System.Drawing.Point(253, 19);
+			this.cbRemoveSpaces.Location = new System.Drawing.Point(258, 20);
 			this.cbRemoveSpaces.Name = "cbRemoveSpaces";
 			this.cbRemoveSpaces.Size = new System.Drawing.Size(105, 17);
 			this.cbRemoveSpaces.TabIndex = 32;
@@ -667,7 +774,7 @@
 			this.cbCompressIdentifiers.AutoSize = true;
 			this.cbCompressIdentifiers.Checked = true;
 			this.cbCompressIdentifiers.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbCompressIdentifiers.Location = new System.Drawing.Point(253, 38);
+			this.cbCompressIdentifiers.Location = new System.Drawing.Point(258, 39);
 			this.cbCompressIdentifiers.Name = "cbCompressIdentifiers";
 			this.cbCompressIdentifiers.Size = new System.Drawing.Size(119, 17);
 			this.cbCompressIdentifiers.TabIndex = 30;
@@ -688,8 +795,7 @@
 			// 
 			// btnSaveInput
 			// 
-			this.btnSaveInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.btnSaveInput.Location = new System.Drawing.Point(423, 473);
+			this.btnSaveInput.Location = new System.Drawing.Point(423, 229);
 			this.btnSaveInput.Name = "btnSaveInput";
 			this.btnSaveInput.Size = new System.Drawing.Size(137, 25);
 			this.btnSaveInput.TabIndex = 33;
@@ -703,47 +809,56 @@
 			this.cbScrollToEnd.AutoSize = true;
 			this.cbScrollToEnd.Checked = true;
 			this.cbScrollToEnd.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbScrollToEnd.Location = new System.Drawing.Point(620, 480);
+			this.cbScrollToEnd.Location = new System.Drawing.Point(618, 505);
 			this.cbScrollToEnd.Name = "cbScrollToEnd";
 			this.cbScrollToEnd.Size = new System.Drawing.Size(86, 17);
 			this.cbScrollToEnd.TabIndex = 26;
 			this.cbScrollToEnd.Text = "Scroll to End";
 			this.cbScrollToEnd.UseVisualStyleBackColor = true;
 			// 
-			// btnConsoleOutputToInput
+			// btnConsoleOutputToOutput
 			// 
-			this.btnConsoleOutputToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnConsoleOutputToInput.Location = new System.Drawing.Point(569, 449);
-			this.btnConsoleOutputToInput.Name = "btnConsoleOutputToInput";
-			this.btnConsoleOutputToInput.Size = new System.Drawing.Size(137, 25);
-			this.btnConsoleOutputToInput.TabIndex = 22;
-			this.btnConsoleOutputToInput.Text = "Console Output -> Output";
-			this.btnConsoleOutputToInput.UseVisualStyleBackColor = true;
-			this.btnConsoleOutputToInput.Click += new System.EventHandler(this.btnConsoleOutputToInput_Click);
+			this.btnConsoleOutputToOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnConsoleOutputToOutput.Location = new System.Drawing.Point(500, 464);
+			this.btnConsoleOutputToOutput.Name = "btnConsoleOutputToOutput";
+			this.btnConsoleOutputToOutput.Size = new System.Drawing.Size(137, 25);
+			this.btnConsoleOutputToOutput.TabIndex = 22;
+			this.btnConsoleOutputToOutput.Text = "Console Output -> Output";
+			this.btnConsoleOutputToOutput.UseVisualStyleBackColor = true;
+			this.btnConsoleOutputToOutput.Click += new System.EventHandler(this.btnConsoleOutputToOutput_Click);
 			// 
-			// splitContainer3
+			// splitContainerGeneral
 			// 
-			this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-			this.splitContainer3.Name = "splitContainer3";
+			this.splitContainerGeneral.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainerGeneral.Location = new System.Drawing.Point(0, 0);
+			this.splitContainerGeneral.Name = "splitContainerGeneral";
 			// 
-			// splitContainer3.Panel1
+			// splitContainerGeneral.Panel1
 			// 
-			this.splitContainer3.Panel1.Controls.Add(this.splitContainer1);
+			this.splitContainerGeneral.Panel1.Controls.Add(this.splitContainer1);
 			// 
-			// splitContainer3.Panel2
+			// splitContainerGeneral.Panel2
 			// 
-			this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
-			this.splitContainer3.Size = new System.Drawing.Size(1471, 726);
-			this.splitContainer3.SplitterDistance = 718;
-			this.splitContainer3.TabIndex = 21;
+			this.splitContainerGeneral.Panel2.Controls.Add(this.splitContainer2);
+			this.splitContainerGeneral.Size = new System.Drawing.Size(1467, 711);
+			this.splitContainerGeneral.SplitterDistance = 718;
+			this.splitContainerGeneral.TabIndex = 21;
+			// 
+			// tbCurrentStep
+			// 
+			this.tbCurrentStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbCurrentStep.Location = new System.Drawing.Point(649, 467);
+			this.tbCurrentStep.Name = "tbCurrentStep";
+			this.tbCurrentStep.ReadOnly = true;
+			this.tbCurrentStep.Size = new System.Drawing.Size(55, 20);
+			this.tbCurrentStep.TabIndex = 56;
 			// 
 			// frmMain
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(1471, 726);
-			this.Controls.Add(this.splitContainer3);
+			this.ClientSize = new System.Drawing.Size(1467, 711);
+			this.Controls.Add(this.splitContainerGeneral);
 			this.Name = "frmMain";
 			this.Text = "Freaky Sources";
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmMain_FormClosed);
@@ -765,6 +880,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.tbInput)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.nudCompilationsCount)).EndInit();
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvCompileErrors)).EndInit();
@@ -777,10 +893,10 @@
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudLineLength)).EndInit();
-			this.splitContainer3.Panel1.ResumeLayout(false);
-			this.splitContainer3.Panel2.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
-			this.splitContainer3.ResumeLayout(false);
+			this.splitContainerGeneral.Panel1.ResumeLayout(false);
+			this.splitContainerGeneral.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainerGeneral)).EndInit();
+			this.splitContainerGeneral.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -796,13 +912,12 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private FastColoredTextBoxNS.FastColoredTextBox tbInput;
-		private System.Windows.Forms.Button btnConsoleOutputToInput;
+		private System.Windows.Forms.Button btnConsoleOutputToOutput;
 		private System.Windows.Forms.TextBox tbKernel;
 		private System.Windows.Forms.Label label5;
-		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.DataGridView dgvExtraParams;
 		private System.Windows.Forms.Button btnGenerate;
-		private System.Windows.Forms.SplitContainer splitContainer3;
+		private System.Windows.Forms.SplitContainer splitContainerGeneral;
 		private System.Windows.Forms.Button btnMinifyInput;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
@@ -826,7 +941,7 @@
 		private System.Windows.Forms.GroupBox groupBox3;
 		private System.Windows.Forms.GroupBox groupBox2;
 		private System.Windows.Forms.GroupBox groupBox4;
-		private System.Windows.Forms.ComboBox comboBox1;
+		private System.Windows.Forms.ComboBox cmbQuineTypes;
 		private System.Windows.Forms.Button btnReload;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.Button btnFormatInput;
@@ -840,6 +955,16 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+		private System.Windows.Forms.Button btnSave;
+		private System.Windows.Forms.CheckBox cbWrapOutput;
+		private System.Windows.Forms.TextBox tbOutputLength;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button btnSaveOutput;
+		private System.Windows.Forms.SaveFileDialog sfdSaveOutput;
+		private System.Windows.Forms.NumericUpDown nudCompilationsCount;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.TextBox tbCurrentStep;
 
 	}
 }

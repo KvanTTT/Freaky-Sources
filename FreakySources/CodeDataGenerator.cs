@@ -42,6 +42,8 @@ namespace FreakySources
 		private const int SpacesInTab = 4;
 		private static string TabSpaces = new string(' ', SpacesInTab);
 		private List<string> Codes;
+		private string IgnoreBegin = "/*#Ignore*/";
+		private string IgnoreEnd = "/*Ignore#*/";
 
 		public bool SaveKeys
 		{
@@ -55,13 +57,13 @@ namespace FreakySources
 			set;
 		}
 
-		public string KeyBeginPattern
+		public string CodeKeyBeginPattern
 		{
 			get;
 			set;
 		}
 
-		public string KeyEndPattern
+		public string CodeKeyEndPattern
 		{
 			get;
 			set;
@@ -74,18 +76,18 @@ namespace FreakySources
 			foreach (var file in files)
 				Codes.Add(File.ReadAllText(file));
 
-			KeyBeginPattern = @"\/\*\$(\w+)\*\/";
-			KeyEndPattern = @"\/\*(\w+)\$\*\/";
+			CodeKeyBeginPattern = @"\/\*\#(\w+)\*\/";
+			CodeKeyEndPattern = @"\/\*(\w+)\#\*\/";
 		}
 
 		public string SubstituteCode(string source)
 		{
 			var codeDataGeneratorParams = new List<CodeDataGeneratorParam>();
 
-			var matches = Regex.Matches(source, KeyBeginPattern);
+			var matches = Regex.Matches(source, CodeKeyBeginPattern);
 			foreach (Match match in matches)
 			{
-				var endMatch = Regex.Unescape(KeyEndPattern.Replace(@"(\w+)", match.Groups[1].Value));
+				var endMatch = Regex.Unescape(CodeKeyEndPattern.Replace(@"(\w+)", match.Groups[1].Value));
 				codeDataGeneratorParams.Add(new CodeDataGeneratorParam(match.Value, endMatch));
 			}
 
@@ -93,6 +95,7 @@ namespace FreakySources
 			foreach (var p in codeDataGeneratorParams)
 			{
 				var code = SearchCode(p);
+				code = RemoveIgnoreSection(code);
 				SubstituteParam(result, new CodeDataGeneratorParam(p.KeyBegin, p.KeyEnd, code));
 			}
 			return result.ToString();
@@ -144,7 +147,6 @@ namespace FreakySources
 			if (ind > 0)
 			{
 				int i = ind - 1;
-				bool b = char.IsWhiteSpace('\n');
 				while (i >= 0 && char.IsWhiteSpace(source[i]) && source[i] != '\n' && source[i] != '\r')
 					i--;
 				sourceIndents = source.GetSubstring(i + 1, ind - (i + 1)).ToString();
@@ -200,10 +202,41 @@ namespace FreakySources
 						i--;
 					beginInd = i + 1;
 					int endInd = code.IndexOf(param.KeyEnd, beginInd);
-					return code.Substring(beginInd, endInd - beginInd).TrimEnd();
+					if (endInd != -1)
+						return code.Substring(beginInd, endInd - beginInd).TrimEnd();
 				}
 			}
 			return null;
+		}
+
+		private string RemoveIgnoreSection(string code)
+		{
+			if (code == null)
+				return null;
+
+			int beginInd = code.IndexOf(IgnoreBegin);
+			while (beginInd != -1)
+			{
+				int endInd = code.IndexOf(IgnoreEnd, beginInd);
+				if (endInd != -1)
+				{
+					endInd += IgnoreEnd.Length;
+					while (endInd < code.Length && char.IsWhiteSpace(code[endInd]))
+						endInd++;
+					endInd--;
+					while (endInd >= 0 && char.IsWhiteSpace(code[endInd]) && code[endInd] != '\r' && code[endInd] != '\n')
+						endInd--;
+
+					beginInd--;
+					while (beginInd >= 0 && char.IsWhiteSpace(code[beginInd]) && code[beginInd] != '\r' && code[beginInd] != '\n')
+						beginInd--;
+
+					code = code.Remove(beginInd, endInd - beginInd);
+				}
+
+				beginInd = code.IndexOf(IgnoreBegin);
+			}
+			return code;
 		}
 	}
 }

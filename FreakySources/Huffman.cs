@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FreakySources
 {
-	/*$HuffmanTree*/
+	/*#HuffmanTree*/
 
 	public class ByteCount
 	{
@@ -20,7 +20,7 @@ namespace FreakySources
 
 	public class CompressedByte
 	{
-		public uint Value;
+		public int Value;
 		public int Length;
 
 		public CompressedByte()
@@ -117,17 +117,16 @@ namespace FreakySources
 		private void CalculateBytes()
 		{
 			CompressedBytes = new Dictionary<int, CompressedByte>();
-			var compressedByte = new CompressedByte();
 			TraverseTree(Root, 0, 0);
 		}
 
-		private void TraverseTree(HuffmanTreeNode node, int length, uint value)
+		private void TraverseTree(HuffmanTreeNode node, int length, int value)
 		{
 			if (node.Left != null)
 			{
 				length++;
 				TraverseTree(node.Left, length, value);
-				value |= (uint)(1 << (length - 1));
+				value |= (1 << (length - 1));
 				TraverseTree(node.Right, length, value);
 			}
 			else
@@ -135,5 +134,5 @@ namespace FreakySources
 		}
 	}
 
-	/*HuffmanTree$*/
+	/*HuffmanTree#*/
 }
