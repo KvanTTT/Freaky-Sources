@@ -8,7 +8,7 @@ Collection of freaky sources written on C# (mostly quines in different forms).
 * Multi Line Comment Palindrome Quine.
 * Asciimationa Quine (Used data from http://asciimation.co.nz/ by Simon Jansen © 1997 - 2011).
 
-![Star wars in source code](http://habrastorage.org/getpro/habr/post_images/e08/393/bed/e08393bed8a7a465bccbd5b8a9bc9eec.png)
+![Star wars in source code](http://habrastorage.org/getpro/habr/post_images/57d/e67/628/57de6762827e000614ac24b327dbf6a7.png)
 
 
 ##Implemention detail
