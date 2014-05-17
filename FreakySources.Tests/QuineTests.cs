@@ -15,7 +15,7 @@ namespace FreakySources.Tests
 		public void SimpleProgram()
 		{
 			string simpleProgram = "class P{static void Main(){}}";
-			var checkingResult = Checker.Compile(simpleProgram);
+			var checkingResult = Checker.CompileAndRun(simpleProgram);
 			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
 		}
 

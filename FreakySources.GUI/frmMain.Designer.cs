@@ -43,8 +43,15 @@
 			this.tbInput = new FastColoredTextBoxNS.FastColoredTextBox();
 			this.cmbPattern = new System.Windows.Forms.ComboBox();
 			this.label7 = new System.Windows.Forms.Label();
+			this.groupBox7 = new System.Windows.Forms.GroupBox();
+			this.tbCurrentStep = new System.Windows.Forms.TextBox();
 			this.nudCompilationsCount = new System.Windows.Forms.NumericUpDown();
 			this.label9 = new System.Windows.Forms.Label();
+			this.cbScrollToEnd = new System.Windows.Forms.CheckBox();
+			this.btnConsoleOutputToOutput = new System.Windows.Forms.Button();
+			this.groupBox6 = new System.Windows.Forms.GroupBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.nudRepeatCount = new System.Windows.Forms.NumericUpDown();
 			this.btnSaveOutput = new System.Windows.Forms.Button();
 			this.tbOutputLength = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
@@ -86,11 +93,8 @@
 			this.cbCompressIdentifiers = new System.Windows.Forms.CheckBox();
 			this.nudLineLength = new System.Windows.Forms.NumericUpDown();
 			this.btnSaveInput = new System.Windows.Forms.Button();
-			this.cbScrollToEnd = new System.Windows.Forms.CheckBox();
-			this.btnConsoleOutputToOutput = new System.Windows.Forms.Button();
 			this.splitContainerGeneral = new System.Windows.Forms.SplitContainer();
 			this.sfdSaveOutput = new System.Windows.Forms.SaveFileDialog();
-			this.tbCurrentStep = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
 			this.splitContainer2.Panel1.SuspendLayout();
 			this.splitContainer2.Panel2.SuspendLayout();
@@ -106,7 +110,10 @@
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tbInput)).BeginInit();
+			this.groupBox7.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudCompilationsCount)).BeginInit();
+			this.groupBox6.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.nudRepeatCount)).BeginInit();
 			this.groupBox5.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvCompileErrors)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -248,9 +255,9 @@
 			this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 			this.label3.Location = new System.Drawing.Point(5, 6);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(80, 13);
+			this.label3.Size = new System.Drawing.Size(94, 13);
 			this.label3.TabIndex = 4;
-			this.label3.Text = "Console Output";
+			this.label3.Text = "Compilation Result";
 			// 
 			// splitContainer1
 			// 
@@ -270,13 +277,8 @@
 			// 
 			// splitContainer1.Panel2
 			// 
-			this.splitContainer1.Panel2.Controls.Add(this.tbCurrentStep);
-			this.splitContainer1.Panel2.Controls.Add(this.nudCompilationsCount);
-			this.splitContainer1.Panel2.Controls.Add(this.label9);
-			this.splitContainer1.Panel2.Controls.Add(this.btnSaveOutput);
-			this.splitContainer1.Panel2.Controls.Add(this.tbOutputLength);
-			this.splitContainer1.Panel2.Controls.Add(this.label1);
-			this.splitContainer1.Panel2.Controls.Add(this.cbWrapOutput);
+			this.splitContainer1.Panel2.Controls.Add(this.groupBox7);
+			this.splitContainer1.Panel2.Controls.Add(this.groupBox6);
 			this.splitContainer1.Panel2.Controls.Add(this.btnPerformAllSteps);
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox5);
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
@@ -284,8 +286,6 @@
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox3);
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
 			this.splitContainer1.Panel2.Controls.Add(this.btnSaveInput);
-			this.splitContainer1.Panel2.Controls.Add(this.cbScrollToEnd);
-			this.splitContainer1.Panel2.Controls.Add(this.btnConsoleOutputToOutput);
 			this.splitContainer1.Size = new System.Drawing.Size(718, 711);
 			this.splitContainer1.SplitterDistance = 173;
 			this.splitContainer1.TabIndex = 20;
@@ -353,18 +353,45 @@
 			this.label7.TabIndex = 16;
 			this.label7.Text = "Pattern";
 			// 
+			// groupBox7
+			// 
+			this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox7.Controls.Add(this.tbCurrentStep);
+			this.groupBox7.Controls.Add(this.nudCompilationsCount);
+			this.groupBox7.Controls.Add(this.label9);
+			this.groupBox7.Controls.Add(this.cbScrollToEnd);
+			this.groupBox7.Controls.Add(this.btnConsoleOutputToOutput);
+			this.groupBox7.Location = new System.Drawing.Point(423, 327);
+			this.groupBox7.Name = "groupBox7";
+			this.groupBox7.Size = new System.Drawing.Size(283, 115);
+			this.groupBox7.TabIndex = 28;
+			this.groupBox7.TabStop = false;
+			this.groupBox7.Text = "Compilation Result";
+			// 
+			// tbCurrentStep
+			// 
+			this.tbCurrentStep.Location = new System.Drawing.Point(158, 50);
+			this.tbCurrentStep.Name = "tbCurrentStep";
+			this.tbCurrentStep.ReadOnly = true;
+			this.tbCurrentStep.Size = new System.Drawing.Size(55, 20);
+			this.tbCurrentStep.TabIndex = 61;
+			// 
 			// nudCompilationsCount
 			// 
-			this.nudCompilationsCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.nudCompilationsCount.Location = new System.Drawing.Point(649, 441);
+			this.nudCompilationsCount.Location = new System.Drawing.Point(120, 21);
 			this.nudCompilationsCount.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
+			this.nudCompilationsCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			this.nudCompilationsCount.Name = "nudCompilationsCount";
 			this.nudCompilationsCount.Size = new System.Drawing.Size(55, 20);
-			this.nudCompilationsCount.TabIndex = 55;
+			this.nudCompilationsCount.TabIndex = 60;
 			this.nudCompilationsCount.Value = new decimal(new int[] {
             1,
             0,
@@ -373,55 +400,113 @@
 			// 
 			// label9
 			// 
-			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label9.AutoSize = true;
-			this.label9.Location = new System.Drawing.Point(541, 443);
+			this.label9.Location = new System.Drawing.Point(12, 23);
 			this.label9.Name = "label9";
 			this.label9.Size = new System.Drawing.Size(96, 13);
-			this.label9.TabIndex = 54;
+			this.label9.TabIndex = 59;
 			this.label9.Text = "Compilations count";
+			// 
+			// cbScrollToEnd
+			// 
+			this.cbScrollToEnd.AutoSize = true;
+			this.cbScrollToEnd.Checked = true;
+			this.cbScrollToEnd.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbScrollToEnd.Location = new System.Drawing.Point(15, 84);
+			this.cbScrollToEnd.Name = "cbScrollToEnd";
+			this.cbScrollToEnd.Size = new System.Drawing.Size(86, 17);
+			this.cbScrollToEnd.TabIndex = 58;
+			this.cbScrollToEnd.Text = "Scroll to End";
+			this.cbScrollToEnd.UseVisualStyleBackColor = true;
+			// 
+			// btnConsoleOutputToOutput
+			// 
+			this.btnConsoleOutputToOutput.Location = new System.Drawing.Point(15, 47);
+			this.btnConsoleOutputToOutput.Name = "btnConsoleOutputToOutput";
+			this.btnConsoleOutputToOutput.Size = new System.Drawing.Size(137, 25);
+			this.btnConsoleOutputToOutput.TabIndex = 57;
+			this.btnConsoleOutputToOutput.Text = "Console Output -> Output";
+			this.btnConsoleOutputToOutput.UseVisualStyleBackColor = true;
+			this.btnConsoleOutputToOutput.Click += new System.EventHandler(this.btnConsoleOutputToOutput_Click);
+			// 
+			// groupBox6
+			// 
+			this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBox6.Controls.Add(this.label4);
+			this.groupBox6.Controls.Add(this.nudRepeatCount);
+			this.groupBox6.Controls.Add(this.btnSaveOutput);
+			this.groupBox6.Controls.Add(this.tbOutputLength);
+			this.groupBox6.Controls.Add(this.label1);
+			this.groupBox6.Controls.Add(this.cbWrapOutput);
+			this.groupBox6.Location = new System.Drawing.Point(423, 229);
+			this.groupBox6.Name = "groupBox6";
+			this.groupBox6.Size = new System.Drawing.Size(283, 92);
+			this.groupBox6.TabIndex = 58;
+			this.groupBox6.TabStop = false;
+			this.groupBox6.Text = "Output";
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(10, 52);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(73, 13);
+			this.label4.TabIndex = 63;
+			this.label4.Text = "Repeat Count";
+			// 
+			// nudRepeatCount
+			// 
+			this.nudRepeatCount.Location = new System.Drawing.Point(87, 50);
+			this.nudRepeatCount.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+			this.nudRepeatCount.Name = "nudRepeatCount";
+			this.nudRepeatCount.Size = new System.Drawing.Size(55, 20);
+			this.nudRepeatCount.TabIndex = 62;
+			this.nudRepeatCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
 			// 
 			// btnSaveOutput
 			// 
-			this.btnSaveOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSaveOutput.Location = new System.Drawing.Point(569, 334);
+			this.btnSaveOutput.Location = new System.Drawing.Point(158, 46);
 			this.btnSaveOutput.Name = "btnSaveOutput";
-			this.btnSaveOutput.Size = new System.Drawing.Size(137, 25);
-			this.btnSaveOutput.TabIndex = 52;
+			this.btnSaveOutput.Size = new System.Drawing.Size(111, 25);
+			this.btnSaveOutput.TabIndex = 61;
 			this.btnSaveOutput.Text = "Save Output";
 			this.btnSaveOutput.UseVisualStyleBackColor = true;
 			this.btnSaveOutput.Click += new System.EventHandler(this.btnSaveOutput_Click);
 			// 
 			// tbOutputLength
 			// 
-			this.tbOutputLength.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbOutputLength.Location = new System.Drawing.Point(619, 365);
+			this.tbOutputLength.Location = new System.Drawing.Point(89, 17);
 			this.tbOutputLength.Name = "tbOutputLength";
 			this.tbOutputLength.ReadOnly = true;
 			this.tbOutputLength.Size = new System.Drawing.Size(87, 20);
-			this.tbOutputLength.TabIndex = 51;
+			this.tbOutputLength.TabIndex = 60;
 			// 
 			// label1
 			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(542, 368);
+			this.label1.Location = new System.Drawing.Point(12, 20);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(71, 13);
-			this.label1.TabIndex = 50;
+			this.label1.TabIndex = 59;
 			this.label1.Text = "Output length";
 			// 
 			// cbWrapOutput
 			// 
-			this.cbWrapOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.cbWrapOutput.AutoSize = true;
-			this.cbWrapOutput.Location = new System.Drawing.Point(620, 391);
+			this.cbWrapOutput.Location = new System.Drawing.Point(182, 20);
 			this.cbWrapOutput.Name = "cbWrapOutput";
 			this.cbWrapOutput.Size = new System.Drawing.Size(87, 17);
-			this.cbWrapOutput.TabIndex = 49;
+			this.cbWrapOutput.TabIndex = 58;
 			this.cbWrapOutput.Text = "Wrap Output";
 			this.cbWrapOutput.UseVisualStyleBackColor = true;
-			this.cbWrapOutput.CheckedChanged += new System.EventHandler(this.cbWrapOutput_CheckedChanged);
 			// 
 			// btnPerformAllSteps
 			// 
@@ -635,7 +720,7 @@
 			this.tbKernel.Name = "tbKernel";
 			this.tbKernel.Size = new System.Drawing.Size(88, 20);
 			this.tbKernel.TabIndex = 21;
-			this.tbKernel.Text = "/*$print$*/";
+			this.tbKernel.Text = "/*@*/";
 			// 
 			// label5
 			// 
@@ -784,6 +869,11 @@
 			// nudLineLength
 			// 
 			this.nudLineLength.Location = new System.Drawing.Point(159, 36);
+			this.nudLineLength.Minimum = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
 			this.nudLineLength.Name = "nudLineLength";
 			this.nudLineLength.Size = new System.Drawing.Size(85, 20);
 			this.nudLineLength.TabIndex = 31;
@@ -795,37 +885,14 @@
 			// 
 			// btnSaveInput
 			// 
-			this.btnSaveInput.Location = new System.Drawing.Point(423, 229);
+			this.btnSaveInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnSaveInput.Location = new System.Drawing.Point(164, 493);
 			this.btnSaveInput.Name = "btnSaveInput";
 			this.btnSaveInput.Size = new System.Drawing.Size(137, 25);
 			this.btnSaveInput.TabIndex = 33;
 			this.btnSaveInput.Text = "Save Settings";
 			this.btnSaveInput.UseVisualStyleBackColor = true;
 			this.btnSaveInput.Click += new System.EventHandler(this.btnSaveInput_Click);
-			// 
-			// cbScrollToEnd
-			// 
-			this.cbScrollToEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.cbScrollToEnd.AutoSize = true;
-			this.cbScrollToEnd.Checked = true;
-			this.cbScrollToEnd.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbScrollToEnd.Location = new System.Drawing.Point(618, 505);
-			this.cbScrollToEnd.Name = "cbScrollToEnd";
-			this.cbScrollToEnd.Size = new System.Drawing.Size(86, 17);
-			this.cbScrollToEnd.TabIndex = 26;
-			this.cbScrollToEnd.Text = "Scroll to End";
-			this.cbScrollToEnd.UseVisualStyleBackColor = true;
-			// 
-			// btnConsoleOutputToOutput
-			// 
-			this.btnConsoleOutputToOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnConsoleOutputToOutput.Location = new System.Drawing.Point(500, 464);
-			this.btnConsoleOutputToOutput.Name = "btnConsoleOutputToOutput";
-			this.btnConsoleOutputToOutput.Size = new System.Drawing.Size(137, 25);
-			this.btnConsoleOutputToOutput.TabIndex = 22;
-			this.btnConsoleOutputToOutput.Text = "Console Output -> Output";
-			this.btnConsoleOutputToOutput.UseVisualStyleBackColor = true;
-			this.btnConsoleOutputToOutput.Click += new System.EventHandler(this.btnConsoleOutputToOutput_Click);
 			// 
 			// splitContainerGeneral
 			// 
@@ -843,15 +910,6 @@
 			this.splitContainerGeneral.Size = new System.Drawing.Size(1467, 711);
 			this.splitContainerGeneral.SplitterDistance = 718;
 			this.splitContainerGeneral.TabIndex = 21;
-			// 
-			// tbCurrentStep
-			// 
-			this.tbCurrentStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbCurrentStep.Location = new System.Drawing.Point(649, 467);
-			this.tbCurrentStep.Name = "tbCurrentStep";
-			this.tbCurrentStep.ReadOnly = true;
-			this.tbCurrentStep.Size = new System.Drawing.Size(55, 20);
-			this.tbCurrentStep.TabIndex = 56;
 			// 
 			// frmMain
 			// 
@@ -876,11 +934,15 @@
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel1.PerformLayout();
 			this.splitContainer1.Panel2.ResumeLayout(false);
-			this.splitContainer1.Panel2.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.tbInput)).EndInit();
+			this.groupBox7.ResumeLayout(false);
+			this.groupBox7.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.nudCompilationsCount)).EndInit();
+			this.groupBox6.ResumeLayout(false);
+			this.groupBox6.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.nudRepeatCount)).EndInit();
 			this.groupBox5.ResumeLayout(false);
 			this.groupBox5.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dgvCompileErrors)).EndInit();
@@ -912,7 +974,6 @@
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private FastColoredTextBoxNS.FastColoredTextBox tbInput;
-		private System.Windows.Forms.Button btnConsoleOutputToOutput;
 		private System.Windows.Forms.TextBox tbKernel;
 		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.DataGridView dgvExtraParams;
@@ -925,7 +986,6 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
 		private System.Windows.Forms.TextBox tbQuineStr;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.CheckBox cbScrollToEnd;
 		private System.Windows.Forms.Button btnGenerateData;
 		private FastColoredTextBoxNS.FastColoredTextBox tbConsoleOutput;
 		private System.Windows.Forms.NumericUpDown nudLineLength;
@@ -956,15 +1016,21 @@
 		private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
 		private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
 		private System.Windows.Forms.Button btnSave;
-		private System.Windows.Forms.CheckBox cbWrapOutput;
-		private System.Windows.Forms.TextBox tbOutputLength;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button btnSaveOutput;
 		private System.Windows.Forms.SaveFileDialog sfdSaveOutput;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.GroupBox groupBox7;
+		private System.Windows.Forms.TextBox tbCurrentStep;
 		private System.Windows.Forms.NumericUpDown nudCompilationsCount;
 		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.TextBox tbCurrentStep;
+		private System.Windows.Forms.CheckBox cbScrollToEnd;
+		private System.Windows.Forms.Button btnConsoleOutputToOutput;
+		private System.Windows.Forms.GroupBox groupBox6;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.NumericUpDown nudRepeatCount;
+		private System.Windows.Forms.Button btnSaveOutput;
+		private System.Windows.Forms.TextBox tbOutputLength;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.CheckBox cbWrapOutput;
 
 	}
 }

@@ -27,7 +27,7 @@ namespace FreakySources
 
 		public static List<CheckingResult> CheckQuineProgram(string program)
 		{
-			var compileResult = Compile(program);
+			var compileResult = CompileAndRun(program);
 			if (compileResult.Count == 1 && compileResult[0].Output != null)
 				return new List<CheckingResult>() {
 					CompareStrings(program, compileResult[0].Output)
@@ -40,41 +40,17 @@ namespace FreakySources
 		{
 			var checkPalindromeResult = CheckPalindrome(program);
 			if (!checkPalindromeResult.IsError)
-				return Compile(program);
+				return CompileAndRun(program);
 			else
 				return new List<CheckingResult>() { checkPalindromeResult };
 		}
 
-		public static List<CheckingResult> Compile(string program)
+		public static List<CheckingResult> CompileAndRun(string program)
 		{
-			CompilerResults compilerResults = null;
-			using (CSharpCodeProvider provider = new CSharpCodeProvider())
-			{
-				compilerResults = provider.CompileAssemblyFromSource(new CompilerParameters(new string[]
-				{
-					"System.dll"
-				})
-				{
-					GenerateExecutable = true
-				},
-				new string[]
-				{
-					program
-				});
-			}
-			List<CheckingResult> result = new List<CheckingResult>();
-			if (compilerResults.Errors.HasErrors)
-			{
-				for (int i = 0; i < compilerResults.Errors.Count; i++)
-					result.Add(new CheckingResult
-					{
-						FirstErrorLine = compilerResults.Errors[i].Line,
-						FirstErrorColumn = compilerResults.Errors[i].Column,
-						Output = null,
-						Description = compilerResults.Errors[i].ErrorText
-					});
-			}
-			else
+			CompilerResults compilerResults;
+			var result = Compile(program, out compilerResults);
+
+			if (!compilerResults.Errors.HasErrors)
 			{
 				try
 				{
@@ -113,6 +89,45 @@ namespace FreakySources
 						Description = ex.Message
 					});
 				}
+			}
+
+			return result;
+		}
+
+		public static List<CheckingResult> Compile(string program)
+		{
+			CompilerResults compilerResults;
+			return Compile(program, out compilerResults);
+		}
+
+		public static List<CheckingResult> Compile(string program, out CompilerResults compilerResults)
+		{
+			compilerResults = null;
+			using (var provider = new CSharpCodeProvider())
+			{
+				compilerResults = provider.CompileAssemblyFromSource(new CompilerParameters(new string[]
+				{
+					"System.dll"
+				})
+				{
+					GenerateExecutable = true
+				},
+				new string[]
+				{
+					program
+				});
+			}
+			var result = new List<CheckingResult>();
+			if (compilerResults.Errors.HasErrors)
+			{
+				for (int i = 0; i < compilerResults.Errors.Count; i++)
+					result.Add(new CheckingResult
+					{
+						FirstErrorLine = compilerResults.Errors[i].Line,
+						FirstErrorColumn = compilerResults.Errors[i].Column,
+						Output = null,
+						Description = compilerResults.Errors[i].ErrorText
+					});
 			}
 			return result;
 		}

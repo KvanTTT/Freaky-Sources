@@ -104,7 +104,7 @@ namespace FreakySources.GUI
 			{
 				tbCurrentStep.Text = i.ToString();
 				Application.DoEvents();
-				var compileResult = Checker.Compile(output);
+				var compileResult = Checker.CompileAndRun(output);
 				if (compileResult.Count == 1 && !compileResult.First().IsError)
 					output = compileResult.First().Output;
 				else
@@ -242,6 +242,7 @@ namespace FreakySources.GUI
 				tbOutput.Text = tbConsoleOutput.Text = tbFormattedOutput.Text = "";
 				dgvCompileErrors.Rows.Clear();
 				tbCurrentStep.Clear();
+				nudRepeatCount.Value = 1;
 				MinifiedInput = false;
 			}
 		}
@@ -324,7 +325,12 @@ namespace FreakySources.GUI
 		{
 			bool input = (sender as Button).Name.Contains("Input");
 			dgvCompileErrors.Rows.Clear();
-			var compileResult = Checker.Compile(input ? tbInput.Text : tbOutput.Text);
+			List<CheckingResult> compileResult;
+			if (input)
+				compileResult = Checker.Compile(tbInput.Text);
+			else
+				compileResult = Checker.CompileAndRun(tbOutput.Text);
+
 			foreach (var result in compileResult)
 			{
 				if (result.IsError)
@@ -378,9 +384,43 @@ namespace FreakySources.GUI
 
 		private void btnSaveOutput_Click(object sender, EventArgs e)
 		{
+			sfdSaveOutput.FileName = cmbPattern.SelectedItem.ToString();
 			if (sfdSaveOutput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				File.WriteAllText(sfdSaveOutput.FileName, tbOutput.Text);
+				var filenameWithoutExtension = Path.GetFileNameWithoutExtension(sfdSaveOutput.FileName);
+				var filenameCs = filenameWithoutExtension + ".cs";
+				var batchFileName = Path.Combine(Path.GetDirectoryName(sfdSaveOutput.FileName),
+					filenameWithoutExtension + ".bat");
+				string batchFileContent;
+				string compilatorPath = @"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe";
+				
+				batchFileContent = string.Format("\"{0}\" {1} && ({2} > {1}) && {2}", compilatorPath, filenameCs, filenameWithoutExtension);
+				if (nudRepeatCount.Value == 1)
+				{
+					batchFileContent += Environment.NewLine + "pause";
+				}
+				else
+				{
+					var sb = new StringBuilder();
+					sb.AppendLine("echo off");
+					if (nudRepeatCount.Value != 0)
+						sb.AppendLine("set /a i=0");
+					sb.AppendLine();
+					sb.AppendLine(":LOOP");
+					if (nudRepeatCount.Value != 0)
+						sb.AppendLine("if %i% == " + nudRepeatCount.Value + " goto END");
+					sb.AppendLine(batchFileContent);
+					if (nudRepeatCount.Value != 0)
+						sb.AppendLine("set /a i = %i% + 1");
+					sb.AppendLine("goto LOOP");
+					sb.AppendLine();
+					sb.AppendLine(":END");
+					if (nudRepeatCount.Value != 0)
+						sb.AppendLine("pause");
+					batchFileContent = sb.ToString();
+				}
+				File.WriteAllText(batchFileName, batchFileContent);
 			}
 		}
 	}
