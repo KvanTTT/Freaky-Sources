@@ -109,14 +109,20 @@ namespace FreakySources
 			foreach (var p in existedExtraParams)
 			{
 				int beginInd = str.IndexOf(p.KeyBegin);
-				int endInd = str.IndexOf(p.KeyEnd, beginInd);
-				if (beginInd == endInd)
-					str = str.Replace(p.KeyBegin, "{" + number++ + "}");
-				else
-				{
-					str = str.Remove(beginInd, endInd + p.KeyEnd.Length - beginInd);
-					str = str.Insert(beginInd, "{" + number++ + "}");
-				}
+                if (beginInd != -1)
+                {
+                    int endInd = str.IndexOf(p.KeyEnd, beginInd);
+                    if (endInd != -1)
+                    {
+                        if (beginInd == endInd)
+                            str = str.Replace(p.KeyBegin, "{" + number++ + "}");
+                        else
+                        {
+                            str = str.Remove(beginInd, endInd + p.KeyEnd.Length - beginInd);
+                            str = str.Insert(beginInd, "{" + number++ + "}");
+                        }
+                    }
+                }
 			}
 
 			var insertToResult = new StringBuilder();
@@ -135,23 +141,29 @@ namespace FreakySources
 			foreach (var p in existedExtraParams)
 			{
 				int beginInd = result.IndexOf(p.KeyBegin);
-				int endInd = result.IndexOf(p.KeyEnd, beginInd);
-				if (beginInd == endInd)
-					result = result.Replace(p.KeyBegin, p.KeySubstitute == "$key$" ? "" : p.KeySubstitute);
-				else
-				{
-					if (p.KeySubstitute == "$key$")
-						result = result.Replace(p.KeyBegin, "").Replace(p.KeyEnd, "");
-					else
-					{
-						result = result.Remove(beginInd, endInd + p.KeyEnd.Length - beginInd);
-						result = result.Insert(beginInd, p.KeySubstitute);
-					}
-				}
+                if (beginInd != -1)
+                {
+                    int endInd = result.IndexOf(p.KeyEnd, beginInd);
+                    if (endInd != -1)
+                    {
+                        if (beginInd == endInd)
+                            result = result.Replace(p.KeyBegin, p.KeySubstitute == "$key$" ? "" : p.KeySubstitute);
+                        else
+                        {
+                            if (p.KeySubstitute == "$key$")
+                                result = result.Replace(p.KeyBegin, "").Replace(p.KeyEnd, "");
+                            else
+                            {
+                                result = result.Remove(beginInd, endInd + p.KeyEnd.Length - beginInd);
+                                result = result.Insert(beginInd, p.KeySubstitute);
+                            }
+                        }
+                    }
+                }
 			}
 
 			if (formatOutput)
-				return new CSharpParser().Parse(result.ToString()).GetText();
+				return new CSharpParser().Parse(result.ToString()).ToString();
 			else
 				return result.ToString();
 		}

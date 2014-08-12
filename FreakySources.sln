@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources.Tests", "FreakySources.Tests\FreakySources.Tests.csproj", "{13621013-38EF-4EEE-8ABA-B69320A7CE83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpMinifier", "CSharp-Minifier\CSharpMinifier\CSharpMinifier.csproj", "{A26C936C-846B-4165-9574-42C74075D4CD}"
@@ -17,9 +19,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{9CBE
 		Sources\Asciimation_1_2.cs = Sources\Asciimation_1_2.cs
 		Sources\Asciimation_1_3.cs = Sources\Asciimation_1_3.cs
 		Sources\CustomQuine.cs = Sources\CustomQuine.cs
+		Sources\ExtraParams.xml = Sources\ExtraParams.xml
 		Sources\MultiCommentsPalindromeQuine.cs = Sources\MultiCommentsPalindromeQuine.cs
+		Sources\Quine.cs = Sources\Quine.cs
 		Sources\QuineClock.cs = Sources\QuineClock.cs
 		Sources\QuineClock2.cs = Sources\QuineClock2.cs
+		QuineClock3.cs = QuineClock3.cs
 		Sources\SelfCompiliedProgram.cs = Sources\SelfCompiliedProgram.cs
 		Sources\SelfPrintingGameOfLife.cs = Sources\SelfPrintingGameOfLife.cs
 		Sources\SingleCommentsPalindromeQuine.cs = Sources\SingleCommentsPalindromeQuine.cs

@@ -12,7 +12,7 @@ namespace FreakySources.GUI.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -56,18 +56,6 @@ namespace FreakySources.GUI.Properties {
             }
             set {
                 this["OutputTab"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string ExtraParams {
-            get {
-                return ((string)(this["ExtraParams"]));
-            }
-            set {
-                this["ExtraParams"] = value;
             }
         }
         
@@ -236,6 +224,42 @@ namespace FreakySources.GUI.Properties {
             }
             set {
                 this["CompilationsCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int RepeatCount {
+            get {
+                return ((int)(this["RepeatCount"]));
+            }
+            set {
+                this["RepeatCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool OpenAfterSave {
+            get {
+                return ((bool)(this["OpenAfterSave"]));
+            }
+            set {
+                this["OpenAfterSave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\Sources\\ExtraParams.xml")]
+        public string ExtraParamsFilePath {
+            get {
+                return ((string)(this["ExtraParamsFilePath"]));
+            }
+            set {
+                this["ExtraParamsFilePath"] = value;
             }
         }
     }

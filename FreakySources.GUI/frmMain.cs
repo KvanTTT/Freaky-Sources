@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using FastColoredTextBoxNS;
 using System.Xml.Serialization;
+using System.Diagnostics;
 
 namespace FreakySources.GUI
 {
@@ -27,42 +28,7 @@ namespace FreakySources.GUI
 		{
 			InitializeComponent();
 
-			tbInput.Text = Settings.Default.InputCode;
-			tabcOutput.SelectedIndex = Settings.Default.OutputTab;
-			tbKernel.Text = Settings.Default.Kernel;
-			var serializer = new XmlSerializer(typeof(List<List<string>>));
-			using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(Settings.Default.ExtraParams)))
-			{
-				var quineParams = (List<List<string>>)serializer.Deserialize(stream);
-				foreach (var param in quineParams)
-				{
-					dgvExtraParams.Rows.Add(param[0], param[1], param[2], param[3]);
-				}
-			}
-
-			tbQuineStr.Text = Settings.Default.QuineStr;
-			if (!Settings.Default.WindowLocation.IsEmpty)
-				Location = Settings.Default.WindowLocation;
-			if (Settings.Default.WindowSize.IsEmpty)
-				Size = Settings.Default.WindowSize;
-			WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), Settings.Default.WindowState);
-			nudLineLength.Value = Settings.Default.MaxLineLength;
-			cbCompressIdentifiers.Checked = Settings.Default.CompressIdentifiers;
-
-			var patterns = Directory.GetFiles(SourcePath, "*.cs");
-			foreach (var pattern in patterns)
-				cmbPattern.Items.Add(Path.GetFileName(pattern));
-			cmbPattern.SelectedItem = Settings.Default.SelectedPattern;
-
-			if (Settings.Default.splitContGenWidth != 0)
-				splitContainerGeneral.SplitterDistance = Settings.Default.splitContGenWidth;
-			if (Settings.Default.splitCont1Height != 0)
-				splitContainer1.SplitterDistance = Settings.Default.splitCont1Height;
-			if (Settings.Default.splitCont2Height != 0)
-				splitContainer2.SplitterDistance = Settings.Default.splitCont2Height;
-
-			tbOutput.WordWrap = Settings.Default.OutputWordWrap;
-			nudCompilationsCount.Value = Settings.Default.CompilationsCount;
+            LoadParams();
 		}
 
 		private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -252,11 +218,56 @@ namespace FreakySources.GUI
 			SaveParams();
 		}
 
+        private void LoadParams()
+        {
+            tbInput.Text = Settings.Default.InputCode;
+            tabcOutput.SelectedIndex = Settings.Default.OutputTab;
+            tbKernel.Text = Settings.Default.Kernel;
+            tbExtraParamsFilePath.Text = Settings.Default.ExtraParamsFilePath;
+
+            if (File.Exists(tbExtraParamsFilePath.Text))
+            {
+                var serializer = new XmlSerializer(typeof(List<List<string>>));
+                List<List<string>> quineParams;
+                using (var stream = new FileStream(tbExtraParamsFilePath.Text, FileMode.Open))
+                    quineParams = (List<List<string>>)serializer.Deserialize(stream);
+                foreach (var param in quineParams)
+                    dgvExtraParams.Rows.Add(param[0], param[1], param[2], param[3]);
+            }
+
+            tbQuineStr.Text = Settings.Default.QuineStr;
+            WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), Settings.Default.WindowState);
+            if (!Settings.Default.WindowLocation.IsEmpty)
+                Location = Settings.Default.WindowLocation;
+            if (Settings.Default.WindowSize.IsEmpty)
+                Size = Settings.Default.WindowSize;
+            nudLineLength.Value = Settings.Default.MaxLineLength;
+            cbCompressIdentifiers.Checked = Settings.Default.CompressIdentifiers;
+
+            var patterns = Directory.GetFiles(SourcePath, "*.cs");
+            foreach (var pattern in patterns)
+                cmbPattern.Items.Add(Path.GetFileName(pattern));
+            cmbPattern.SelectedItem = Settings.Default.SelectedPattern;
+
+            if (Settings.Default.splitContGenWidth != 0)
+                splitContainerGeneral.SplitterDistance = Settings.Default.splitContGenWidth;
+            if (Settings.Default.splitCont1Height != 0)
+                splitContainer1.SplitterDistance = Settings.Default.splitCont1Height;
+            if (Settings.Default.splitCont2Height != 0)
+                splitContainer2.SplitterDistance = Settings.Default.splitCont2Height;
+
+            tbOutput.WordWrap = Settings.Default.OutputWordWrap;
+            nudCompilationsCount.Value = Settings.Default.CompilationsCount;
+            nudRepeatCount.Value = Settings.Default.RepeatCount;
+            cbOpenAfterSave.Checked = Settings.Default.OpenAfterSave;
+        }
+
 		private void SaveParams()
 		{
 			Settings.Default.InputCode = tbInput.Text;
 			Settings.Default.OutputTab = tabcOutput.SelectedIndex;
 			Settings.Default.Kernel = tbKernel.Text;
+            Settings.Default.ExtraParamsFilePath = tbExtraParamsFilePath.Text;
 
 			List<List<string>> quineParams = new List<List<string>>();
 			for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
@@ -274,23 +285,15 @@ namespace FreakySources.GUI
 						dgvExtraParams[3, i].Value as string
 					});
 				}
-			}
-			
+			}			
 			var serializer = new XmlSerializer(typeof(List<List<string>>));
-			using (var stream = new MemoryStream())
-			{
-				serializer.Serialize(stream, quineParams);
-				byte[] bytes = new byte[stream.Length];
-				stream.Position = 0;
-				stream.Read(bytes, 0, (int)stream.Length);
-				var quineXml = Encoding.UTF8.GetString(bytes);
-				Settings.Default.ExtraParams = quineXml;
-			}
+			using (var stream = new FileStream(tbExtraParamsFilePath.Text, FileMode.Create))
+				serializer.Serialize(stream, quineParams); 
 
 			Settings.Default.QuineStr = tbQuineStr.Text;
+            Settings.Default.WindowState = WindowState.ToString();
 			Settings.Default.WindowLocation = Location;
 			Settings.Default.WindowSize = Size;
-			Settings.Default.WindowState = WindowState.ToString();
 			Settings.Default.MaxLineLength = (int)nudLineLength.Value;
 			Settings.Default.CompressIdentifiers = cbCompressIdentifiers.Checked;
 			Settings.Default.SelectedPattern = cmbPattern.SelectedItem.ToString();
@@ -299,6 +302,8 @@ namespace FreakySources.GUI
 			Settings.Default.splitCont2Height = splitContainer2.SplitterDistance;
 			Settings.Default.OutputWordWrap = cbWrapOutput.Checked;
 			Settings.Default.CompilationsCount = (int)nudCompilationsCount.Value;
+            Settings.Default.RepeatCount = (int)nudRepeatCount.Value;
+            Settings.Default.OpenAfterSave = cbOpenAfterSave.Checked;
 			Settings.Default.Save();
 		}
 
@@ -393,7 +398,7 @@ namespace FreakySources.GUI
 				var batchFileName = Path.Combine(Path.GetDirectoryName(sfdSaveOutput.FileName),
 					filenameWithoutExtension + ".bat");
 				string batchFileContent;
-				string compilatorPath = @"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe";
+                string compilatorPath = Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), @"csc.exe");
 				
 				batchFileContent = string.Format("\"{0}\" {1} && ({2} > {1}) && {2}", compilatorPath, filenameCs, filenameWithoutExtension);
 				if (nudRepeatCount.Value == 1)
@@ -421,6 +426,9 @@ namespace FreakySources.GUI
 					batchFileContent = sb.ToString();
 				}
 				File.WriteAllText(batchFileName, batchFileContent);
+
+                if (cbOpenAfterSave.Checked)
+                    Process.Start(Path.GetDirectoryName(batchFileName));
 			}
 		}
 	}

@@ -11,9 +11,6 @@
     <Setting Name="OutputTab" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="ExtraParams" Type="System.String" Scope="User">
-      <Value Profile="(Default)" />
-    </Setting>
     <Setting Name="Kernel" Type="System.String" Scope="User">
       <Value Profile="(Default)">/*@*/</Value>
     </Setting>
@@ -55,6 +52,15 @@
     </Setting>
     <Setting Name="CompilationsCount" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="RepeatCount" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="OpenAfterSave" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ExtraParamsFilePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">..\..\..\Sources\ExtraParams.xml</Value>
     </Setting>
   </Settings>
 </SettingsFile>
