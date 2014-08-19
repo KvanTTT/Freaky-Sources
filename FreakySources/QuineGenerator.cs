@@ -20,7 +20,7 @@ namespace FreakySources
 		public const string Quotes1 = "\"";
 		public const string Quotes2 = "'";
 		public const string Backslash = "\\";
-		public const string Newline = "\r\n";
+		public static string Newline = Environment.NewLine;
 
 		public string StrName
 		{
@@ -59,7 +59,7 @@ namespace FreakySources
 
 		public string Generate(string csharpCode, bool formatOutput = false, params QuineParam[] extraParams)
 		{
-			bool newlineEscaping = csharpCode.Contains("\r\n");
+            bool newlineEscaping = csharpCode.Contains(Newline);
 			bool backslashEscaping = newlineEscaping || csharpCode.Contains('\\');
 			bool minified = Minified;
 			string printMethod = PrintMethod;
