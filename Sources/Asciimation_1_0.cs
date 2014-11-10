@@ -40,7 +40,7 @@ namespace Asciimation_1_0
             var frame = Encoding.UTF8.GetString(RleDecode(Convert.FromBase64String(Frames[CurrentFrame])));
             CurrentFrame = (CurrentFrame + 1) % Frames.Length;
             var frames = new StringBuilder();
-            foreach (var f in Frames)
+            foreach (var k in Frames)
                 frames.AppendFormat("{1}{0}{1},", f, '"');
             var output = new StringBuilder("//" + Environment.NewLine);
             for (int i = 0; i < 13; i++)

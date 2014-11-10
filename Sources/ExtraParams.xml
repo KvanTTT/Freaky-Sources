@@ -3,7 +3,7 @@
   <ArrayOfString>
     <string>/*%Frames*/</string>
     <string>/*Frames%*/</string>
-    <string>frames.ToString()</string>
+    <string>'"'+string.Join("\",\"",Frames)+'"'</string>
     <string>$key$</string>
   </ArrayOfString>
   <ArrayOfString>

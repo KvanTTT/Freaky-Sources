@@ -348,7 +348,7 @@ namespace FreakySources.GUI
                 {
                     tbConsoleOutput.ResetText();
                     tbConsoleOutput.Text = compileResult.First().Output;
-                    if (cbScrollToEnd.Checked)
+                    if (cbScrollToEnd.Checked && tbConsoleOutput.Text.Length > 0)
                     {
                         tbConsoleOutput.Select(tbConsoleOutput.Text.Length - 1, 0);
                         tbConsoleOutput.ScrollToCaret();
@@ -375,7 +375,10 @@ namespace FreakySources.GUI
         private int GetPosFromLineColumn(string text, int line, int column)
         {
             var strs = text.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
-            return strs.Take(line - 1).Aggregate(0, (count, str) => count += str.Length + Environment.NewLine.Length) + column - 1;
+            var result = strs.Take(line - 1).Aggregate(0, (count, str) => count += str.Length + Environment.NewLine.Length) + column - 1;
+            if (result < 0)
+                result = 0;
+            return result;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -398,42 +401,80 @@ namespace FreakySources.GUI
             if (sfdSaveOutput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 File.WriteAllText(sfdSaveOutput.FileName, tbOutput.Text);
+
+                bool unix = false;
+                OperatingSystem os = Environment.OSVersion;
+                PlatformID pid = os.Platform;
+                switch (pid)
+                {
+                    case PlatformID.Win32NT:
+                    case PlatformID.Win32S:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.WinCE:
+                        unix = false;
+                        break;
+                    case PlatformID.Unix:
+                        unix = true;
+                        break;
+                    default:
+                        break;
+                }
+
                 var filenameWithoutExtension = Path.GetFileNameWithoutExtension(sfdSaveOutput.FileName);
                 var filenameCs = filenameWithoutExtension + ".cs";
-                var batchFileName = Path.Combine(Path.GetDirectoryName(sfdSaveOutput.FileName),
-                    filenameWithoutExtension + ".bat");
-                string batchFileContent;
-                string compilatorPath = Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), @"csc.exe");
-
-                batchFileContent = string.Format("\"{0}\" {1} && ({2} > {1}) && {2}", compilatorPath, filenameCs, filenameWithoutExtension);
-                if (nudRepeatCount.Value == 1)
+                if (!unix)
                 {
-                    batchFileContent += Environment.NewLine + "pause";
+                    var batchFileName = Path.Combine(Path.GetDirectoryName(sfdSaveOutput.FileName),
+                        filenameWithoutExtension + ".bat");
+                    string batchFileContent;
+                    string compilatorPath = Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), @"csc.exe");
+
+                    batchFileContent = string.Format("\"{0}\" {1} && ({2} > {1}) && {2}", compilatorPath, filenameCs, filenameWithoutExtension);
+                    if (nudRepeatCount.Value == 1)
+                    {
+                        batchFileContent += Environment.NewLine + "pause";
+                    }
+                    else
+                    {
+                        var sb = new StringBuilder();
+                        sb.AppendLine("echo off");
+                        if (nudRepeatCount.Value != 0)
+                            sb.AppendLine("set /a i=0");
+                        sb.AppendLine();
+                        sb.AppendLine(":LOOP");
+                        if (nudRepeatCount.Value != 0)
+                            sb.AppendLine("if %i% == " + nudRepeatCount.Value + " goto END");
+                        sb.AppendLine(batchFileContent);
+                        if (nudRepeatCount.Value != 0)
+                            sb.AppendLine("set /a i = %i% + 1");
+                        sb.AppendLine("goto LOOP");
+                        sb.AppendLine();
+                        sb.AppendLine(":END");
+                        if (nudRepeatCount.Value != 0)
+                            sb.AppendLine("pause");
+                        batchFileContent = sb.ToString();
+                    }
+                    File.WriteAllText(batchFileName, batchFileContent);
                 }
                 else
                 {
+                    var shellFileName = Path.Combine(Path.GetDirectoryName(sfdSaveOutput.FileName),
+                        filenameWithoutExtension + ".sh");
+                    var filenameExe = filenameWithoutExtension + ".exe";
                     var sb = new StringBuilder();
-                    sb.AppendLine("echo off");
-                    if (nudRepeatCount.Value != 0)
-                        sb.AppendLine("set /a i=0");
-                    sb.AppendLine();
-                    sb.AppendLine(":LOOP");
-                    if (nudRepeatCount.Value != 0)
-                        sb.AppendLine("if %i% == " + nudRepeatCount.Value + " goto END");
-                    sb.AppendLine(batchFileContent);
-                    if (nudRepeatCount.Value != 0)
-                        sb.AppendLine("set /a i = %i% + 1");
-                    sb.AppendLine("goto LOOP");
-                    sb.AppendLine();
-                    sb.AppendLine(":END");
-                    if (nudRepeatCount.Value != 0)
-                        sb.AppendLine("pause");
-                    batchFileContent = sb.ToString();
+                    if (nudRepeatCount.Value == 0)
+                        sb.AppendLine("while :");
+                    else
+                        sb.AppendLine("for i in {{1.." + nudRepeatCount.Value + "}};");
+                    sb.AppendLine("do");
+                    sb.AppendLine("mcs " + filenameCs);
+                    sb.AppendLine("mono " + filenameExe);
+                    sb.AppendLine("mono " + filenameExe + " > " + filenameCs);
+                    sb.AppendLine("done");
+                    File.WriteAllText(shellFileName, sb.ToString());
                 }
-                File.WriteAllText(batchFileName, batchFileContent);
-
                 if (cbOpenAfterSave.Checked)
-                    Process.Start(Path.GetDirectoryName(batchFileName));
+                    Process.Start(Path.GetDirectoryName(sfdSaveOutput.FileName));
             }
         }
 
