@@ -11,7 +11,7 @@ namespace AsciimationStatistics
 	{
 		static void Main(string[] args)
 		{
-			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Sources\Asciimation.txt"));
+			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Patterns\Asciimation.txt"));
 			
 			List<CompressedFrame> compressedFrames;
 			var compressedStr = generator.Compress_v_1_3(out compressedFrames, true);

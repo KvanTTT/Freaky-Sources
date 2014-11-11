@@ -253,13 +253,40 @@ namespace FreakySources.GUI.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\Sources\\ExtraParams.xml")]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\ExtraParams.xml")]
         public string ExtraParamsFilePath {
             get {
                 return ((string)(this["ExtraParamsFilePath"]));
             }
             set {
                 this["ExtraParamsFilePath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\Patterns")]
+        public string PatternsFolder {
+            get {
+                return ((string)(this["PatternsFolder"]));
+            }
+            set {
+                this["PatternsFolder"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("..\\..\\..\\FreakySources.Code")]
+        public string SourceCodeFilesFolder
+        {
+            get
+            {
+                return ((string)(this["SourceCodeFilesFolder"]));
+            }
+            set
+            {
+                this["SourceCodeFilesFolder"] = value;
             }
         }
     }

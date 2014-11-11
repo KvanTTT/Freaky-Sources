@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{13621013-38EF-4EEE-8ABA-B69320A7CE83}</ProjectGuid>
+    <ProjectGuid>{DDF6B28A-89BE-4E34-81FC-C8BBE488C1F4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FreakySources.Tests</RootNamespace>
-    <AssemblyName>FreakySources.Tests</AssemblyName>
+    <RootNamespace>FreakySources.Code</RootNamespace>
+    <AssemblyName>FreakySources.Code</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,39 +31,24 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="nunit.framework, Version=2.6.3.13283, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Asciimation_v_1_3_Tests.cs" />
-    <Compile Include="CompressionTests.cs" />
-    <Compile Include="QuineGeneratorTests.cs" />
-    <Compile Include="QuineTests.cs" />
+    <Compile Include="AsciimationDataGenerator.cs" />
+    <Compile Include="Base64.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="Huffman.cs" />
+    <Compile Include="HuffmanRle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CSharp-Minifier\CSharpMinifier\CSharpMinifier.csproj">
-      <Project>{a26c936c-846b-4165-9574-42c74075d4cd}</Project>
-      <Name>CSharpMinifier</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FreakySources.Code\FreakySources.Code.csproj">
-      <Project>{ddf6b28a-89be-4e34-81fc-c8bbe488c1f4}</Project>
-      <Name>FreakySources.Code</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FreakySources\FreakySources.csproj">
-      <Project>{cd572e98-9d0e-486c-9a7c-7edb55a9e9b2}</Project>
-      <Name>FreakySources</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+    <Compile Include="RLE.cs" />
+    <Compile Include="StringCompressor.cs" />
+    <Compile Include="Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

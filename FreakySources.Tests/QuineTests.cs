@@ -11,6 +11,8 @@ namespace FreakySources.Tests
 	[TestFixture]
 	public class QuineTests
 	{
+        public const string PatternsFolder = @"..\..\..\Patterns\";
+
 		[Test]
 		public void SimpleProgram()
 		{
@@ -46,7 +48,7 @@ namespace FreakySources.Tests
 		[Test]
 		public void SingleLineCommentPalindromeQuine()
 		{
-			string singleLineCommentsPalindromeQuine = Checker.RemoveSpacesInSource(File.ReadAllText(@"..\..\..\Sources\SingleCommentsPalindromeQuine.cs"));
+			string singleLineCommentsPalindromeQuine = Checker.RemoveSpacesInSource(File.ReadAllText(Path.Combine(PatternsFolder, "SingleCommentsPalindromeQuine.cs")));
 			singleLineCommentsPalindromeQuine = Checker.PrepareSingleLineCommentsPalindrome(singleLineCommentsPalindromeQuine);
 			var checkingResult = Checker.CheckPalindromeQuineProgram(singleLineCommentsPalindromeQuine);
 			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
@@ -55,7 +57,7 @@ namespace FreakySources.Tests
 		[Test]
 		public void MultiLineCommentPalindromeQuine()
 		{
-			string multiLineCommentsPalindromeQuine = Checker.RemoveSpacesInSource(File.ReadAllText(@"..\..\..\Sources\MultiCommentsPalindromeQuine.cs"));
+			string multiLineCommentsPalindromeQuine = Checker.RemoveSpacesInSource(File.ReadAllText(Path.Combine(PatternsFolder, "MultiCommentsPalindromeQuine.cs")));
 			multiLineCommentsPalindromeQuine = Checker.PrepareMultiLineCommentsPalindrome(multiLineCommentsPalindromeQuine);
 			var checkingResult = Checker.CheckPalindromeQuineProgram(multiLineCommentsPalindromeQuine);
 			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources.Tests", "FreakySources.Tests\FreakySources.Tests.csproj", "{13621013-38EF-4EEE-8ABA-B69320A7CE83}"
 EndProject
@@ -11,26 +11,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources.GUI", "Freaky
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources", "FreakySources\FreakySources.csproj", "{CD572E98-9D0E-486C-9A7C-7EDB55A9E9B2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sources", "Sources", "{9CBE6152-3A3C-4B49-9D4C-101B11EBF466}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns", "Patterns", "{9CBE6152-3A3C-4B49-9D4C-101B11EBF466}"
 	ProjectSection(SolutionItems) = preProject
-		Sources\Asciimation.txt = Sources\Asciimation.txt
-		Sources\Asciimation_1_0.cs = Sources\Asciimation_1_0.cs
-		Sources\Asciimation_1_1.cs = Sources\Asciimation_1_1.cs
-		Sources\Asciimation_1_2.cs = Sources\Asciimation_1_2.cs
-		Sources\Asciimation_1_3.cs = Sources\Asciimation_1_3.cs
-		Sources\CustomQuine.cs = Sources\CustomQuine.cs
-		Sources\ExtraParams.xml = Sources\ExtraParams.xml
-		Sources\MultiCommentsPalindromeQuine.cs = Sources\MultiCommentsPalindromeQuine.cs
-		Sources\Quine.cs = Sources\Quine.cs
-		Sources\QuineClock.cs = Sources\QuineClock.cs
-		Sources\QuineClock2.cs = Sources\QuineClock2.cs
-		QuineClock3.cs = QuineClock3.cs
-		Sources\SelfCompiliedProgram.cs = Sources\SelfCompiliedProgram.cs
-		Sources\SelfPrintingGameOfLife.cs = Sources\SelfPrintingGameOfLife.cs
-		Sources\SingleCommentsPalindromeQuine.cs = Sources\SingleCommentsPalindromeQuine.cs
+		Patterns\Asciimation.txt = Patterns\Asciimation.txt
+		Patterns\Asciimation_1_0.cs = Patterns\Asciimation_1_0.cs
+		Patterns\Asciimation_1_1.cs = Patterns\Asciimation_1_1.cs
+		Patterns\Asciimation_1_2.cs = Patterns\Asciimation_1_2.cs
+		Patterns\Asciimation_1_3.cs = Patterns\Asciimation_1_3.cs
+		Patterns\CustomQuine.cs = Patterns\CustomQuine.cs
+		Patterns\ExtraParams.xml = Patterns\ExtraParams.xml
+		Patterns\MultiCommentsPalindromeQuine.cs = Patterns\MultiCommentsPalindromeQuine.cs
+		Patterns\Quine.cs = Patterns\Quine.cs
+		Patterns\QuineClock.cs = Patterns\QuineClock.cs
+		Patterns\QuineClock2.cs = Patterns\QuineClock2.cs
+		Patterns\SelfCompiliedProgram.cs = Patterns\SelfCompiliedProgram.cs
+		Patterns\SelfPrintingGameOfLife.cs = Patterns\SelfPrintingGameOfLife.cs
+		Patterns\SingleCommentsPalindromeQuine.cs = Patterns\SingleCommentsPalindromeQuine.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsciimationStatistics", "AsciimationStatistics\AsciimationStatistics.csproj", "{70B54927-6583-491D-816B-9D0B648E9421}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources.Code", "FreakySources.Code\FreakySources.Code.csproj", "{DDF6B28A-89BE-4E34-81FC-C8BBE488C1F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +59,10 @@ Global
 		{70B54927-6583-491D-816B-9D0B648E9421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70B54927-6583-491D-816B-9D0B648E9421}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70B54927-6583-491D-816B-9D0B648E9421}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDF6B28A-89BE-4E34-81FC-C8BBE488C1F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDF6B28A-89BE-4E34-81FC-C8BBE488C1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDF6B28A-89BE-4E34-81FC-C8BBE488C1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDF6B28A-89BE-4E34-81FC-C8BBE488C1F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

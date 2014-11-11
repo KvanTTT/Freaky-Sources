@@ -97,6 +97,8 @@
             this.btnSaveInput = new System.Windows.Forms.Button();
             this.splitContainerGeneral = new System.Windows.Forms.SplitContainer();
             this.sfdSaveOutput = new System.Windows.Forms.SaveFileDialog();
+            this.tbPatternsFolder = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -231,6 +233,8 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.tbPatternsFolder);
+            this.splitContainer1.Panel1.Controls.Add(this.label12);
             this.splitContainer1.Panel1.Controls.Add(this.tbInput);
             this.splitContainer1.Panel1.Controls.Add(this.btnSave);
             this.splitContainer1.Panel1.Controls.Add(this.btnReload);
@@ -267,7 +271,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(304, 4);
+            this.btnSave.Location = new System.Drawing.Point(583, 6);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
             this.btnSave.TabIndex = 36;
@@ -277,7 +281,7 @@
             // 
             // btnReload
             // 
-            this.btnReload.Location = new System.Drawing.Point(223, 4);
+            this.btnReload.Location = new System.Drawing.Point(222, 6);
             this.btnReload.Name = "btnReload";
             this.btnReload.Size = new System.Drawing.Size(75, 23);
             this.btnReload.TabIndex = 35;
@@ -289,7 +293,7 @@
             // 
             this.cmbPattern.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPattern.FormattingEnabled = true;
-            this.cmbPattern.Location = new System.Drawing.Point(62, 6);
+            this.cmbPattern.Location = new System.Drawing.Point(61, 6);
             this.cmbPattern.Name = "cmbPattern";
             this.cmbPattern.Size = new System.Drawing.Size(155, 21);
             this.cmbPattern.TabIndex = 34;
@@ -298,7 +302,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 9);
+            this.label7.Location = new System.Drawing.Point(12, 9);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(41, 13);
             this.label7.TabIndex = 16;
@@ -893,6 +897,23 @@
             this.splitContainerGeneral.SplitterDistance = 670;
             this.splitContainerGeneral.TabIndex = 21;
             // 
+            // tbPatternsFolder
+            // 
+            this.tbPatternsFolder.Location = new System.Drawing.Point(399, 6);
+            this.tbPatternsFolder.Name = "tbPatternsFolder";
+            this.tbPatternsFolder.Size = new System.Drawing.Size(143, 20);
+            this.tbPatternsFolder.TabIndex = 38;
+            this.tbPatternsFolder.Text = "..\\..\\..\\Patterns";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(314, 10);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(78, 13);
+            this.label12.TabIndex = 39;
+            this.label12.Text = "Patterns Folder";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1014,6 +1035,8 @@
         private System.Windows.Forms.TextBox tbFormattedOutput;
         private System.Windows.Forms.TextBox tbConsoleOutput;
         private System.Windows.Forms.TextBox tbInput;
+        private System.Windows.Forms.TextBox tbPatternsFolder;
+        private System.Windows.Forms.Label label12;
 
 	}
 }

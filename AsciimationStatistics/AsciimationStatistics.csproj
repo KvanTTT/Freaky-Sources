@@ -45,6 +45,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FreakySources.Code\FreakySources.Code.csproj">
+      <Project>{ddf6b28a-89be-4e34-81fc-c8bbe488c1f4}</Project>
+      <Name>FreakySources.Code</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FreakySources\FreakySources.csproj">
       <Project>{cd572e98-9d0e-486c-9a7c-7edb55a9e9b2}</Project>
       <Name>FreakySources</Name>

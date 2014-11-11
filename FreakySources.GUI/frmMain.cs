@@ -20,7 +20,6 @@ namespace FreakySources.GUI
         static string IdRegex = @"\w+";
         static string BlockCommentsRegex = @"/\*(.*?)\*/";
         static string LineCommentsRegex = @"//(.*?)\r?\n";
-        static string SourcePath = GetPlatformSpecificPath(@"..\..\..\Sources\");
         bool MinifiedInput;
 
         public frmMain()
@@ -147,7 +146,7 @@ namespace FreakySources.GUI
 
         private void btnGenerateData_Click(object sender, EventArgs e)
         {
-            var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(SourcePath + "Asciimation.txt"));
+            var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "Asciimation.txt")));
             var selectedItemText = cmbPattern.SelectedItem.ToString();
             if (selectedItemText == "Asciimation_1_1.cs")
             {
@@ -202,12 +201,11 @@ namespace FreakySources.GUI
             var fileName = cmbPattern.SelectedItem.ToString();
             if (fileName != "")
             {
-                var text = File.ReadAllText(Path.Combine(SourcePath, fileName));
-                tbInput.Text = File.ReadAllText(Path.Combine(SourcePath, fileName));
+                var text = File.ReadAllText(Path.Combine(tbPatternsFolder.Text, fileName));
+                tbInput.Text = File.ReadAllText(Path.Combine(tbPatternsFolder.Text, fileName));
                 tbOutput.Text = tbConsoleOutput.Text = tbFormattedOutput.Text = "";
                 dgvCompileErrors.Rows.Clear();
                 tbCurrentStep.Clear();
-                nudRepeatCount.Value = 1;
                 MinifiedInput = false;
             }
         }
@@ -219,10 +217,12 @@ namespace FreakySources.GUI
 
         private void LoadParams()
         {
+            tbPatternsFolder.Text = GetPlatformSpecificPath(Settings.Default.PatternsFolder);
             tbInput.Text = Settings.Default.InputCode;
             tabcOutput.SelectedIndex = Settings.Default.OutputTab;
             tbKernel.Text = Settings.Default.Kernel;
             tbExtraParamsFilePath.Text = GetPlatformSpecificPath(Settings.Default.ExtraParamsFilePath);
+            tbSourceCodeFilesFolder.Text = GetPlatformSpecificPath(Settings.Default.SourceCodeFilesFolder);
 
             if (File.Exists(tbExtraParamsFilePath.Text))
             {
@@ -243,7 +243,15 @@ namespace FreakySources.GUI
             nudLineLength.Value = Settings.Default.MaxLineLength;
             cbCompressIdentifiers.Checked = Settings.Default.CompressIdentifiers;
 
-            var patterns = Directory.GetFiles(SourcePath, "*.cs");
+            string[] patterns;
+            try
+            {
+                patterns = Directory.GetFiles(tbPatternsFolder.Text, "*.cs");
+            }
+            catch
+            {
+                patterns = new string[0];
+            }
             foreach (var pattern in patterns)
                 cmbPattern.Items.Add(Path.GetFileName(pattern));
             cmbPattern.SelectedItem = Settings.Default.SelectedPattern;
@@ -263,10 +271,12 @@ namespace FreakySources.GUI
 
         private void SaveParams()
         {
+            Settings.Default.PatternsFolder = tbPatternsFolder.Text;
             Settings.Default.InputCode = tbInput.Text;
             Settings.Default.OutputTab = tabcOutput.SelectedIndex;
             Settings.Default.Kernel = tbKernel.Text;
             Settings.Default.ExtraParamsFilePath = GetPlatformSpecificPath(tbExtraParamsFilePath.Text);
+            Settings.Default.SourceCodeFilesFolder = GetPlatformSpecificPath(tbSourceCodeFilesFolder.Text);
 
             List<List<string>> quineParams = new List<List<string>>();
             for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
@@ -386,7 +396,7 @@ namespace FreakySources.GUI
             var fileName = cmbPattern.SelectedItem.ToString();
             if (fileName != "")
             {
-                File.WriteAllText(Path.Combine(SourcePath, fileName), tbInput.Text);
+                File.WriteAllText(Path.Combine(tbPatternsFolder.Text, fileName), tbInput.Text);
             }
         }
 

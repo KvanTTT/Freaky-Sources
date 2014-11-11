@@ -13,7 +13,7 @@ namespace FreakySources.Tests
 		[Test]
 		public void CompDecomp_v_1_3()
 		{
-			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Sources\Asciimation.txt"));
+			var generator = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(QuineTests.PatternsFolder, "Asciimation.txt")));
 
 			List<CompressedFrame> compressedFrames;
 			var str = generator.Compress_v_1_3(out compressedFrames);

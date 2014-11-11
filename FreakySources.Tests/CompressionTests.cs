@@ -11,6 +11,14 @@ namespace FreakySources.Tests
 	[TestFixture]
 	public class CompressionTests
 	{
+        string AsciimationData;
+
+        [SetUp]
+        public void InitCompressionTests()
+        {
+            AsciimationData = File.ReadAllText(Path.Combine(QuineTests.PatternsFolder, "Asciimation.txt"));
+        }
+
 		[Test]
 		public void RleEncodeDecode()
 		{
@@ -57,7 +65,7 @@ namespace FreakySources.Tests
 		[Test]
 		public void RleHuffmanEncodeDecode()
 		{
-			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Sources\Asciimation.txt"));
+            var generator = new AsciimationDataGenerator(AsciimationData);
 			var bytesFreqs = generator.GetBytesFreqs();
 			var tree = new HuffmanTree(bytesFreqs);
 
@@ -74,7 +82,7 @@ namespace FreakySources.Tests
 		[Test]
 		public void RleHuffmanEncodeDecodeWithDifferentLengths()
 		{
-			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Sources\Asciimation.txt"));
+            var generator = new AsciimationDataGenerator(AsciimationData);
 			var bytesFreqs = generator.GetBytesFreqs();
 			var tree = new HuffmanTree(bytesFreqs);
 
@@ -108,7 +116,7 @@ namespace FreakySources.Tests
 		[Test]
 		public void HuffmanRleFull()
 		{
-			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Sources\Asciimation.txt"));
+            var generator = new AsciimationDataGenerator(AsciimationData);
 			var bytesFreqs = generator.GetBytesFreqs(false);
 			var bytes = AsciimationDataGenerator.SerializeByteCount(bytesFreqs);
 			var huffmanTable = Convert.ToBase64String(bytes);
