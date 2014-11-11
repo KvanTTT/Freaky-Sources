@@ -81,7 +81,19 @@
   <ArrayOfString>
     <string>/*$QuineClockOutput$*/</string>
     <string>/*$QuineClockOutput$*/</string>
-    <string>output.ToString()</string>
+    <string>output</string>
     <string xsi:nil="true" />
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*%Digits*/</string>
+    <string>/*Digits%*/</string>
+    <string>'"'+string.Join("\",\"",Digits)+'"'</string>
+    <string>$key$</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>Digits</string>
+    <string>Digits</string>
+    <string>"d"</string>
+    <string>d</string>
   </ArrayOfString>
 </ArrayOfArrayOfString>

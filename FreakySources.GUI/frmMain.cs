@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
 using System.Diagnostics;
+using FreakySources.Code;
 
 namespace FreakySources.GUI
 {
@@ -146,53 +147,69 @@ namespace FreakySources.GUI
 
         private void btnGenerateData_Click(object sender, EventArgs e)
         {
-            var dataGenerator = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "Asciimation.txt")));
             var selectedItemText = cmbPattern.SelectedItem.ToString();
-            if (selectedItemText == "Asciimation_1_1.cs")
+            var codeDataGenerator = new CodeDataGenerator(GetPlatformSpecificPath(tbSourceCodeFilesFolder.Text));
+            switch (selectedItemText)
             {
-                var codeDataGenerator = new CodeDataGenerator(GetPlatformSpecificPath(tbSourceCodeFilesFolder.Text));
-                codeDataGenerator.SaveKeys = true;
-                tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
-					{
-						new CodeDataGeneratorParam
-						{
-							KeyBegin = "/*%CompressedFramesGZipStream*/",
-							KeyEnd = "/*CompressedFramesGZipStream%*/",
-							Value = dataGenerator.GetGZipCompressedFrames()
-						}
-					});
-            }
-            else if (selectedItemText == "Asciimation_1_2.cs")
-            {
-                var codeDataGenerator = new CodeDataGenerator(GetPlatformSpecificPath(tbSourceCodeFilesFolder.Text));
-                codeDataGenerator.SaveKeys = true;
-                tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
-					{
-						new CodeDataGeneratorParam {
-							KeyBegin = "/*%HuffmanRleTable*/",
-							KeyEnd = "/*HuffmanRleTable%*/",
-							Value = dataGenerator.GetHuffmanRleTable()
-						},
-						new CodeDataGeneratorParam {
-							KeyBegin = "/*%HuffmanRleFrames*/",
-							KeyEnd = "/*HuffmanRleFrames%*/",
-							Value = dataGenerator.GetHuffmanRleFrames()
-						}
-					});
-            }
-            else if (selectedItemText == "Asciimation_1_3.cs")
-            {
-                var codeDataGenerator = new CodeDataGenerator(GetPlatformSpecificPath(tbSourceCodeFilesFolder.Text));
-                codeDataGenerator.SaveKeys = true;
-                List<CompressedFrame> compressedFrames;
-                tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
-				{
-					new CodeDataGeneratorParam {
-						KeyBegin = "/*%Data_1_3*/",
-						KeyEnd = "/*Data_1_3%*/",
-						Value = '"' + dataGenerator.Compress_v_1_3(out compressedFrames) + '"'
-					}
-				});
+                case "Asciimation_1_1.cs":
+                    codeDataGenerator.SaveKeys = true;
+                    var asciimationGenerator11 = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "Asciimation.txt")));
+                    tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
+					    {
+						    new CodeDataGeneratorParam
+						    {
+							    KeyBegin = "/*%CompressedFramesGZipStream*/",
+							    KeyEnd = "/*CompressedFramesGZipStream%*/",
+							    Value = asciimationGenerator11.GetGZipCompressedFrames()
+						    }
+					    });
+                    break;
+
+                case "Asciimation_1_2.cs":
+                    codeDataGenerator.SaveKeys = true;
+                    var asciimationGenerator12 = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "Asciimation.txt")));
+                    tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
+					    {
+						    new CodeDataGeneratorParam {
+							    KeyBegin = "/*%HuffmanRleTable*/",
+							    KeyEnd = "/*HuffmanRleTable%*/",
+							    Value = asciimationGenerator12.GetHuffmanRleTable()
+						    },
+						    new CodeDataGeneratorParam {
+							    KeyBegin = "/*%HuffmanRleFrames*/",
+							    KeyEnd = "/*HuffmanRleFrames%*/",
+							    Value = asciimationGenerator12.GetHuffmanRleFrames()
+						    }
+					    });
+                    break;
+
+                case "Asciimation_1_3.cs":
+                    codeDataGenerator.SaveKeys = true;
+                    List<CompressedFrame> compressedFrames;
+                    var asciimationGenerator13 = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "Asciimation.txt")));
+                    tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
+				    {
+					    new CodeDataGeneratorParam {
+						    KeyBegin = "/*%Data_1_3*/",
+						    KeyEnd = "/*Data_1_3%*/",
+						    Value = '"' + asciimationGenerator13.Compress_v_1_3(out compressedFrames) + '"'
+					    }
+				    });
+                    break;
+
+                case "QuineClock3.cs":
+                    codeDataGenerator.SaveKeys = true;
+                    var quineClock3Generator = new QuineClockDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "QuineClockDigits.txt")));
+                    tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
+                        {
+                            new CodeDataGeneratorParam
+                            {
+                                KeyBegin = "/*%Digits*/",
+                                KeyEnd = "/*Digits%*/",
+                                Value = '"' + string.Join("\",\"", quineClock3Generator.GetDigits().Select(s => s.Replace("\\", "\\\\"))) + '"'
+                            }
+                        });
+                    break;
             }
         }
 
@@ -465,6 +482,8 @@ namespace FreakySources.GUI
                         batchFileContent = sb.ToString();
                     }
                     File.WriteAllText(batchFileName, batchFileContent);
+                    if (cbOpenAfterSave.Checked)
+                        Process.Start("explorer.exe", string.Format("/select,\"{0}\"", batchFileName));
                 }
                 else
                 {
@@ -482,15 +501,25 @@ namespace FreakySources.GUI
                     sb.AppendLine("mono " + filenameExe + " > " + filenameCs);
                     sb.AppendLine("done");
                     File.WriteAllText(shellFileName, sb.ToString());
+                    if (cbOpenAfterSave.Checked)
+                        Process.Start(Path.GetDirectoryName(sfdSaveOutput.FileName));
                 }
-                if (cbOpenAfterSave.Checked)
-                    Process.Start(Path.GetDirectoryName(sfdSaveOutput.FileName));
             }
         }
 
         private static string GetPlatformSpecificPath(string path)
         {
             return path.Replace('\\', Path.DirectorySeparatorChar);
+        }
+
+        private void textBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && (e.KeyCode == Keys.A))
+            {
+                if (sender != null)
+                    ((TextBox)sender).SelectAll();
+                e.Handled = true;
+            }
         }
     }
 }

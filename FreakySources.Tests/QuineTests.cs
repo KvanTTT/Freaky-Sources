@@ -11,7 +11,7 @@ namespace FreakySources.Tests
 	[TestFixture]
 	public class QuineTests
 	{
-        public const string PatternsFolder = @"..\..\..\Patterns\";
+        public const string PatternsFolder = @"..\..\..\Patterns and Data\";
 
 		[Test]
 		public void SimpleProgram()

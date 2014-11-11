@@ -63,7 +63,7 @@
       <Value Profile="(Default)">..\..\ExtraParams.xml</Value>
     </Setting>
     <Setting Name="PatternsFolder" Type="System.String" Scope="User">
-      <Value Profile="(Default)">..\..\..\Patterns</Value>
+      <Value Profile="(Default)">..\..\..\Patterns and Data</Value>
     </Setting>
     <Setting Name="SourceCodeFilesFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">..\..\..\FreakySources.Code</Value>

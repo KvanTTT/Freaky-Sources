@@ -11,22 +11,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources.GUI", "Freaky
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources", "FreakySources\FreakySources.csproj", "{CD572E98-9D0E-486C-9A7C-7EDB55A9E9B2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns", "Patterns", "{9CBE6152-3A3C-4B49-9D4C-101B11EBF466}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns and Data", "Patterns and Data", "{9CBE6152-3A3C-4B49-9D4C-101B11EBF466}"
 	ProjectSection(SolutionItems) = preProject
-		Patterns\Asciimation.txt = Patterns\Asciimation.txt
-		Patterns\Asciimation_1_0.cs = Patterns\Asciimation_1_0.cs
-		Patterns\Asciimation_1_1.cs = Patterns\Asciimation_1_1.cs
-		Patterns\Asciimation_1_2.cs = Patterns\Asciimation_1_2.cs
-		Patterns\Asciimation_1_3.cs = Patterns\Asciimation_1_3.cs
-		Patterns\CustomQuine.cs = Patterns\CustomQuine.cs
-		Patterns\ExtraParams.xml = Patterns\ExtraParams.xml
-		Patterns\MultiCommentsPalindromeQuine.cs = Patterns\MultiCommentsPalindromeQuine.cs
-		Patterns\Quine.cs = Patterns\Quine.cs
-		Patterns\QuineClock.cs = Patterns\QuineClock.cs
-		Patterns\QuineClock2.cs = Patterns\QuineClock2.cs
-		Patterns\SelfCompiliedProgram.cs = Patterns\SelfCompiliedProgram.cs
-		Patterns\SelfPrintingGameOfLife.cs = Patterns\SelfPrintingGameOfLife.cs
-		Patterns\SingleCommentsPalindromeQuine.cs = Patterns\SingleCommentsPalindromeQuine.cs
+		Patterns and Data\Asciimation.txt = Patterns and Data\Asciimation.txt
+		Patterns and Data\Asciimation_1_0.cs = Patterns and Data\Asciimation_1_0.cs
+		Patterns and Data\Asciimation_1_1.cs = Patterns and Data\Asciimation_1_1.cs
+		Patterns and Data\Asciimation_1_2.cs = Patterns and Data\Asciimation_1_2.cs
+		Patterns and Data\Asciimation_1_3.cs = Patterns and Data\Asciimation_1_3.cs
+		Patterns and Data\CustomQuine.cs = Patterns and Data\CustomQuine.cs
+		Patterns and Data\MultiCommentsPalindromeQuine.cs = Patterns and Data\MultiCommentsPalindromeQuine.cs
+		Patterns and Data\Quine.cs = Patterns and Data\Quine.cs
+		Patterns and Data\QuineClock.cs = Patterns and Data\QuineClock.cs
+		Patterns and Data\QuineClock2.cs = Patterns and Data\QuineClock2.cs
+		Patterns and Data\QuineClock3.cs = Patterns and Data\QuineClock3.cs
+		Patterns and Data\QuineClockDigits.txt = Patterns and Data\QuineClockDigits.txt
+		Patterns and Data\SelfCompiliedProgram.cs = Patterns and Data\SelfCompiliedProgram.cs
+		Patterns and Data\SelfPrintingGameOfLife.cs = Patterns and Data\SelfPrintingGameOfLife.cs
+		Patterns and Data\SingleCommentsPalindromeQuine.cs = Patterns and Data\SingleCommentsPalindromeQuine.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsciimationStatistics", "AsciimationStatistics\AsciimationStatistics.csproj", "{70B54927-6583-491D-816B-9D0B648E9421}"

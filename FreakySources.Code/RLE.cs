@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FreakySources
+namespace FreakySources.Code
 {
 	public class Rle
 	{

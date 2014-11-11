@@ -37,6 +37,8 @@
             this.tbConsoleOutput = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.tbPatternsFolder = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.tbInput = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnReload = new System.Windows.Forms.Button();
@@ -97,8 +99,6 @@
             this.btnSaveInput = new System.Windows.Forms.Button();
             this.splitContainerGeneral = new System.Windows.Forms.SplitContainer();
             this.sfdSaveOutput = new System.Windows.Forms.SaveFileDialog();
-            this.tbPatternsFolder = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -178,6 +178,7 @@
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbOutput.Size = new System.Drawing.Size(681, 356);
             this.tbOutput.TabIndex = 0;
+            this.tbOutput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // tabPage4
             // 
@@ -199,6 +200,7 @@
             this.tbFormattedOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbFormattedOutput.Size = new System.Drawing.Size(681, 356);
             this.tbFormattedOutput.TabIndex = 1;
+            this.tbFormattedOutput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // tbConsoleOutput
             // 
@@ -213,6 +215,7 @@
             this.tbConsoleOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbConsoleOutput.Size = new System.Drawing.Size(684, 216);
             this.tbConsoleOutput.TabIndex = 5;
+            this.tbConsoleOutput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // label3
             // 
@@ -257,6 +260,23 @@
             this.splitContainer1.SplitterDistance = 154;
             this.splitContainer1.TabIndex = 20;
             // 
+            // tbPatternsFolder
+            // 
+            this.tbPatternsFolder.Location = new System.Drawing.Point(399, 6);
+            this.tbPatternsFolder.Name = "tbPatternsFolder";
+            this.tbPatternsFolder.Size = new System.Drawing.Size(143, 20);
+            this.tbPatternsFolder.TabIndex = 38;
+            this.tbPatternsFolder.Text = "..\\..\\..\\Patterns and Data";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(314, 10);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(78, 13);
+            this.label12.TabIndex = 39;
+            this.label12.Text = "Patterns Folder";
+            // 
             // tbInput
             // 
             this.tbInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -268,6 +288,7 @@
             this.tbInput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbInput.Size = new System.Drawing.Size(664, 118);
             this.tbInput.TabIndex = 6;
+            this.tbInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox_KeyDown);
             // 
             // btnSave
             // 
@@ -896,23 +917,6 @@
             this.splitContainerGeneral.Size = new System.Drawing.Size(1369, 633);
             this.splitContainerGeneral.SplitterDistance = 670;
             this.splitContainerGeneral.TabIndex = 21;
-            // 
-            // tbPatternsFolder
-            // 
-            this.tbPatternsFolder.Location = new System.Drawing.Point(399, 6);
-            this.tbPatternsFolder.Name = "tbPatternsFolder";
-            this.tbPatternsFolder.Size = new System.Drawing.Size(143, 20);
-            this.tbPatternsFolder.TabIndex = 38;
-            this.tbPatternsFolder.Text = "..\\..\\..\\Patterns";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(314, 10);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(78, 13);
-            this.label12.TabIndex = 39;
-            this.label12.Text = "Patterns Folder";
             // 
             // frmMain
             // 

@@ -1,4 +1,5 @@
 ﻿using FreakySources;
+using FreakySources.Code;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,7 +12,7 @@ namespace AsciimationStatistics
 	{
 		static void Main(string[] args)
 		{
-			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Patterns\Asciimation.txt"));
+			var generator = new AsciimationDataGenerator(File.ReadAllText(@"..\..\..\Patterns and Data\Asciimation.txt"));
 			
 			List<CompressedFrame> compressedFrames;
 			var compressedStr = generator.Compress_v_1_3(out compressedFrames, true);
