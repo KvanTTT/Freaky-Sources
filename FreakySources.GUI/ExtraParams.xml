@@ -96,4 +96,28 @@
     <string>"d"</string>
     <string>d</string>
   </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$PrevDateTicks*/</string>
+    <string>/*PrevDateTicks$*/</string>
+    <string>n.Ticks</string>
+    <string>$key$</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string> /*$PrevCompileTicks*/</string>
+    <string>/*PrevCompileTicks$*/</string>
+    <string>compileTimeTicks</string>
+    <string>0</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$CompileTicks*/</string>
+    <string>/*CompileTicks$*/</string>
+    <string>"new long[] { " + string.Join(", ", CompileTicks) + " }"</string>
+    <string>$key$</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$CurrentCompileNumber*/</string>
+    <string>/*CurrentCompileNumber$*/</string>
+    <string>CurrentCompileNumber</string>
+    <string>$key$</string>
+  </ArrayOfString>
 </ArrayOfArrayOfString>

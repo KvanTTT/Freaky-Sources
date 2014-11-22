@@ -3,20 +3,26 @@ namespace QuineClock
 {
     class Program
     {
-        static long Delay = 0;
-        static long PrevSleepTicks = /*$PrevSleepTicks*/0/*PrevSleepTicks$*/;
-        static long PrevDateTicks = /*$PrevDateTicks*/0/*PrevDateTicks$*/;
-        
+        static long PrevDateTicks = /*$PrevDateTicks*/DateTime.Now.Ticks/*PrevDateTicks$*/;
+        static int CompileTicksLength = 10;
+        static int SleepMs = 500;
+        static int CurrentCompileNumber = /*$CurrentCompileNumber*/0/*CurrentCompileNumber$*/;
+        static  long[] CompileTicks = /*$CompileTicks*/new long[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }/*CompileTicks$*/;        
+
         static void Main()
         {
-            var ticksPerSecond = TimeSpan.TicksPerSecond;
+            //var ticksPerSecond = TimeSpan.TicksPerSecond;
             var n = DateTime.Now;
-            var compileTimeTicks = n.Ticks - PrevDateTicks - PrevSleepTicks;
-            var nextDate = n.AddTicks(ticksPerSecond - (n.Ticks % ticksPerSecond)).AddMilliseconds(Delay);
-            var sleepTicks = Math.Max(0, nextDate.Ticks - n.Ticks - compileTimeTicks);
-            var output = "\r\n\r\n//    " + n.ToString("HH:mm:ss") + " " + new TimeSpan(compileTimeTicks) + "\r\n\r\n";
+            var compileTimeTicks = n.Ticks - PrevDateTicks;// - new TimeSpan(0,0,0,0,SleepMs).Ticks;
+            CompileTicks[CurrentCompileNumber++] = compileTimeTicks;
+            CurrentCompileNumber %= CompileTicks.Length;
+            long avgCompileTime = 0;
+            for (int i = 0; i < CompileTicks.Length; i++)
+                  avgCompileTime += CompileTicks[i];
+            var output = "\r\n\r\n//    " + new TimeSpan(avgCompileTime / CompileTicks.Length) + "\r\n\r\n";
+            
+            System.Threading.Thread.Sleep(SleepMs);
             /*@*/
-            System.Threading.Thread.Sleep((int)((sleepTicks - Delay) * 1000 / ticksPerSecond));
         }
     }
 }

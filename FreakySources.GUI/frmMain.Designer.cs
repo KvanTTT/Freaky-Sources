@@ -172,6 +172,7 @@
             // tbOutput
             // 
             this.tbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbOutput.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbOutput.Location = new System.Drawing.Point(3, 3);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
@@ -208,6 +209,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbConsoleOutput.BackColor = System.Drawing.Color.Black;
+            this.tbConsoleOutput.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbConsoleOutput.ForeColor = System.Drawing.Color.White;
             this.tbConsoleOutput.Location = new System.Drawing.Point(4, 22);
             this.tbConsoleOutput.Multiline = true;
@@ -282,6 +284,7 @@
             this.tbInput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbInput.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbInput.Location = new System.Drawing.Point(3, 33);
             this.tbInput.Multiline = true;
             this.tbInput.Name = "tbInput";

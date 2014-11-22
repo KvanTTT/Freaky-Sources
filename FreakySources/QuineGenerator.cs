@@ -90,7 +90,7 @@ namespace FreakySources
 				kernel.AppendFormat(",{2}{0}{1}r{1}n{0}", quotes1NumberString, backslashNumberString, space);
 			foreach (var p in existedExtraParams)
 			{
-				string value = p.Value.Replace(Quotes1, quotes1NumberString);
+                string value = p.Value.Replace("{", "{{").Replace("}", "}}").Replace(Quotes1, quotes1NumberString);
 				if (backslashEscaping)
 					value = value.Replace(Backslash, backslashNumberString);
 				if (newlineEscaping)
