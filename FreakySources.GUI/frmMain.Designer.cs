@@ -99,6 +99,7 @@
             this.btnSaveInput = new System.Windows.Forms.Button();
             this.splitContainerGeneral = new System.Windows.Forms.SplitContainer();
             this.sfdSaveOutput = new System.Windows.Forms.SaveFileDialog();
+            this.cbPowershell = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -411,6 +412,7 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.cbPowershell);
             this.groupBox6.Controls.Add(this.cbOpenAfterSave);
             this.groupBox6.Controls.Add(this.label4);
             this.groupBox6.Controls.Add(this.nudRepeatCount);
@@ -921,6 +923,16 @@
             this.splitContainerGeneral.SplitterDistance = 670;
             this.splitContainerGeneral.TabIndex = 21;
             // 
+            // cbPowershell
+            // 
+            this.cbPowershell.AutoSize = true;
+            this.cbPowershell.Location = new System.Drawing.Point(65, 80);
+            this.cbPowershell.Name = "cbPowershell";
+            this.cbPowershell.Size = new System.Drawing.Size(77, 17);
+            this.cbPowershell.TabIndex = 65;
+            this.cbPowershell.Text = "Powershell";
+            this.cbPowershell.UseVisualStyleBackColor = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1044,6 +1056,7 @@
         private System.Windows.Forms.TextBox tbInput;
         private System.Windows.Forms.TextBox tbPatternsFolder;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox cbPowershell;
 
 	}
 }

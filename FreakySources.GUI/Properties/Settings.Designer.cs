@@ -289,5 +289,20 @@ namespace FreakySources.GUI.Properties {
                 this["SourceCodeFilesFolder"] = value;
             }
         }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Powershell
+        {
+            get
+            {
+                return ((bool)(this["Powershell"]));
+            }
+            set
+            {
+                this["Powershell"] = value;
+            }
+        }
     }
 }
