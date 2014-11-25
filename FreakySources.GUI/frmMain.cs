@@ -284,7 +284,15 @@ namespace FreakySources.GUI
             nudCompilationsCount.Value = Settings.Default.CompilationsCount;
             nudRepeatCount.Value = Settings.Default.RepeatCount;
             cbOpenAfterSave.Checked = Settings.Default.OpenAfterSave;
-            cbPowershell.Visible = Environment.OSVersion.Platform.ToString().StartsWith("Win") ? true : false;
+            if (Environment.OSVersion.Platform.ToString().StartsWith("Win"))
+            {
+                cbPowershell.Visible = true;
+                cmbSaveOutputOS.SelectedItem = "Windows";
+            }
+            else
+            {
+                cmbSaveOutputOS.SelectedItem = "Linux";
+            }
             cbPowershell.Checked = Settings.Default.Powershell;
         }
 
@@ -432,72 +440,49 @@ namespace FreakySources.GUI
             {
                 File.WriteAllText(sfdSaveOutput.FileName, tbOutput.Text);
 
-                bool unix = false;
-                switch (Environment.OSVersion.Platform)
-                {
-                    case PlatformID.Win32NT:
-                    case PlatformID.Win32S:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.WinCE:
-                        unix = false;
-                        break;
-                    case PlatformID.Unix:
-                        unix = true;
-                        break;
-                    default:
-                        break;
-                }
-
                 var filenameWithoutExtension = Path.GetFileNameWithoutExtension(sfdSaveOutput.FileName);
                 var filenameCs = "\"" + filenameWithoutExtension + ".cs\"";
                 var filenameExe = "\"" + filenameWithoutExtension + ".exe\"";
-                if (!unix)
+                if ((string)cmbSaveOutputOS.SelectedItem == "Windows")
                 {
+                    var newLine = "\r\n";
                     var batchFileName = Path.Combine(Path.GetDirectoryName(sfdSaveOutput.FileName),
                         filenameWithoutExtension + (!cbPowershell.Checked ? ".bat" : ".ps1"));
                     string batchFileContent;
-                    string compilatorPath = Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), @"csc.exe");                    
+                    string compilatorPath = Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), @"csc.exe");
 
                     if (!cbPowershell.Checked)
                     {
-                        batchFileContent = string.Format("\"{0}\" {1} && ({2} > {1}) && {2}", compilatorPath, filenameCs, "\"" + filenameWithoutExtension + "\"");
-                        if (nudRepeatCount.Value == 1)
-                        {
-                            batchFileContent += Environment.NewLine + "pause";
-                        }
-                        else
-                        {
-                            var sb = new StringBuilder();
-                            sb.AppendLine("echo off");
-                            if (nudRepeatCount.Value != 0)
-                                sb.AppendLine("set /a i=0");
-                            sb.AppendLine();
-                            sb.AppendLine(":LOOP");
-                            if (nudRepeatCount.Value != 0)
-                                sb.AppendLine("if %i% == " + nudRepeatCount.Value + " goto END");
-                            sb.AppendLine("\"" + Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), @"csc.exe") + "\" " + filenameCs);
-                            sb.AppendLine(filenameExe);
-                            sb.AppendLine(filenameExe + " > " + filenameCs);
-                            if (nudRepeatCount.Value != 0)
-                                sb.AppendLine("set /a i = %i% + 1");
-                            sb.AppendLine("goto LOOP");
-                            sb.AppendLine();
-                            sb.AppendLine(":END");
-                            if (nudRepeatCount.Value != 0)
-                                sb.AppendLine("pause");
-                            batchFileContent = sb.ToString();
-                        }
+                        var sb = new StringBuilder();
+                        sb.Append("echo off" + newLine);
+                        if (nudRepeatCount.Value != 0)
+                            sb.Append("set /a i=0" + newLine);
+                        sb.Append(newLine);
+                        sb.Append(":LOOP" + newLine);
+                        if (nudRepeatCount.Value != 0)
+                            sb.Append("    if %i% == " + nudRepeatCount.Value + " goto END" + newLine);
+                        sb.Append("    \"" + Path.Combine(System.Runtime.InteropServices.RuntimeEnvironment.GetRuntimeDirectory(), @"csc.exe") + "\" " + filenameCs + newLine);
+                        sb.Append("    " + filenameExe + " > " + filenameCs + newLine);
+                        sb.Append("    type " + filenameCs + newLine);
+                        if (nudRepeatCount.Value != 0)
+                            sb.Append("    set /a i = %i% + 1" + newLine);
+                        sb.Append("goto LOOP" + newLine);
+                        sb.Append(newLine);
+                        sb.Append(":END" + newLine);
+                        if (nudRepeatCount.Value != 0)
+                            sb.Append("pause");
+                        batchFileContent = sb.ToString();
                     }
                     else
-                    {                        
+                    {
                         var sb = new StringBuilder();
                         if (nudRepeatCount.Value == 0)
-                            sb.AppendLine("while ($true) {");
-                        else                            
-                            sb.AppendLine("for ($i=0; $i -lt " + nudRepeatCount.Value + "; $i++) {");
-                        sb.AppendLine("    &\"" + compilatorPath + "\" " + filenameCs);
-                        sb.AppendLine("    ./" + filenameExe);
-                        sb.AppendLine("    ./" + filenameExe + " > " + filenameCs);
+                            sb.Append("while ($true) {" + newLine);
+                        else
+                            sb.Append("for ($i=0; $i -lt " + nudRepeatCount.Value + "; $i++) {" + newLine);
+                        sb.Append("    &\"" + compilatorPath + "\" " + filenameCs + newLine);
+                        sb.Append("    ./" + filenameExe + " > " + filenameCs + newLine);
+                        sb.Append("    type " + filenameCs + newLine);
                         sb.Append("}");
                         batchFileContent = sb.ToString();
                     }
@@ -508,18 +493,19 @@ namespace FreakySources.GUI
                 }
                 else
                 {
+                    var newLine = "\n";
                     var shellFileName = Path.Combine(Path.GetDirectoryName(sfdSaveOutput.FileName),
                         filenameWithoutExtension + ".sh");
                     var sb = new StringBuilder();
                     if (nudRepeatCount.Value == 0)
-                        sb.AppendLine("while :");
+                        sb.Append("while :" + newLine);
                     else
-                        sb.AppendLine("for i in $(seq 1 " + nudRepeatCount.Value + ")");
-                    sb.AppendLine("do");
-                    sb.AppendLine("    mcs " + filenameCs);
-                    sb.AppendLine("    mono " + filenameExe);
-                    sb.AppendLine("    mono " + filenameExe + " > " + filenameCs);
-                    sb.AppendLine("done");
+                        sb.Append("for i in $(seq 1 " + nudRepeatCount.Value + ")" + newLine);
+                    sb.Append("do" + newLine);
+                    sb.Append("    mcs " + filenameCs + newLine);
+                    sb.Append("    mono " + filenameExe + " > " + filenameCs + newLine);
+                    sb.Append("    cat " + filenameCs + newLine);
+                    sb.Append("done");
                     File.WriteAllText(shellFileName, sb.ToString());
                     if (cbOpenAfterSave.Checked)
                         Process.Start(Path.GetDirectoryName(sfdSaveOutput.FileName));
@@ -540,6 +526,11 @@ namespace FreakySources.GUI
                     ((TextBox)sender).SelectAll();
                 e.Handled = true;
             }
+        }
+
+        private void cmbSaveOutputOS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbPowershell.Visible = (string)cmbSaveOutputOS.SelectedItem == "Windows";
         }
     }
 }

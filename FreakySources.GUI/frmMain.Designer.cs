@@ -51,6 +51,7 @@
             this.cbScrollToEnd = new System.Windows.Forms.CheckBox();
             this.btnConsoleOutputToOutput = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.cbPowershell = new System.Windows.Forms.CheckBox();
             this.cbOpenAfterSave = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.nudRepeatCount = new System.Windows.Forms.NumericUpDown();
@@ -99,7 +100,8 @@
             this.btnSaveInput = new System.Windows.Forms.Button();
             this.splitContainerGeneral = new System.Windows.Forms.SplitContainer();
             this.sfdSaveOutput = new System.Windows.Forms.SaveFileDialog();
-            this.cbPowershell = new System.Windows.Forms.CheckBox();
+            this.cmbSaveOutputOS = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -196,6 +198,7 @@
             // tbFormattedOutput
             // 
             this.tbFormattedOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbFormattedOutput.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbFormattedOutput.Location = new System.Drawing.Point(3, 3);
             this.tbFormattedOutput.Multiline = true;
             this.tbFormattedOutput.Name = "tbFormattedOutput";
@@ -341,7 +344,7 @@
             this.groupBox7.Controls.Add(this.label9);
             this.groupBox7.Controls.Add(this.cbScrollToEnd);
             this.groupBox7.Controls.Add(this.btnConsoleOutputToOutput);
-            this.groupBox7.Location = new System.Drawing.Point(375, 338);
+            this.groupBox7.Location = new System.Drawing.Point(375, 356);
             this.groupBox7.Name = "groupBox7";
             this.groupBox7.Size = new System.Drawing.Size(283, 109);
             this.groupBox7.TabIndex = 28;
@@ -412,6 +415,8 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.label13);
+            this.groupBox6.Controls.Add(this.cmbSaveOutputOS);
             this.groupBox6.Controls.Add(this.cbPowershell);
             this.groupBox6.Controls.Add(this.cbOpenAfterSave);
             this.groupBox6.Controls.Add(this.label4);
@@ -422,15 +427,25 @@
             this.groupBox6.Controls.Add(this.cbWrapOutput);
             this.groupBox6.Location = new System.Drawing.Point(375, 218);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(283, 114);
+            this.groupBox6.Size = new System.Drawing.Size(283, 132);
             this.groupBox6.TabIndex = 58;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Output";
             // 
+            // cbPowershell
+            // 
+            this.cbPowershell.AutoSize = true;
+            this.cbPowershell.Location = new System.Drawing.Point(75, 109);
+            this.cbPowershell.Name = "cbPowershell";
+            this.cbPowershell.Size = new System.Drawing.Size(77, 17);
+            this.cbPowershell.TabIndex = 65;
+            this.cbPowershell.Text = "Powershell";
+            this.cbPowershell.UseVisualStyleBackColor = true;
+            // 
             // cbOpenAfterSave
             // 
             this.cbOpenAfterSave.AutoSize = true;
-            this.cbOpenAfterSave.Location = new System.Drawing.Point(158, 80);
+            this.cbOpenAfterSave.Location = new System.Drawing.Point(158, 109);
             this.cbOpenAfterSave.Name = "cbOpenAfterSave";
             this.cbOpenAfterSave.Size = new System.Drawing.Size(105, 17);
             this.cbOpenAfterSave.TabIndex = 64;
@@ -923,15 +938,27 @@
             this.splitContainerGeneral.SplitterDistance = 670;
             this.splitContainerGeneral.TabIndex = 21;
             // 
-            // cbPowershell
+            // cmbSaveOutputOS
             // 
-            this.cbPowershell.AutoSize = true;
-            this.cbPowershell.Location = new System.Drawing.Point(65, 80);
-            this.cbPowershell.Name = "cbPowershell";
-            this.cbPowershell.Size = new System.Drawing.Size(77, 17);
-            this.cbPowershell.TabIndex = 65;
-            this.cbPowershell.Text = "Powershell";
-            this.cbPowershell.UseVisualStyleBackColor = true;
+            this.cmbSaveOutputOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSaveOutputOS.FormattingEnabled = true;
+            this.cmbSaveOutputOS.Items.AddRange(new object[] {
+            "Windows",
+            "Linux"});
+            this.cmbSaveOutputOS.Location = new System.Drawing.Point(158, 82);
+            this.cmbSaveOutputOS.Name = "cmbSaveOutputOS";
+            this.cmbSaveOutputOS.Size = new System.Drawing.Size(111, 21);
+            this.cmbSaveOutputOS.TabIndex = 66;
+            this.cmbSaveOutputOS.SelectedIndexChanged += new System.EventHandler(this.cmbSaveOutputOS_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(130, 85);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(22, 13);
+            this.label13.TabIndex = 67;
+            this.label13.Text = "OS";
             // 
             // frmMain
             // 
@@ -1057,6 +1084,8 @@
         private System.Windows.Forms.TextBox tbPatternsFolder;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.CheckBox cbPowershell;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.ComboBox cmbSaveOutputOS;
 
 	}
 }
