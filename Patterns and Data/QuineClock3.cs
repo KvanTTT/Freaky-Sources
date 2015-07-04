@@ -5,7 +5,7 @@ namespace QuineClock3
 {
     class Program
     {
-        static string[] Digits = new string[] { /*%Digits*/null/*Digits%*/ };
+        static string[] Digits = new [] { /*%Digits*/null/*Digits%*/ };
 
         /*#QuineClock3*//*QuineClock3#*/
 
@@ -18,7 +18,7 @@ namespace QuineClock3
             if (sleepMs < 0)
                 sleepMs = 0;
             System.Threading.Thread.Sleep((int)sleepMs);
-            var output = TimeToString(Digits, nextDate);
+            var output = TimeToString(nextDate);
             /*@*/
         }
     }

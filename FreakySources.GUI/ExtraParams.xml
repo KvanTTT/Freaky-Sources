@@ -1,28 +1,10 @@
 <?xml version="1.0"?>
 <ArrayOfArrayOfString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <ArrayOfString>
-    <string>/*%Frames*/</string>
-    <string>/*Frames%*/</string>
-    <string>'"'+string.Join("\",\"",Frames)+'"'</string>
+    <string>/*%Data_1_3*/</string>
+    <string>/*Data_1_3%*/</string>
+    <string>'"'+Data+'"'</string>
     <string>$key$</string>
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>/*$CurrentFrame*/</string>
-    <string>/*CurrentFrame$*/</string>
-    <string>CurrentFrame</string>
-    <string>0</string>
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>/*$Output$*/</string>
-    <string>/*$Output$*/</string>
-    <string>output.ToString()</string>
-    <string xsi:nil="true" />
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>CurrentFrame</string>
-    <string>CurrentFrame</string>
-    <string>"cf"</string>
-    <string>cf</string>
   </ArrayOfString>
   <ArrayOfString>
     <string>/*%CompressedFramesGZipStream*/</string>
@@ -31,27 +13,15 @@
     <string>$key$</string>
   </ArrayOfString>
   <ArrayOfString>
-    <string>HuffmanTable</string>
-    <string>HuffmanTable</string>
-    <string>"ht"</string>
-    <string>ht</string>
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>Frames</string>
-    <string>Frames</string>
-    <string>"f"</string>
-    <string>f</string>
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>output</string>
-    <string>output</string>
-    <string>"o"</string>
-    <string>o</string>
-  </ArrayOfString>
-  <ArrayOfString>
     <string>/*%HuffmanRleTable*/</string>
     <string>/*HuffmanRleTable%*/</string>
     <string>'"'+HuffmanTable+'"'</string>
+    <string>$key$</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*%Digits*/</string>
+    <string>/*Digits%*/</string>
+    <string>'"'+string.Join("\",\"",Digits)+'"'</string>
     <string>$key$</string>
   </ArrayOfString>
   <ArrayOfString>
@@ -61,34 +31,16 @@
     <string>$key$</string>
   </ArrayOfString>
   <ArrayOfString>
-    <string>/*%Data_1_3*/</string>
-    <string>/*Data_1_3%*/</string>
-    <string>'"'+Data+'"'</string>
+    <string>/*%Frames*/</string>
+    <string>/*Frames%*/</string>
+    <string>'"'+string.Join("\",\"",Frames)+'"'</string>
     <string>$key$</string>
   </ArrayOfString>
   <ArrayOfString>
-    <string>/*$Output_1_3$*/</string>
-    <string>/*$Output_1_3$*/</string>
-    <string>output.ToString()</string>
-    <string xsi:nil="true" />
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>Data</string>
-    <string>Data</string>
-    <string>"d"</string>
-    <string>d</string>
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>/*$QuineClockOutput$*/</string>
-    <string>/*$QuineClockOutput$*/</string>
-    <string>output</string>
-    <string xsi:nil="true" />
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>/*%Digits*/</string>
-    <string>/*Digits%*/</string>
-    <string>'"'+string.Join("\",\"",Digits)+'"'</string>
-    <string>$key$</string>
+    <string>CurrentFrame</string>
+    <string>CurrentFrame</string>
+    <string>"cf"</string>
+    <string>cf</string>
   </ArrayOfString>
   <ArrayOfString>
     <string>Digits</string>
@@ -97,16 +49,22 @@
     <string>d</string>
   </ArrayOfString>
   <ArrayOfString>
-    <string>/*$PrevDateTicks*/</string>
-    <string>/*PrevDateTicks$*/</string>
-    <string>n.Ticks</string>
-    <string>$key$</string>
+    <string>Data</string>
+    <string>Data</string>
+    <string>"d"</string>
+    <string>d</string>
   </ArrayOfString>
   <ArrayOfString>
-    <string> /*$PrevCompileTicks*/</string>
-    <string>/*PrevCompileTicks$*/</string>
-    <string>compileTimeTicks</string>
-    <string>0</string>
+    <string>Frames</string>
+    <string>Frames</string>
+    <string>"f"</string>
+    <string>f</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>HuffmanTable</string>
+    <string>HuffmanTable</string>
+    <string>"ht"</string>
+    <string>ht</string>
   </ArrayOfString>
   <ArrayOfString>
     <string>/*$CompileTicks*/</string>
@@ -115,9 +73,51 @@
     <string>$key$</string>
   </ArrayOfString>
   <ArrayOfString>
+    <string>output</string>
+    <string>output</string>
+    <string>"o"</string>
+    <string>o</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string> /*$PrevCompileTicks*/</string>
+    <string>/*PrevCompileTicks$*/</string>
+    <string>compileTimeTicks</string>
+    <string>0</string>
+  </ArrayOfString>
+  <ArrayOfString>
     <string>/*$CurrentCompileNumber*/</string>
     <string>/*CurrentCompileNumber$*/</string>
     <string>CurrentCompileNumber</string>
     <string>$key$</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$CurrentFrame*/</string>
+    <string>/*CurrentFrame$*/</string>
+    <string>CurrentFrame</string>
+    <string>0</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$PrevDateTicks*/</string>
+    <string>/*PrevDateTicks$*/</string>
+    <string>n.Ticks</string>
+    <string>$key$</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$QuineClockOutput$*/</string>
+    <string>/*$QuineClockOutput$*/</string>
+    <string>output</string>
+    <string xsi:nil="true" />
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$Output_1_3$*/</string>
+    <string>/*$Output_1_3$*/</string>
+    <string>output.ToString()</string>
+    <string xsi:nil="true" />
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$Output$*/</string>
+    <string>/*$Output$*/</string>
+    <string>output.ToString()</string>
+    <string xsi:nil="true" />
   </ArrayOfString>
 </ArrayOfArrayOfString>

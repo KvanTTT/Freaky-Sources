@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace FreakySources.Code
@@ -36,45 +35,46 @@ namespace FreakySources.Code
         const int DigitHeight = 8;
         const string DigitSpace = "  ";
         const string DotSpace = "  ";
+        static StringBuilder Result;
 
-        static string TimeToString(string[] digits, DateTime dateTime)
+        static string TimeToString(DateTime dateTime)
         {
             var newLine = Environment.NewLine;
-            var result = new StringBuilder(newLine + newLine);
+            Result = new StringBuilder(newLine + newLine);
 
-            Append(result, "//" + newLine);
+            Append("//" + newLine);
             for (int i = 0; i < DigitHeight; i++)
             {
-                Append(result, "//  ");
-                AppendNumberString(digits, result, dateTime.Hour, i);
-                AppendDots(result, i);
-                AppendNumberString(digits, result, dateTime.Minute, i);
-                AppendDots(result, i);
-                AppendNumberString(digits, result, dateTime.Second, i);
-                Append(result, newLine);
+                Append("//  ");
+                AppendNumberString(dateTime.Hour, i);
+                AppendDots(i);
+                AppendNumberString(dateTime.Minute, i);
+                AppendDots(i);
+                AppendNumberString(dateTime.Second, i);
+                Append(newLine);
             }
-            Append(result, "//" + newLine + "//" + string.Format("{0,62}", "Quine Clock by KvanTTT, 2014") + newLine + newLine);
+            Append("//" + newLine + "//" + string.Format("{0,62}", "Quine Clock by KvanTTT, 2014") + newLine + newLine);
 
-            return result.ToString();
+            return Result.ToString();
         }
 
-        static void AppendNumberString(string[] digits, StringBuilder sb, int number, int line)
+        static void AppendNumberString(int number, int line)
         {
-            Append(sb, digits[number / 10].Substring(line * DigitWidth, DigitWidth).Replace('!', '\\'));
-            Append(sb, DigitSpace);
-            Append(sb, digits[number % 10].Substring(line * DigitWidth, DigitWidth).Replace('!', '\\'));
+            Append(Digits[number / 10].Substring(line * DigitWidth, DigitWidth).Replace('!', '\\'));
+            Append(DigitSpace);
+            Append(Digits[number % 10].Substring(line * DigitWidth, DigitWidth).Replace('!', '\\'));
         }
 
-        static void AppendDots(StringBuilder sb, int line)
+        static void AppendDots(int line)
         {
-            Append(sb, DotSpace);
-            Append(sb, line == 1 || line == 2 || line == 4 || line == 5 ? "++" : "  ");
-            Append(sb, DotSpace);
+            Append(DotSpace);
+            Append(line == 1 | line == 2 | line == 4 | line == 5 ? "++" : "  ");
+            Append(DotSpace);
         }
 
-        static void Append(StringBuilder sb, string s)
+        static void Append(string s)
         {
-            sb.Append(s);
+            Result.Append(s);
         }
 
         /*QuineClock3#*/
