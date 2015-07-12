@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-#VisualStudioVersion = 12.0.30723.0
-#MinimumVisualStudioVersion = 10.0.40219.1
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources.Tests", "FreakySources.Tests\FreakySources.Tests.csproj", "{13621013-38EF-4EEE-8ABA-B69320A7CE83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpMinifier", "CSharp-Minifier\CSharpMinifier\CSharpMinifier.csproj", "{A26C936C-846B-4165-9574-42C74075D4CD}"
@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns and Data", "Patter
 		Patterns and Data\SelfCompiliedProgram.cs = Patterns and Data\SelfCompiliedProgram.cs
 		Patterns and Data\SelfPrintingGameOfLife.cs = Patterns and Data\SelfPrintingGameOfLife.cs
 		Patterns and Data\SingleCommentsPalindromeQuine.cs = Patterns and Data\SingleCommentsPalindromeQuine.cs
+		Patterns and Data\Snake.cs = Patterns and Data\Snake.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsciimationStatistics", "AsciimationStatistics\AsciimationStatistics.csproj", "{70B54927-6583-491D-816B-9D0B648E9421}"

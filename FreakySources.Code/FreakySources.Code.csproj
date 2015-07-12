@@ -48,6 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuineClockDataGenerator.cs" />
     <Compile Include="RLE.cs" />
+    <Compile Include="QuineSnakeGenerator.cs" />
     <Compile Include="StringCompressor.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>

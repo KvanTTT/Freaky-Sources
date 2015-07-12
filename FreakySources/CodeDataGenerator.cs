@@ -12,6 +12,7 @@ namespace FreakySources
 		public string KeyBegin;
 		public string KeyEnd;
 		public string Value;
+		public bool SaveKey = true;
 
 		public CodeDataGeneratorParam()
 		{
@@ -29,11 +30,12 @@ namespace FreakySources
 			KeyEnd = keyEnd;
 		}
 
-		public CodeDataGeneratorParam(string keyBegin, string keyEnd, string value)
+		public CodeDataGeneratorParam(string keyBegin, string keyEnd, string value, bool saveKey)
 		{
 			KeyBegin = keyBegin;
 			KeyEnd = keyEnd;
 			Value = value;
+            SaveKey = saveKey;
 		}
 	}
 
@@ -44,12 +46,6 @@ namespace FreakySources
 		private List<string> Codes;
 		private string IgnoreBegin = "/*#Ignore*/";
 		private string IgnoreEnd = "/*Ignore#*/";
-
-		public bool SaveKeys
-		{
-			get;
-			set;
-		}
 
 		public bool IgnoreIndents
 		{
@@ -96,7 +92,7 @@ namespace FreakySources
 			{
 				var code = SearchCode(p);
 				code = RemoveIgnoreSection(code);
-				SubstituteParam(result, new CodeDataGeneratorParam(p.KeyBegin, p.KeyEnd, code));
+				SubstituteParam(result, new CodeDataGeneratorParam(p.KeyBegin, p.KeyEnd, code, false));
 			}
 			return result.ToString();
 		}
@@ -121,7 +117,7 @@ namespace FreakySources
 					int endInd = source.IndexOf(p.KeyEnd, beginInd);
 
 					int ind, length;
-					if (!SaveKeys)
+					if (!p.SaveKey)
 					{
 						ind = beginInd;
 						length = endInd + p.KeyEnd.Length - ind;
