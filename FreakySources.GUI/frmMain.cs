@@ -152,36 +152,6 @@ namespace FreakySources.GUI
 			var codeDataGenerator = new CodeDataGenerator(GetPlatformSpecificPath(tbSourceCodeFilesFolder.Text));
 			switch (selectedItemText)
 			{
-				case "Asciimation_1_1.cs":
-					var asciimationGenerator11 = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "Asciimation.txt")));
-					tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
-						{
-							new CodeDataGeneratorParam
-							{
-								KeyBegin = "/*%CompressedFramesGZipStream*/",
-								KeyEnd = "/*CompressedFramesGZipStream%*/",
-								Value = asciimationGenerator11.GetGZipCompressedFrames()
-							}
-						});
-					break;
-
-				case "Asciimation_1_2.cs":
-					var asciimationGenerator12 = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "Asciimation.txt")));
-					tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
-						{
-							new CodeDataGeneratorParam {
-								KeyBegin = "/*%HuffmanRleTable*/",
-								KeyEnd = "/*HuffmanRleTable%*/",
-								Value = asciimationGenerator12.GetHuffmanRleTable()
-							},
-							new CodeDataGeneratorParam {
-								KeyBegin = "/*%HuffmanRleFrames*/",
-								KeyEnd = "/*HuffmanRleFrames%*/",
-								Value = asciimationGenerator12.GetHuffmanRleFrames()
-							}
-						});
-					break;
-
 				case "Asciimation_1_3.cs":
 					List<CompressedFrame> compressedFrames;
 					var asciimationGenerator13 = new AsciimationDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "Asciimation.txt")));

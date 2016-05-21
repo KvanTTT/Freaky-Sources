@@ -75,64 +75,7 @@ namespace FreakySources.Code
 			Frames = result.ToArray();
 		}
 
-		#region version 1.0
-
-		public string GetRleFrames()
-		{
-			var rleEncoded = new StringBuilder();
-			foreach (var frame in Frames)
-			{
-				double compressRatio;
-				var compressed = Compress(frame, out compressRatio);
-				rleEncoded.AppendLine("\"" + Convert.ToBase64String(compressed) + "\",");
-			}
-
-			return rleEncoded.ToString();
-		}
-
-		private static byte[] Compress(Frame frame, out double compressRatio)
-		{
-			StringBuilder str = new StringBuilder(FrameWidth * FrameHeight);
-			foreach (var line in frame.Lines)
-				str.Append(line);
-
-			var result = Rle.Encode(Encoding.UTF8.GetBytes(str.ToString()));
-			compressRatio = (double)result.Length / str.Length;
-
-			return result;
-		}
-
-		#endregion
-
-		#region version 1.1
-		
-		public string GetGZipCompressedFrames()
-		{
-			return '"' + StringCompressor.CompressString(Input) + '"';
-		}
-
-		#endregion
-
 		#region version 1.2
-
-		public string GetHuffmanRleTable()
-		{
-			var bytesFreqs = GetBytesFreqs(false);
-			var bytes = SerializeByteCount(bytesFreqs);
-			return '"' + Convert.ToBase64String(bytes) + '"';
-		}
-
-		public string GetHuffmanRleFrames()
-		{
-			var bytesFreqs = GetBytesFreqs(false);
-			var tree = new HuffmanTree(bytesFreqs);
-			var result = new StringBuilder();
-			foreach (var frame in Frames)
-			{
-				result.Append('"' + Convert.ToBase64String(HuffmanRle.Encode(tree, frame.Bytes)) + "\"," + Environment.NewLine);
-			}
-			return result.ToString();
-		}
 
 		public ByteCount[] GetBytesFreqs(bool reducedLines = false, int lengthBitsCount = 8)
 		{

@@ -14,9 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns and Data", "Patterns and Data", "{9CBE6152-3A3C-4B49-9D4C-101B11EBF466}"
 	ProjectSection(SolutionItems) = preProject
 		Patterns and Data\Asciimation.txt = Patterns and Data\Asciimation.txt
-		Patterns and Data\Asciimation_1_0.cs = Patterns and Data\Asciimation_1_0.cs
-		Patterns and Data\Asciimation_1_1.cs = Patterns and Data\Asciimation_1_1.cs
-		Patterns and Data\Asciimation_1_2.cs = Patterns and Data\Asciimation_1_2.cs
 		Patterns and Data\Asciimation_1_3.cs = Patterns and Data\Asciimation_1_3.cs
 		Patterns and Data\CustomQuine.cs = Patterns and Data\CustomQuine.cs
 		Patterns and Data\MultiCommentsPalindromeQuine.cs = Patterns and Data\MultiCommentsPalindromeQuine.cs
