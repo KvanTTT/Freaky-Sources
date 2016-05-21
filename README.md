@@ -4,12 +4,24 @@ Freaky-Sources
 Collection of freaky sources written on C# (mostly quines in different forms).
 
 ##Sources
-* Single Line Comment Palindrome Quine.
-* Multi Line Comment Palindrome Quine.
-* Asciimation Quine (Used data from http://asciimation.co.nz/ by Simon Jansen © 1997 - 2011).
+#### Single Line Comment Palindrome Quine.
+
+#### Multi Line Comment Palindrome Quine.
+
+#### Asciimation Quine
+Used data from http://asciimation.co.nz/ by Simon Jansen © 1997 - 2011. One compilation per one frame.
 
 ![Star wars in source code](http://habrastorage.org/getpro/habr/post_images/57d/e67/628/57de6762827e000614ac24b327dbf6a7.png)
 
+#### Quine Clock.
+One compilation per one second.
+
+![Quine Clock](https://habrastorage.org/files/6e4/831/3d3/6e48313d31e046ffb47410f829697e48.png)
+
+#### Quine Snake.
+Use arrow keys to change direction and move snake. Game can be either completed or failed :)
+
+![Quine Snake](https://habrastorage.org/files/b52/2fd/6d8/b522fd6d824542dcb6c318b7c4b62161.png)
 
 ##Implemention detail
 Quine generation consists of several steps:
