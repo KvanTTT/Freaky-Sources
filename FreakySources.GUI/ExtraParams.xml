@@ -37,6 +37,12 @@
     <string>$key$</string>
   </ArrayOfString>
   <ArrayOfString>
+    <string>/*$CurrentFrame*/</string>
+    <string>/*CurrentFrame$*/</string>
+    <string>CurrentFrame</string>
+    <string>0</string>
+  </ArrayOfString>
+  <ArrayOfString>
     <string>CurrentFrame</string>
     <string>CurrentFrame</string>
     <string>"cf"</string>
@@ -89,12 +95,6 @@
     <string>/*CurrentCompileNumber$*/</string>
     <string>CurrentCompileNumber</string>
     <string>$key$</string>
-  </ArrayOfString>
-  <ArrayOfString>
-    <string>/*$CurrentFrame*/</string>
-    <string>/*CurrentFrame$*/</string>
-    <string>CurrentFrame</string>
-    <string>0</string>
   </ArrayOfString>
   <ArrayOfString>
     <string>/*$PrevDateTicks*/</string>
@@ -203,5 +203,29 @@
     <string>Dirs</string>
     <string>"L"</string>
     <string>L</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>/*$GameState*/</string>
+    <string>/*GameState$*/</string>
+    <string>GameState</string>
+    <string>$key$</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>GameState</string>
+    <string>GameState</string>
+    <string>"F"</string>
+    <string>F</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>Happy_New_Year_2016</string>
+    <string>Happy_New_Year_2016</string>
+    <string>"Happy_New_Year_2016"</string>
+    <string>Happy_New_Year_2016</string>
+  </ArrayOfString>
+  <ArrayOfString>
+    <string>Monkey_Quine_by_Ivan_Kochurkin</string>
+    <string>Monkey_Quine_by_Ivan_Kochurkin</string>
+    <string>"Monkey_Quine_by_Ivan_Kochurkin"</string>
+    <string>Monkey_Quine_by_Ivan_Kochurkin</string>
   </ArrayOfString>
 </ArrayOfArrayOfString>

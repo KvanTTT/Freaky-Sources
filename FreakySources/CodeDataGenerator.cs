@@ -35,7 +35,12 @@ namespace FreakySources
 			KeyBegin = keyBegin;
 			KeyEnd = keyEnd;
 			Value = value;
-            SaveKey = saveKey;
+			SaveKey = saveKey;
+		}
+
+		public override string ToString()
+		{
+			return "Key:" + (KeyBegin != KeyEnd ? $"{KeyBegin}...{KeyEnd}" : KeyBegin) + $"; Value:{Value}; SaveKey:{SaveKey}";
 		}
 	}
 

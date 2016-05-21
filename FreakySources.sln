@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreakySources.Tests", "FreakySources.Tests\FreakySources.Tests.csproj", "{13621013-38EF-4EEE-8ABA-B69320A7CE83}"
 EndProject
@@ -23,12 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns and Data", "Patter
 		Patterns and Data\Quine.cs = Patterns and Data\Quine.cs
 		Patterns and Data\QuineClock.cs = Patterns and Data\QuineClock.cs
 		Patterns and Data\QuineClock2.cs = Patterns and Data\QuineClock2.cs
-		Patterns and Data\QuineClock3.cs = Patterns and Data\QuineClock3.cs
 		Patterns and Data\QuineClockDigits.txt = Patterns and Data\QuineClockDigits.txt
+		Patterns and Data\QuineSnake.cs = Patterns and Data\QuineSnake.cs
 		Patterns and Data\SelfCompiliedProgram.cs = Patterns and Data\SelfCompiliedProgram.cs
 		Patterns and Data\SelfPrintingGameOfLife.cs = Patterns and Data\SelfPrintingGameOfLife.cs
 		Patterns and Data\SingleCommentsPalindromeQuine.cs = Patterns and Data\SingleCommentsPalindromeQuine.cs
-		Patterns and Data\Snake.cs = Patterns and Data\Snake.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsciimationStatistics", "AsciimationStatistics\AsciimationStatistics.csproj", "{70B54927-6583-491D-816B-9D0B648E9421}"

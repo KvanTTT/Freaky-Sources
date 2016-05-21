@@ -51,6 +51,8 @@
             this.cbScrollToEnd = new System.Windows.Forms.CheckBox();
             this.btnConsoleOutputToOutput = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.cmbSaveOutputOS = new System.Windows.Forms.ComboBox();
             this.cbPowershell = new System.Windows.Forms.CheckBox();
             this.cbOpenAfterSave = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -100,8 +102,6 @@
             this.btnSaveInput = new System.Windows.Forms.Button();
             this.splitContainerGeneral = new System.Windows.Forms.SplitContainer();
             this.sfdSaveOutput = new System.Windows.Forms.SaveFileDialog();
-            this.cmbSaveOutputOS = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -431,6 +431,28 @@
             this.groupBox6.TabIndex = 58;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Output";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(130, 85);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(22, 13);
+            this.label13.TabIndex = 67;
+            this.label13.Text = "OS";
+            // 
+            // cmbSaveOutputOS
+            // 
+            this.cmbSaveOutputOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSaveOutputOS.FormattingEnabled = true;
+            this.cmbSaveOutputOS.Items.AddRange(new object[] {
+            "Windows",
+            "Linux"});
+            this.cmbSaveOutputOS.Location = new System.Drawing.Point(158, 82);
+            this.cmbSaveOutputOS.Name = "cmbSaveOutputOS";
+            this.cmbSaveOutputOS.Size = new System.Drawing.Size(111, 21);
+            this.cmbSaveOutputOS.TabIndex = 66;
+            this.cmbSaveOutputOS.SelectedIndexChanged += new System.EventHandler(this.cmbSaveOutputOS_SelectedIndexChanged);
             // 
             // cbPowershell
             // 
@@ -896,11 +918,6 @@
             // nudLineLength
             // 
             this.nudLineLength.Location = new System.Drawing.Point(146, 32);
-            this.nudLineLength.Minimum = new decimal(new int[] {
-            40,
-            0,
-            0,
-            0});
             this.nudLineLength.Name = "nudLineLength";
             this.nudLineLength.Size = new System.Drawing.Size(85, 20);
             this.nudLineLength.TabIndex = 31;
@@ -937,28 +954,6 @@
             this.splitContainerGeneral.Size = new System.Drawing.Size(1369, 633);
             this.splitContainerGeneral.SplitterDistance = 670;
             this.splitContainerGeneral.TabIndex = 21;
-            // 
-            // cmbSaveOutputOS
-            // 
-            this.cmbSaveOutputOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSaveOutputOS.FormattingEnabled = true;
-            this.cmbSaveOutputOS.Items.AddRange(new object[] {
-            "Windows",
-            "Linux"});
-            this.cmbSaveOutputOS.Location = new System.Drawing.Point(158, 82);
-            this.cmbSaveOutputOS.Name = "cmbSaveOutputOS";
-            this.cmbSaveOutputOS.Size = new System.Drawing.Size(111, 21);
-            this.cmbSaveOutputOS.TabIndex = 66;
-            this.cmbSaveOutputOS.SelectedIndexChanged += new System.EventHandler(this.cmbSaveOutputOS_SelectedIndexChanged);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(130, 85);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(22, 13);
-            this.label13.TabIndex = 67;
-            this.label13.Text = "OS";
             // 
             // frmMain
             // 

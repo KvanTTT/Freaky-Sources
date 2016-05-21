@@ -27,5 +27,10 @@ namespace FreakySources
 			Value = value;
 			KeySubstitute = keySubstitute;
 		}
+
+		public override string ToString()
+		{
+			return "Key:" + (KeyBegin != KeyEnd ? $"{KeyBegin}...{KeyEnd}" : KeyBegin) + $"; Value:{Value}; KeySubstitute:{KeySubstitute}";
+		}
 	}
 }

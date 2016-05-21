@@ -39,7 +39,7 @@ namespace FreakySources.GUI
 		{
 			string input = tbInput.Text;
 
-			var generator = new QuineGenerator(tbQuineStr.Text, "Console.Write", tbKernel.Text, MinifiedInput);
+			var generator = new QuineGenerator(tbQuineStr.Text, "System.Console.Write", tbKernel.Text, MinifiedInput);
 			var extraParams = new List<QuineParam>();
 			for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
 				if (!string.IsNullOrEmpty(dgvExtraParams[0, i].Value as string) ||
@@ -133,7 +133,7 @@ namespace FreakySources.GUI
 				PublicCompressing = true,
 				NamespacesRemoving = true,
 				UselessMembersCompressing = true,
-                EnumToIntConversion = true,
+				EnumToIntConversion = true,
 			}, ignoredIdentifiers.ToArray(), ignoredComments.ToArray());
 			tbInput.Text = minifier.MinifyFromString(tbInput.Text);
 
@@ -195,7 +195,7 @@ namespace FreakySources.GUI
 					});
 					break;
 
-				case "QuineClock3.cs":
+				case "QuineClock.cs":
 					var quineClock3Generator = new QuineClockDataGenerator(File.ReadAllText(Path.Combine(tbPatternsFolder.Text, "QuineClockDigits.txt")));
 					tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
 						{
@@ -208,7 +208,7 @@ namespace FreakySources.GUI
 						});
 					break;
 
-                case "Snake.cs":
+                case "QuineSnake.cs":
                     var quineSnakeGenerator = new QuineSnakeGenerator();
                     tbInput.Text = codeDataGenerator.SubstituteData(tbInput.Text, new List<CodeDataGeneratorParam>()
                         {
@@ -328,11 +328,35 @@ namespace FreakySources.GUI
 			cmbPattern.SelectedItem = Settings.Default.SelectedPattern;
 
 			if (Settings.Default.splitContGenWidth != 0)
-				splitContainerGeneral.SplitterDistance = Settings.Default.splitContGenWidth;
+			{
+				try
+				{
+					splitContainerGeneral.SplitterDistance = Settings.Default.splitContGenWidth;
+				}
+				catch
+				{
+				}
+			}
 			if (Settings.Default.splitCont1Height != 0)
-				splitContainer1.SplitterDistance = Settings.Default.splitCont1Height;
+			{
+				try
+				{
+					splitContainer1.SplitterDistance = Settings.Default.splitCont1Height;
+				}
+				catch
+				{
+				}
+			}
 			if (Settings.Default.splitCont2Height != 0)
-				splitContainer2.SplitterDistance = Settings.Default.splitCont2Height;
+			{
+				try
+				{
+					splitContainer2.SplitterDistance = Settings.Default.splitCont2Height;
+				}
+				catch
+				{
+				}
+			}
 
 			tbOutput.WordWrap = Settings.Default.OutputWordWrap;
 			nudCompilationsCount.Value = Settings.Default.CompilationsCount;

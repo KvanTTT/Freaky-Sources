@@ -9,12 +9,12 @@ namespace FreakySources.Code
 
 	public enum FrameType
 	{
-		Basic,
-		Transitional,
-		TransitionalLeft,
-		TransitionalRight,
-		TransitionalTop,
-		TransitionalBottom
+		Basic = 0,
+		Transitional = 1,
+		TransitionalLeft = 2,
+		TransitionalRight = 3,
+		TransitionalTop = 4,
+		TransitionalBottom = 5
 	}
 
 	public enum FrameChangeType

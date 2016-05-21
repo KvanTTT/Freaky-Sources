@@ -1,34 +1,27 @@
 using System;
+using System.Text;
 
-class Program
+namespace QuineClock3
 {
-	static long PrevDateTicks = /*$PrevDateTicks*/DateTime.Now.Ticks/*PrevDateTicks$*/;
+    class Program
+    {
+        static string[] Digits = new[] { /*%Digits*/null/*Digits%*/ };
 
-	static int CompileTicksLength = 10;
+        /*#QuineClock3*/
+        /*QuineClock3#*/
 
-	static int SleepMs = 0;
-
-	static int CurrentCompileNumber = /*$CurrentCompileNumber*/0/*CurrentCompileNumber$*/;
-
-	static long[] CompileTicks = /*$CompileTicks*/new long[] {
-		0,
-		0,
-		0
-	}/*CompileTicks$*/;
-
-	static void Main ()
-	{
-		var n = DateTime.Now;
-		var compileTimeTicks = n.Ticks - PrevDateTicks - new TimeSpan (0, 0, 0, 0, SleepMs).Ticks;
-		CompileTicks [CurrentCompileNumber++] = compileTimeTicks;
-		CurrentCompileNumber %= CompileTicks.Length;
-		long avgCompileTime = 0;
-		for (int i = 0; i < CompileTicks.Length; i++)
-			avgCompileTime += CompileTicks [i];
-		var output = "\r\n\r\n//    " + new TimeSpan (avgCompileTime / CompileTicks.Length) + "\r\n\r\n";
-		
-		/*@*/
-		System.Threading.Thread.Sleep (SleepMs);
-	}
+        static void Main()
+        {
+            var ticksPerSecond = TimeSpan.TicksPerSecond;
+            var n = DateTime.Now;
+            var nextDate = n.AddTicks(ticksPerSecond - (n.Ticks % ticksPerSecond));
+            var sleepMs = (nextDate.Ticks - n.Ticks) * 1000 / ticksPerSecond - 50;
+            if (sleepMs < 0)
+                sleepMs = 0;
+            System.Threading.Thread.Sleep((int)sleepMs);
+            var output = TimeToString(nextDate);
+            /*@*/
+        }
+    }
 }
 /*$QuineClockOutput$*/
