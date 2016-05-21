@@ -1,0 +1,3 @@
+[submodule "CSharp-Minifier"]
+	path = CSharp-Minifier
+	url = https://github.com/KvanTTT/CSharp-Minifier
