@@ -23,6 +23,9 @@ Use arrow keys to change direction and move snake. Game can be either completed 
 
 ![Quine Snake](https://habrastorage.org/files/b52/2fd/6d8/b522fd6d824542dcb6c318b7c4b62161.png)
 
+#### Polyglote Quine.
+The quine that compilied both in C# and Java.
+
 ##Implemention detail
 Quine generation consists of several steps:
 * Code generation
