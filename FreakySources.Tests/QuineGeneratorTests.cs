@@ -12,13 +12,21 @@ namespace FreakySources.Tests
 	[TestFixture]
 	public class QuineGeneratorTests
 	{
+		private CSharpChecker _cSharpChecker;
+
+		[SetUp]
+		public void Init()
+		{
+			_cSharpChecker = new CSharpChecker();
+		}
+
 		[Test]
 		public void SimpleQuineGenerate()
 		{
 			var generator = new QuineGenerator();
 			var generated = generator.Generate(File.ReadAllText(Path.Combine(QuineTests.PatternsFolder, "CustomQuine.cs")));
-			var checkingResult = Checker.CheckQuineProgram(generated);
-			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
+			var checkingResult = _cSharpChecker.CheckQuineProgram(generated);
+			Assert.IsTrue(checkingResult.HasNotErrors());
 		}
 
 		[Test]
@@ -26,8 +34,8 @@ namespace FreakySources.Tests
 		{
 			var generator = new QuineGenerator() { Minified = false };
 			var generated = generator.Generate(File.ReadAllText(Path.Combine(QuineTests.PatternsFolder, "CustomQuine.cs")));
-			var checkingResult = Checker.CheckQuineProgram(generated);
-			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
+			var checkingResult = _cSharpChecker.CheckQuineProgram(generated);
+			Assert.IsTrue(checkingResult.HasNotErrors());
 		}
 
 		[Test]
@@ -37,8 +45,9 @@ namespace FreakySources.Tests
 			var minifier = new Minifier(new MinifierOptions(true) { CommentsRemoving = false, ConsoleApp = true });
 			var minified = minifier.MinifyFromString(File.ReadAllText(Path.Combine(QuineTests.PatternsFolder, "CustomQuine.cs")));
 			var generated = generator.Generate(minified);
-			var checkResult = Checker.CheckQuineProgram(generated);
-			Assert.IsTrue(checkResult.Count == 1 && !checkResult.First().Output.Contains(QuineGenerator.Newline) && !checkResult.First().IsError);
+			var checkingResult = _cSharpChecker.CheckQuineProgram(generated);
+			Assert.IsTrue(checkingResult.HasNotErrors());
+			Assert.IsTrue(!checkingResult.First().Output.Contains(QuineGenerator.Newline));
 		}
 	}
 }

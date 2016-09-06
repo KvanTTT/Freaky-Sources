@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FreakySources
 {
-	public static class ExtensionsHelper
+	public static class StringBuilderExtensions
 	{
 		public static int IndexOf(this StringBuilder sb, string value, int startIndex = 0, bool ignoreCase = false)
 		{

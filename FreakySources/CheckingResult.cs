@@ -1,4 +1,6 @@
-﻿namespace FreakySources
+﻿using System.Collections.Generic;
+
+namespace FreakySources
 {
 	public class CheckingResult
 	{

@@ -11,56 +11,81 @@ namespace FreakySources.Tests
 	[TestFixture]
 	public class QuineTests
 	{
-        public const string PatternsFolder = @"..\..\..\Patterns and Data\";
+		private CSharpChecker _cSharpChecker;
+		private JavaChecker _javaChecker;
+		public const string PatternsFolder = @"..\..\..\Patterns and Data\";
+
+		[SetUp]
+		public void Init()
+		{
+			_cSharpChecker = new CSharpChecker();
+			_javaChecker = new JavaChecker
+			{
+				JavaPath = Helpers.GetJavaExePath(@"bin\java.exe"),
+				JavaCompilerPath = Helpers.GetJavaExePath(@"bin\javac.exe")
+			};
+		}
 
 		[Test]
 		public void SimpleProgram()
 		{
 			string simpleProgram = "class P{static void Main(){}}";
-			var checkingResult = Checker.CompileAndRun(simpleProgram);
-			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
+			var checkingResult = _cSharpChecker.CompileAndRun(simpleProgram);
+			Assert.IsTrue(checkingResult.HasNotErrors());
 		}
 
 		[Test]
 		public void SimpleQuine()
 		{
 			string simpleQuine = "class P{static void Main(){var s=\"class P{{static void Main(){{var s={1}{0}{1};System.Console.Write(s,s,'{1}');}}}}\";System.Console.Write(s,s,'\"');}}";
-			var checkingResult = Checker.CheckQuineProgram(simpleQuine);
-			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
+			var checkingResult = _cSharpChecker.CheckQuineProgram(simpleQuine);
+			Assert.IsTrue(checkingResult.HasNotErrors());
 		}
 
 		[Test]
 		public void SingleLineCommentPalindrome()
 		{
 			string singleLineCommentsPalindrome = "//}}{)(niaM diov citats{P ssalc\r\n\rclass P{static void Main(){}}//";
-			var checkingResult = Checker.CheckPalindromeProgram(singleLineCommentsPalindrome);
-			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
+			var checkingResult = _cSharpChecker.CheckPalindromeProgram(singleLineCommentsPalindrome);
+			Assert.IsTrue(checkingResult.HasNotErrors());
 		}
 
 		[Test]
 		public void MultiLineCommentPalindrome()
 		{
 			string multiLineCommentsPalindrome = "/**/class P{static void Main(){}};/*/;}}{)(niaM diov citats{P ssalc/**/";
-			var checkingResult = Checker.CheckPalindromeProgram(multiLineCommentsPalindrome);
-			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
+			var checkingResult = _cSharpChecker.CheckPalindromeProgram(multiLineCommentsPalindrome);
+			Assert.IsTrue(checkingResult.HasNotErrors());
 		}
 
 		[Test]
 		public void SingleLineCommentPalindromeQuine()
 		{
-			string singleLineCommentsPalindromeQuine = Checker.RemoveSpacesInSource(File.ReadAllText(Path.Combine(PatternsFolder, "SingleCommentsPalindromeQuine.cs")));
-			singleLineCommentsPalindromeQuine = Checker.PrepareSingleLineCommentsPalindrome(singleLineCommentsPalindromeQuine);
-			var checkingResult = Checker.CheckPalindromeQuineProgram(singleLineCommentsPalindromeQuine);
-			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
+			string singleLineCommentsPalindromeQuine = StringExtensions.RemoveSpacesInSource(File.ReadAllText(Path.Combine(PatternsFolder, "SingleCommentsPalindromeQuine.cs")));
+			singleLineCommentsPalindromeQuine = StringExtensions.PrepareSingleLineCommentsPalindrome(singleLineCommentsPalindromeQuine);
+			var checkingResult = _cSharpChecker.CheckPalindromeQuineProgram(singleLineCommentsPalindromeQuine);
+			Assert.IsTrue(checkingResult.HasNotErrors());
 		}
 
 		[Test]
 		public void MultiLineCommentPalindromeQuine()
 		{
-			string multiLineCommentsPalindromeQuine = Checker.RemoveSpacesInSource(File.ReadAllText(Path.Combine(PatternsFolder, "MultiCommentsPalindromeQuine.cs")));
-			multiLineCommentsPalindromeQuine = Checker.PrepareMultiLineCommentsPalindrome(multiLineCommentsPalindromeQuine);
-			var checkingResult = Checker.CheckPalindromeQuineProgram(multiLineCommentsPalindromeQuine);
-			Assert.IsTrue(checkingResult.Count == 1 && !checkingResult.First().IsError);
+			string multiLineCommentsPalindromeQuine = StringExtensions.RemoveSpacesInSource(File.ReadAllText(Path.Combine(PatternsFolder, "MultiCommentsPalindromeQuine.cs")));
+			multiLineCommentsPalindromeQuine = StringExtensions.PrepareMultiLineCommentsPalindrome(multiLineCommentsPalindromeQuine);
+			var checkingResult = _cSharpChecker.CheckPalindromeQuineProgram(multiLineCommentsPalindromeQuine);
+			Assert.IsTrue(checkingResult.HasNotErrors());
+		}
+
+		[Test]
+		public void CSharpJavaPolyglotQuine()
+		{
+			string quine = File.ReadAllText(Path.Combine(PatternsFolder, "CSharpJavaPolyglotQuine.cs"));
+			var cSharpCheckingResult = _cSharpChecker.CheckQuineProgram(quine);
+			Assert.IsTrue(cSharpCheckingResult.HasNotErrors());
+
+			_javaChecker.ClassName = "Program";
+			var javaCheckingResult = _javaChecker.CheckQuineProgram(quine);
+			Assert.IsTrue(javaCheckingResult.HasNotErrors());
 		}
 	}
 }

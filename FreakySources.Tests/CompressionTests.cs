@@ -12,18 +12,18 @@ namespace FreakySources.Tests
 	[TestFixture]
 	public class CompressionTests
 	{
-        string AsciimationData;
+		string AsciimationData;
 
-        [SetUp]
-        public void InitCompressionTests()
-        {
-            AsciimationData = File.ReadAllText(Path.Combine(QuineTests.PatternsFolder, "Asciimation.txt"));
-        }
+		[SetUp]
+		public void InitCompressionTests()
+		{
+			AsciimationData = File.ReadAllText(Path.Combine(QuineTests.PatternsFolder, "Asciimation.txt"));
+		}
 
 		[Test]
 		public void RleEncodeDecode()
 		{
-			byte[] bytes = new byte[] { 
+			byte[] bytes = new byte[] {
 				0, 0, 0, 0, 0, 0, 4, 2, 0, 4, 4, 4, 4, 4, 4, 4,
 				80, 80, 80, 80, 0, 2, 2, 2, 2, 255, 255, 255, 255, 255, 0, 0
 			};
@@ -40,13 +40,13 @@ namespace FreakySources.Tests
 		{
 			byte[] bytes = new byte[] {
 				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
-				
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+				0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+
 				255, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
 				0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
 				0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
@@ -66,7 +66,7 @@ namespace FreakySources.Tests
 		[Test]
 		public void RleHuffmanEncodeDecode()
 		{
-            var generator = new AsciimationDataGenerator(AsciimationData);
+			var generator = new AsciimationDataGenerator(AsciimationData);
 			var bytesFreqs = generator.GetBytesFreqs();
 			var tree = new HuffmanTree(bytesFreqs);
 
@@ -83,7 +83,7 @@ namespace FreakySources.Tests
 		[Test]
 		public void RleHuffmanEncodeDecodeWithDifferentLengths()
 		{
-            var generator = new AsciimationDataGenerator(AsciimationData);
+			var generator = new AsciimationDataGenerator(AsciimationData);
 			var bytesFreqs = generator.GetBytesFreqs();
 			var tree = new HuffmanTree(bytesFreqs);
 
@@ -91,7 +91,7 @@ namespace FreakySources.Tests
 			{
 				var frame = generator.Frames[i];
 				var orig = frame.Bytes;
-				
+
 				int curBit = 0;
 				byte[] bytes = new byte[frame.Bytes.Length * 2];
 				HuffmanRle.Encode(tree, orig, ref curBit, bytes, 8, 4);
@@ -117,12 +117,12 @@ namespace FreakySources.Tests
 		[Test]
 		public void HuffmanRleFull()
 		{
-            var generator = new AsciimationDataGenerator(AsciimationData);
+			var generator = new AsciimationDataGenerator(AsciimationData);
 			var bytesFreqs = generator.GetBytesFreqs(false);
 			var bytes = AsciimationDataGenerator.SerializeByteCount(bytesFreqs);
 			var huffmanTable = Convert.ToBase64String(bytes);
 			var tree = new HuffmanTree(bytesFreqs);
-			
+
 			var encodedTable = Convert.ToBase64String(bytes);
 			var encodedFrames = new List<string>();
 			for (int i = 0; i < generator.Frames.Length; i++)

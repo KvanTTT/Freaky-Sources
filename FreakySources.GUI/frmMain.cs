@@ -69,7 +69,7 @@ namespace FreakySources.GUI
 			{
 				tbCurrentStep.Text = i.ToString();
 				Application.DoEvents();
-				var compileResult = Checker.CompileAndRun(output);
+				var compileResult = (new CSharpChecker()).CompileAndRun(output);
 				if (compileResult.Count == 1 && !compileResult.First().IsError)
 					output = compileResult.First().Output;
 				else
@@ -416,10 +416,11 @@ namespace FreakySources.GUI
 			bool input = (sender as Button).Name.Contains("Input");
 			dgvCompileErrors.Rows.Clear();
 			List<CheckingResult> compileResult;
+			var cSharpChecker = new CSharpChecker();
 			if (input)
-				compileResult = Checker.Compile(tbInput.Text);
+				compileResult = cSharpChecker.Compile(tbInput.Text);
 			else
-				compileResult = Checker.CompileAndRun(tbOutput.Text);
+				compileResult = cSharpChecker.CompileAndRun(tbOutput.Text);
 
 			foreach (var result in compileResult)
 			{
