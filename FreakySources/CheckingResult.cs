@@ -47,5 +47,10 @@ namespace FreakySources
 			Output = result.Output;
 			Description = result.Description;
 		}
+
+		public override string ToString()
+		{
+			return IsError ? "Error: " + Description : "Output: " + Output;
+		}
 	}
 }

@@ -55,6 +55,7 @@
     <Compile Include="CSharpChecker.cs" />
     <Compile Include="CodeDataGenerator.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="PhpChecker.cs" />
     <Compile Include="StringBuilderExtensions.cs" />
     <Compile Include="JavaChecker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

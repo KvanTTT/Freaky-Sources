@@ -13,6 +13,7 @@ namespace FreakySources.Tests
 	{
 		private CSharpChecker _cSharpChecker;
 		private JavaChecker _javaChecker;
+		private PhpChecker _phpChecker;
 		public const string PatternsFolder = @"..\..\..\Patterns and Data\";
 
 		[SetUp]
@@ -22,7 +23,12 @@ namespace FreakySources.Tests
 			_javaChecker = new JavaChecker
 			{
 				JavaPath = Helpers.GetJavaExePath(@"bin\java.exe"),
-				JavaCompilerPath = Helpers.GetJavaExePath(@"bin\javac.exe")
+				JavaCompilerPath = Helpers.GetJavaExePath(@"bin\javac.exe"),
+				ClassName = "Program"
+			};
+			_phpChecker = new PhpChecker
+			{
+				PhpPath = @"C:\xampp\php\php.exe",
 			};
 		}
 
@@ -77,14 +83,35 @@ namespace FreakySources.Tests
 		}
 
 		[Test]
+		public void JavaPhpPolyglot()
+		{
+			string polyglot = File.ReadAllText(Path.Combine(PatternsFolder, "Polyglot.java.php"));
+			var javaCheckingResult = _javaChecker.CompileAndRun(polyglot);
+			var phpCheckingResult = _phpChecker.CompileAndRun(polyglot);
+			Assert.AreEqual("/*Hello World!", javaCheckingResult[0].Output);
+			Assert.AreEqual("/*Hello World!", phpCheckingResult[0].Output);
+		}
+
+		[Test]
+		public void CSharpJavaPhpPolyglot()
+		{
+			string polyglot = File.ReadAllText(Path.Combine(PatternsFolder, "Polyglot.cs.java.php"));
+			var csCheckingResult = _cSharpChecker.CompileAndRun(polyglot);
+			var javaCheckingResult = _javaChecker.CompileAndRun(polyglot);
+			var phpCheckingResult = _phpChecker.CompileAndRun(polyglot);
+			Assert.AreEqual("//Hello World!", csCheckingResult[0].Output);
+			Assert.AreEqual(csCheckingResult[0].Output, javaCheckingResult[0].Output);
+			Assert.AreEqual(csCheckingResult[0].Output, phpCheckingResult[0].Output);
+		}
+
+		[Test]
 		public void CSharpJavaPolyglotQuine()
 		{
-			string quine = File.ReadAllText(Path.Combine(PatternsFolder, "CSharpJavaPolyglotQuine.cs"));
-			var cSharpCheckingResult = _cSharpChecker.CheckQuineProgram(quine);
+			string polyglotQuine = File.ReadAllText(Path.Combine(PatternsFolder, "PolyglotQuine.cs.java"));
+			var cSharpCheckingResult = _cSharpChecker.CheckQuineProgram(polyglotQuine);
 			Assert.IsTrue(cSharpCheckingResult.HasNotErrors());
-
-			_javaChecker.ClassName = "Program";
-			var javaCheckingResult = _javaChecker.CheckQuineProgram(quine);
+			
+			var javaCheckingResult = _javaChecker.CheckQuineProgram(polyglotQuine);
 			Assert.IsTrue(javaCheckingResult.HasNotErrors());
 		}
 	}
