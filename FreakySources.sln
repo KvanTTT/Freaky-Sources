@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns and Data", "Patter
 		Patterns and Data\Asciimation_1_3.cs = Patterns and Data\Asciimation_1_3.cs
 		Patterns and Data\CustomQuine.cs = Patterns and Data\CustomQuine.cs
 		Patterns and Data\MultiCommentsPalindromeQuine.cs = Patterns and Data\MultiCommentsPalindromeQuine.cs
+		Patterns and Data\PalindromePolyglotQuine.cs.java = Patterns and Data\PalindromePolyglotQuine.cs.java
 		Patterns and Data\Polyglot.cs.java.php = Patterns and Data\Polyglot.cs.java.php
 		Patterns and Data\Polyglot.java.php = Patterns and Data\Polyglot.java.php
 		Patterns and Data\PolyglotQuine.cs.java = Patterns and Data\PolyglotQuine.cs.java

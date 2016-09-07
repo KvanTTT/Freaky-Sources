@@ -108,10 +108,23 @@ namespace FreakySources.Tests
 		public void CSharpJavaPolyglotQuine()
 		{
 			string polyglotQuine = File.ReadAllText(Path.Combine(PatternsFolder, "PolyglotQuine.cs.java"));
+
 			var cSharpCheckingResult = _cSharpChecker.CheckQuineProgram(polyglotQuine);
 			Assert.IsTrue(cSharpCheckingResult.HasNotErrors());
 			
 			var javaCheckingResult = _javaChecker.CheckQuineProgram(polyglotQuine);
+			Assert.IsTrue(javaCheckingResult.HasNotErrors());
+		}
+
+		[Test]
+		public void PalindromeCSharpJavaPolyglotQuine()
+		{
+			string palindromePolyglotQuine = File.ReadAllText(Path.Combine(PatternsFolder, "PalindromePolyglotQuine.cs.java"));
+
+			var cSharpCheckingResult = _cSharpChecker.CheckPalindromeQuineProgram(palindromePolyglotQuine);
+			Assert.IsTrue(cSharpCheckingResult.HasNotErrors());
+
+			var javaCheckingResult = _javaChecker.CheckPalindromeQuineProgram(palindromePolyglotQuine);
 			Assert.IsTrue(javaCheckingResult.HasNotErrors());
 		}
 	}
