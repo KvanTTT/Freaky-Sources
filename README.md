@@ -3,7 +3,13 @@ Freaky-Sources
 
 Collection of freaky sources written on C# (mostly quines in different forms).
 
-##Sources
+More detail description is available on Russian:
+* [С днем программиста !! атсиммаргорп менд С (Квайн-палиндром)](https://habrahabr.ru/post/189192/).
+* [Звездные войны в исходном коде](http://habrahabr.ru/post/190616/).
+* [ Интересности из мира квайнов (100 языков, радиационно-устойчивый, часы, змейка)](https://habrahabr.ru/post/232781/).
+* [Palindrome Polyglot Quine в честь дня 2^2^2](https://habrahabr.ru/company/pt/blog/309702/).
+
+## Sources
 #### Single Line Comment Palindrome Quine.
 
 #### Multi Line Comment Palindrome Quine.
@@ -23,10 +29,33 @@ Use arrow keys to change direction and move snake. Game can be either completed 
 
 ![Quine Snake](https://habrastorage.org/files/b52/2fd/6d8/b522fd6d824542dcb6c318b7c4b62161.png)
 
-#### Polyglote Quine.
+#### Polyglot Quine.
 The quine that compilied both in C# and Java.
 
-##Implemention detail
+#### Palindrome Polyglot Quine
+The quine that compilied both in C# and Java and have a palindromic format (PalindromePolyglotQuine.cs.java):
+
+```CSharp
+/**///\u000A\u002F\u002A
+using System;//\u002A\u002F
+class Program{public static void//\u000A\u002F\u002A
+Main//\u002A\u002Fmain
+(String[]z){String s="`**?`@#_^using System;?_#^class Program{public static void?@#_^Main?_#main^(String[]z){String s=!$!,t=s;int i;int[]a=new int[]{33,94,38,64,35,95,96,63,36};String[]b=new String[]{!&!!,!&n!,!&&!,!&@!,!&#!,!&_!,!`!,!?!,s};for(i=0;i<9;i++)t=t.?@#_^Replace?_#replace^(!!+(char)a[i],b[i]);t+='*';for(i=872;i>=0;i--)t=t+t?@#_^[i];Console.Write?_#.charAt(i);System.out.printf^(t);}}/",t=s;int i;int[]a=new int[]{33,94,38,64,35,95,96,63,36};String[]b=new String[]{"\"","\n","\\","\\u000A","\\u002F","\\u002A","/","//",s};for(i=0;i<9;i++)t=t.//\u000A\u002F\u002A
+Replace//\u002A\u002Freplace
+(""+(char)a[i],b[i]);t+='*';for(i=872;i>=0;i--)t=t+t//\u000A\u002F\u002A
+[i];Console.Write//\u002A\u002F.charAt(i);System.out.printf
+(t);}}/*/}};)t(
+ftnirp.tuo.metsyS;)i(tArahc.F200u\A200u\//etirW.elosnoC;]i[
+A200u\F200u\A000u\//t+t=t)--i;0=>i;278=i(rof;'*'=+t;)]i[b,]i[a)rahc(+""(
+ecalperF200u\A200u\//ecalpeR
+A200u\F200u\A000u\//.t=t)++i;9<i;0=i(rof;}s,"//","/","A200u\\","F200u\\","A000u\\","\\","n\",""\"{][gnirtS wen=b][gnirtS;}63,36,69,59,53,46,83,49,33{][tni wen=a][tni;i tni;s=t,"/}};)t(^ftnirp.tuo.metsyS;)i(tArahc.#_?etirW.elosnoC;]i[^_#@?t+t=t)--i;0=>i;278=i(rof;'*'=+t;)]i[b,]i[a)rahc(+!!(^ecalper#_?ecalpeR^_#@?.t=t)++i;9<i;0=i(rof;}s,!?!,!`!,!_&!,!#&!,!@&!,!&&!,!n&!,!!&!{][gnirtS wen=b][gnirtS;}63,36,69,59,53,46,83,49,33{][tni wen=a][tni;i tni;s=t,!$!=s gnirtS{)z][gnirtS(^niam#_?niaM^_#@?diov citats cilbup{margorP ssalc^#_?;metsyS gnisu^_#@`?**`"=s gnirtS{)z][gnirtS(
+niamF200u\A200u\//niaM
+A200u\F200u\A000u\//diov citats cilbup{margorP ssalc
+F200u\A200u\//;metsyS gnisu
+A200u\F200u\A000u\///**/
+```
+
+## Implemention detail
 Quine generation consists of several steps:
 * Code generation
 * Data generation
@@ -82,30 +111,50 @@ Marker can have one of the following types:
 * Quine parameters (introns) marked as ```/*$...*/… /*...$*/```.
 * Place, where quine should be printed marked as ```/*@*/```.
 
-##Compilation
+## Compilation
 
-One can generate quine via developed GUI. But prepared asciimation code is available here:   [AsciimationQuine_1_3.7z](https://github.com/KvanTTT/Freaky-Sources/releases/download/1.3/AsciimationQuine_1_3.7z)
+One can generate quine via developed GUI. But prepared asciimation code is available here:   [AsciimationQuine_1_3.7z](https://github.com/KvanTTT/Freaky-Sources/releases/download/1.3/AsciimationQuine_1_3.7z). It's possible to compile one frame or entire animation with the following scripts:
 
-It's possible to compile one frame or entire animation with following batch commands (.NET only tested):
-
-```
+### Windows command line (bat):
+```batch
 echo off
-SET /a i=0
+
 :LOOP
-IF %i%==3591 GOTO END
-"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe" Asciimation.cs && (Asciimation > Asciimation.cs) && Asciimation
-SET /a i=%i%+1
-GOTO LOOP
+    "C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe" "Asciimation_1_3.cs"
+    "Asciimation_1_3.exe" > "Asciimation_1_3.cs"
+    type "Asciimation_1_3.cs"
+goto LOOP
+
 :END
-pause
 ```
 
-##Licence
+### Powershell:
+```powershell
+while ($true) {
+    &"C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe" "Asciimation_1_3.cs"
+    ./"Asciimation_1_3.exe" > "Asciimation_1_3.cs"
+    type "Asciimation_1_3.cs"
+}
+```
+
+### Linux with mono
+```shell
+while :
+do
+    mcs "Asciimation_1_3.cs"
+    mono "Asciimation_1_3.exe" > "Asciimation_1_3.cs"
+    cat "Asciimation_1_3.cs"
+done
+```
+
+## Tests
+
+Quines, Palidrome, Polyglot and other program tests available in FreakySource.Tests project. Polyglot quine tests require installed Java.
+
+## Licence
 
 * Code for code, data, quine generation under the Apache 2.0 License.
 * Generated source codes under the MIT License.
-
-More detail description is available on [Russian](http://habrahabr.ru/post/190616/)
 
 Enjoy!
 ```
