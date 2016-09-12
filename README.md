@@ -6,8 +6,8 @@ Collection of freaky sources written on C# (mostly quines in different forms).
 More detail description is available on Russian:
 * [С днем программиста !! атсиммаргорп менд С (Квайн-палиндром)](https://habrahabr.ru/post/189192/).
 * [Звездные войны в исходном коде](http://habrahabr.ru/post/190616/).
-* [ Интересности из мира квайнов (100 языков, радиационно-устойчивый, часы, змейка)](https://habrahabr.ru/post/232781/).
-* [Palindrome Polyglot Quine в честь дня 2^2^3](https://habrahabr.ru/company/pt/blog/309702/).
+* [Интересности из мира квайнов (100 языков, радиационно-устойчивый, часы, змейка)](https://habrahabr.ru/post/232781/).
+* [Пишем квайн-полиглот-палиндромы в честь дня 2^2^3](https://habrahabr.ru/company/pt/blog/309702/).
 
 ## Sources
 #### Single Line Comment Palindrome Quine.
