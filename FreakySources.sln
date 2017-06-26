@@ -28,6 +28,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Patterns and Data", "Patter
 		Patterns and Data\QuineSnake.cs = Patterns and Data\QuineSnake.cs
 		Patterns and Data\SelfCompiliedProgram.cs = Patterns and Data\SelfCompiliedProgram.cs
 		Patterns and Data\SelfPrintingGameOfLife.cs = Patterns and Data\SelfPrintingGameOfLife.cs
+		Patterns and Data\ShortestQuine.cs = Patterns and Data\ShortestQuine.cs
 		Patterns and Data\SingleCommentsPalindromeQuine.cs = Patterns and Data\SingleCommentsPalindromeQuine.cs
 	EndProjectSection
 EndProject
