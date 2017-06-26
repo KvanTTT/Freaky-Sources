@@ -19,17 +19,35 @@ namespace FreakySources
 
 		public static string GetJavaExePath(string exeName)
 		{
-			string result = CheckFile(Environment.SpecialFolder.ProgramFiles, true, exeName) ??
-							CheckFile(Environment.SpecialFolder.ProgramFiles, false, exeName) ??
-							CheckFile(Environment.SpecialFolder.ProgramFilesX86, true, exeName) ??
-							CheckFile(Environment.SpecialFolder.ProgramFilesX86, false, exeName);
+			if (IsRunningOnLinux)
+			{
+				return Path.GetFileNameWithoutExtension(exeName);
+			}
+
+			string dir = Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles);
+			string programFilesDir, programFilesX86Dir;
+			string x86postfix = " (x86)";
+			if (dir.EndsWith(x86postfix))
+			{
+				programFilesDir = dir.Remove(dir.Length - x86postfix.Length);
+				programFilesX86Dir = dir;
+			}
+			else
+			{
+				programFilesDir = dir;
+				programFilesX86Dir = dir + x86postfix;
+			}
+			string result = CheckFile(programFilesDir, true, exeName) ??
+							CheckFile(programFilesDir, false, exeName) ??
+							CheckFile(programFilesX86Dir, true, exeName) ??
+							CheckFile(programFilesX86Dir, false, exeName);
 
 			return result;
 		}
 
-		private static string CheckFile(Environment.SpecialFolder specialFolder, bool jdk, string exeName)
+		private static string CheckFile(string specialFolder, bool jdk, string exeName)
 		{
-			var javaFilesDir = Path.Combine(Environment.GetFolderPath(specialFolder), "java");
+			var javaFilesDir = Path.Combine(specialFolder, "java");
 			if (Directory.Exists(javaFilesDir))
 			{
 				var dirs = Directory.GetDirectories(javaFilesDir);
@@ -46,6 +64,15 @@ namespace FreakySources
 			}
 
 			return null;
+		}
+
+		public static bool IsRunningOnLinux
+		{
+			get
+			{
+				int p = (int)Environment.OSVersion.Platform;
+				return (p == 4) || (p == 6) || (p == 128);
+			}
 		}
 	}
 }
