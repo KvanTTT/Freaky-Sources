@@ -53,7 +53,7 @@ namespace FreakySources
 			startInfo.RedirectStandardError = true;
 			startInfo.RedirectStandardOutput = true;
 			process.Start();
-			process.WaitForExit();
+			process.WaitForExit(5000);
 			return process;
 		}
 	}
