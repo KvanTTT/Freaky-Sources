@@ -2,25 +2,21 @@
 {
 	public class QuineParam
 	{
-		public string KeyBegin;
-		public string KeyEnd;
-		public string Value;
-		public string KeySubstitute;
+		public string KeyBegin { get; set; } = "";
+		public string KeyEnd { get; set; } = "";
+		public string Value { get; set; } = "";
+		public string KeySubstitute { get; set; } = "";
 
-		public QuineParam(string key, string value, string keySubstitute)
+		public QuineParam(string keyBegin, string keyEnd, string value, string keySubstitute = "")
 		{
-			KeyBegin = key;
-			KeyEnd = key;
-			Value = value;
-			KeySubstitute = keySubstitute;
+			KeyBegin = keyBegin ?? "";
+			KeyEnd = keyEnd ?? "";
+			Value = value ?? "";
+			KeySubstitute = keySubstitute ?? "";
 		}
 
-		public QuineParam(string keyBegin, string keyEnd, string value, string keySubstitute)
+		public QuineParam()
 		{
-			KeyBegin = keyBegin;
-			KeyEnd = keyEnd;
-			Value = value;
-			KeySubstitute = keySubstitute;
 		}
 
 		public override string ToString()

@@ -1,22 +1,19 @@
 ﻿using CSharpMinifier;
+using FreakySources.Code;
 using FreakySources.GUI.Properties;
-using FreakySources;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using System.Text.RegularExpressions;
-using System.Xml.Serialization;
-using System.Diagnostics;
-using FreakySources.Code;
+using System.Windows.Forms;
 
 namespace FreakySources.GUI
 {
-	public partial class frmMain : Form
+    public partial class frmMain : Form
 	{
 		static string IdRegex = @"\w+";
 		static string BlockCommentsRegex = @"/\*(.*?)\*/";
@@ -48,10 +45,10 @@ namespace FreakySources.GUI
 					!string.IsNullOrEmpty(dgvExtraParams[3, i].Value as string))
 				{
 					extraParams.Add(new QuineParam(
-					dgvExtraParams[0, i].Value == null ? "" : (string)dgvExtraParams[0, i].Value,
-					dgvExtraParams[1, i].Value == null ? "" : (string)dgvExtraParams[1, i].Value,
-					dgvExtraParams[2, i].Value == null ? "" : (string)dgvExtraParams[2, i].Value,
-					dgvExtraParams[3, i].Value == null ? "" : (string)dgvExtraParams[3, i].Value));
+						dgvExtraParams[0, i].Value == null ? "" : (string)dgvExtraParams[0, i].Value,
+						dgvExtraParams[1, i].Value == null ? "" : (string)dgvExtraParams[1, i].Value,
+						dgvExtraParams[2, i].Value == null ? "" : (string)dgvExtraParams[2, i].Value,
+						dgvExtraParams[3, i].Value == null ? "" : (string)dgvExtraParams[3, i].Value));
 				}
 			var output = generator.Generate(input, false, extraParams.ToArray());
 
@@ -267,12 +264,10 @@ namespace FreakySources.GUI
 
 			if (File.Exists(tbExtraParamsFilePath.Text))
 			{
-				var serializer = new XmlSerializer(typeof(List<List<string>>));
-				List<List<string>> quineParams;
-				using (var stream = new FileStream(tbExtraParamsFilePath.Text, FileMode.Open))
-					quineParams = (List<List<string>>)serializer.Deserialize(stream);
-				foreach (var param in quineParams)
-					dgvExtraParams.Rows.Add(param[0], param[1], param[2], param[3]);
+				string json = File.ReadAllText(tbExtraParamsFilePath.Text);
+				var quinteParams = JsonConvert.DeserializeObject<List<QuineParam>>(json);
+				foreach (QuineParam param in quinteParams)
+					dgvExtraParams.Rows.Add(param.KeyBegin, param.KeyEnd, param.Value, param.KeySubstitute);
 			}
 
 			tbQuineStr.Text = Settings.Default.QuineStr;
@@ -353,7 +348,7 @@ namespace FreakySources.GUI
 			Settings.Default.ExtraParamsFilePath = GetPlatformSpecificPath(tbExtraParamsFilePath.Text);
 			Settings.Default.SourceCodeFilesFolder = GetPlatformSpecificPath(tbSourceCodeFilesFolder.Text);
 
-			List<List<string>> quineParams = new List<List<string>>();
+			List<QuineParam> quineParams = new List<QuineParam>();
 			for (int i = 0; i < dgvExtraParams.Rows.Count; i++)
 			{
 				if (!string.IsNullOrEmpty(dgvExtraParams[0, i].Value as string) ||
@@ -361,18 +356,17 @@ namespace FreakySources.GUI
 					!string.IsNullOrEmpty(dgvExtraParams[2, i].Value as string) ||
 					!string.IsNullOrEmpty(dgvExtraParams[3, i].Value as string))
 				{
-					quineParams.Add(new List<string>()
+					quineParams.Add(new QuineParam
 					{
-						dgvExtraParams[0, i].Value as string,
-						dgvExtraParams[1, i].Value as string,
-						dgvExtraParams[2, i].Value as string,
-						dgvExtraParams[3, i].Value as string
+						KeyBegin = dgvExtraParams[0, i].Value as string,
+						KeyEnd = dgvExtraParams[1, i].Value as string,
+						Value = dgvExtraParams[2, i].Value as string,
+						KeySubstitute = dgvExtraParams[3, i].Value as string
 					});
 				}
 			}
-			var serializer = new XmlSerializer(typeof(List<List<string>>));
-			using (var stream = new FileStream(GetPlatformSpecificPath(tbExtraParamsFilePath.Text), FileMode.Create))
-				serializer.Serialize(stream, quineParams);
+			string json = JsonConvert.SerializeObject(quineParams, Formatting.Indented);
+			File.WriteAllText(GetPlatformSpecificPath(tbExtraParamsFilePath.Text), json);
 
 			Settings.Default.QuineStr = tbQuineStr.Text;
 			Settings.Default.WindowState = WindowState.ToString();
@@ -380,7 +374,7 @@ namespace FreakySources.GUI
 			Settings.Default.WindowSize = Size;
 			Settings.Default.MaxLineLength = (int)nudLineLength.Value;
 			Settings.Default.CompressIdentifiers = cbCompressIdentifiers.Checked;
-			Settings.Default.SelectedPattern = cmbPattern.SelectedItem.ToString();
+			Settings.Default.SelectedPattern = cmbPattern.SelectedItem?.ToString() ?? "";
 			Settings.Default.splitContGenWidth = splitContainerGeneral.SplitterDistance;
 			Settings.Default.splitCont1Height = splitContainer1.SplitterDistance;
 			Settings.Default.splitCont2Height = splitContainer2.SplitterDistance;
@@ -485,7 +479,7 @@ namespace FreakySources.GUI
 		private void btnSaveOutput_Click(object sender, EventArgs e)
 		{
 			sfdSaveOutput.FileName = cmbPattern.SelectedItem.ToString();
-			if (sfdSaveOutput.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (sfdSaveOutput.ShowDialog() == DialogResult.OK)
 			{
 				File.WriteAllText(sfdSaveOutput.FileName, tbOutput.Text);
 

@@ -1,0 +1,230 @@
+[
+  {
+    "KeyBegin": "/*%Data_1_3*/",
+    "KeyEnd": "/*Data_1_3%*/",
+    "Value": "'\"'+Data+'\"'",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*%CompressedFramesGZipStream*/",
+    "KeyEnd": "/*CompressedFramesGZipStream%*/",
+    "Value": "'\"'+Frames+'\"'",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*%HuffmanRleTable*/",
+    "KeyEnd": "/*HuffmanRleTable%*/",
+    "Value": "'\"'+HuffmanTable+'\"'",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*%Digits*/",
+    "KeyEnd": "/*Digits%*/",
+    "Value": "'\"'+string.Join(\"\\\",\\\"\",Digits)+'\"'",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*%HuffmanRleFrames*/",
+    "KeyEnd": "/*HuffmanRleFrames%*/",
+    "Value": "'\"'+string.Join(\"\\\",\\\"\",Frames)+'\"'",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*%Frames*/",
+    "KeyEnd": "/*Frames%*/",
+    "Value": "'\"'+string.Join(\"\\\",\\\"\",Frames)+'\"'",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*$CurrentFrame*/",
+    "KeyEnd": "/*CurrentFrame$*/",
+    "Value": "CurrentFrame",
+    "KeySubstitute": "0"
+  },
+  {
+    "KeyBegin": "CurrentFrame",
+    "KeyEnd": "CurrentFrame",
+    "Value": "\"cf\"",
+    "KeySubstitute": "cf"
+  },
+  {
+    "KeyBegin": "Digits",
+    "KeyEnd": "Digits",
+    "Value": "\"d\"",
+    "KeySubstitute": "d"
+  },
+  {
+    "KeyBegin": "Data",
+    "KeyEnd": "Data",
+    "Value": "\"d\"",
+    "KeySubstitute": "d"
+  },
+  {
+    "KeyBegin": "Frames",
+    "KeyEnd": "Frames",
+    "Value": "\"f\"",
+    "KeySubstitute": "f"
+  },
+  {
+    "KeyBegin": "HuffmanTable",
+    "KeyEnd": "HuffmanTable",
+    "Value": "\"ht\"",
+    "KeySubstitute": "ht"
+  },
+  {
+    "KeyBegin": "/*$CompileTicks*/",
+    "KeyEnd": "/*CompileTicks$*/",
+    "Value": "\"new long[] { \" + string.Join(\", \", CompileTicks) + \" }\"",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "output",
+    "KeyEnd": "output",
+    "Value": "\"o\"",
+    "KeySubstitute": "o"
+  },
+  {
+    "KeyBegin": " /*$PrevCompileTicks*/",
+    "KeyEnd": "/*PrevCompileTicks$*/",
+    "Value": "compileTimeTicks",
+    "KeySubstitute": "0"
+  },
+  {
+    "KeyBegin": "/*$CurrentCompileNumber*/",
+    "KeyEnd": "/*CurrentCompileNumber$*/",
+    "Value": "CurrentCompileNumber",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*$PrevDateTicks*/",
+    "KeyEnd": "/*PrevDateTicks$*/",
+    "Value": "n.Ticks",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*$QuineClockOutput$*/",
+    "KeyEnd": "/*$QuineClockOutput$*/",
+    "Value": "output",
+    "KeySubstitute": null
+  },
+  {
+    "KeyBegin": "/*$Output_1_3$*/",
+    "KeyEnd": "/*$Output_1_3$*/",
+    "Value": "output.ToString()",
+    "KeySubstitute": null
+  },
+  {
+    "KeyBegin": "/*$Output$*/",
+    "KeyEnd": "/*$Output$*/",
+    "Value": "output.ToString()",
+    "KeySubstitute": null
+  },
+  {
+    "KeyBegin": "/*$Key1*/",
+    "KeyEnd": "/*Key1$*/",
+    "Value": "Key1",
+    "KeySubstitute": "0"
+  },
+  {
+    "KeyBegin": "/*$SnakeOutput$*/",
+    "KeyEnd": "/*$SnakeOutput$*/",
+    "Value": "R",
+    "KeySubstitute": null
+  },
+  {
+    "KeyBegin": "/*$NewDir*/",
+    "KeyEnd": "/*NewDir$*/",
+    "Value": "NewDir",
+    "KeySubstitute": "3"
+  },
+  {
+    "KeyBegin": "/*$Dirs*/",
+    "KeyEnd": "/*Dirs$*/",
+    "Value": "\"{\"+string.Join(\",\",Dirs)+\"}\"",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*$FoodRow*/",
+    "KeyEnd": "/*FoodRow$*/",
+    "Value": "FoodRow",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*$FoodColumn*/",
+    "KeyEnd": "/*FoodColumn$*/",
+    "Value": "FoodColumn",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*$HeadRow*/",
+    "KeyEnd": "/*HeadRow$*/",
+    "Value": "HeadRow",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "/*$HeadColumn*/",
+    "KeyEnd": "/*HeadColumn$*/",
+    "Value": "HeadColumn",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "HeadRow",
+    "KeyEnd": "HeadRow",
+    "Value": "\"A\"",
+    "KeySubstitute": "A"
+  },
+  {
+    "KeyBegin": "HeadColumn",
+    "KeyEnd": "HeadColumn",
+    "Value": "\"B\"",
+    "KeySubstitute": "B"
+  },
+  {
+    "KeyBegin": "FoodRow",
+    "KeyEnd": "FoodRow",
+    "Value": "\"M\"",
+    "KeySubstitute": "M"
+  },
+  {
+    "KeyBegin": "FoodColumn",
+    "KeyEnd": "FoodColumn",
+    "Value": "\"D\"",
+    "KeySubstitute": "D"
+  },
+  {
+    "KeyBegin": "NewDir",
+    "KeyEnd": "NewDir",
+    "Value": "\"Z\"",
+    "KeySubstitute": "Z"
+  },
+  {
+    "KeyBegin": "Dirs",
+    "KeyEnd": "Dirs",
+    "Value": "\"L\"",
+    "KeySubstitute": "L"
+  },
+  {
+    "KeyBegin": "/*$GameState*/",
+    "KeyEnd": "/*GameState$*/",
+    "Value": "GameState",
+    "KeySubstitute": "$key$"
+  },
+  {
+    "KeyBegin": "GameState",
+    "KeyEnd": "GameState",
+    "Value": "\"F\"",
+    "KeySubstitute": "F"
+  },
+  {
+    "KeyBegin": "Happy_New_Year_2016",
+    "KeyEnd": "Happy_New_Year_2016",
+    "Value": "\"Happy_New_Year_2016\"",
+    "KeySubstitute": "Happy_New_Year_2016"
+  },
+  {
+    "KeyBegin": "Monkey_Quine_by_Ivan_Kochurkin",
+    "KeyEnd": "Monkey_Quine_by_Ivan_Kochurkin",
+    "Value": "\"Monkey_Quine_by_Ivan_Kochurkin\"",
+    "KeySubstitute": "Monkey_Quine_by_Ivan_Kochurkin"
+  }
+]
